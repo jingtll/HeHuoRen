@@ -35,6 +35,7 @@
 ### Task 1: 初始化 pnpm 工作区与 Vue Web 工程
 
 **Files:**
+
 - Create: `.nvmrc`
 - Create: `.npmrc`
 - Create: `pnpm-workspace.yaml`
@@ -45,6 +46,7 @@
 - Create: `apps/web/**`（Vite Vue + TypeScript 骨架）
 
 **Interfaces:**
+
 - Produces: 工作区根配置与 `@hehuoren/web` 包；根命令 `dev`、`lint`、`format:check`、`typecheck`、`api:generate`、`build`、`test:unit`、`test:integration`、`test:e2e`。
 
 - [ ] **Step 1: 建立 Node 与 pnpm 根配置**
@@ -111,19 +113,25 @@ pnpm create vite apps/web --template vue-ts --no-interactive
 运行 `pnpm add -Dw eslint @eslint/js typescript-eslint eslint-plugin-vue globals prettier`。根 ESLint flat config 使用这些本地依赖，覆盖 TypeScript/Vue 文件，忽略 `**/dist/**`、`**/coverage/**`、`**/src/generated/**`。配置内容为：
 
 ```js
-import js from '@eslint/js'
-import globals from 'globals'
-import tseslint from 'typescript-eslint'
-import vue from 'eslint-plugin-vue'
+import js from "@eslint/js";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+import vue from "eslint-plugin-vue";
 
 export default tseslint.config(
-  { ignores: ['**/dist/**', '**/coverage/**', '**/src/generated/**'] },
+  { ignores: ["**/dist/**", "**/coverage/**", "**/src/generated/**"] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
-  ...vue.configs['flat/recommended'],
-  { files: ['apps/web/**/*.{ts,vue}'], languageOptions: { globals: globals.browser } },
-  { files: ['apps/api/**/*.ts', 'packages/**/*.ts', '**/*.config.*'], languageOptions: { globals: globals.node } },
-)
+  ...vue.configs["flat/recommended"],
+  {
+    files: ["apps/web/**/*.{ts,vue}"],
+    languageOptions: { globals: globals.browser },
+  },
+  {
+    files: ["apps/api/**/*.ts", "packages/**/*.ts", "**/*.config.*"],
+    languageOptions: { globals: globals.node },
+  },
+);
 ```
 
 在根 `package.json` 增加 `lint: "pnpm -r --if-present lint"` 和 `format:check: "prettier --check ."`；`.prettierignore` 排除 `node_modules`、构建输出、浏览器测试输出与 lockfile。web 包和 API 包各自实现 `lint: "eslint ."` 脚本。
@@ -144,6 +152,7 @@ git commit -m "chore: initialize pnpm monorepo and Vue app"
 ### Task 2: 构建 NestJS/Fastify 健康 API 与安全错误处理
 
 **Files:**
+
 - Create: `apps/api/**`（Nest CLI TypeScript 骨架）
 - Create: `apps/api/.env.example`
 - Create: `apps/api/src/config/env.validation.ts`
@@ -167,6 +176,7 @@ git commit -m "chore: initialize pnpm monorepo and Vue app"
 - Modify: `apps/api/package.json`
 
 **Interfaces:**
+
 - Consumes: Task 1 workspace and pnpm settings.
 - Produces: `configureApp(app)` returns the Swagger `OpenAPIObject` and applies the `api/v1` prefix, global pipes/filter, and Swagger; `GET /api/v1/health` returns `{ status: 'ok', requestId: string }`; Swagger serves `/docs` and `/docs-json`; `openapi:write` writes `apps/api/openapi.json` without listening on a network port.
 - Produces: Fastify request ID is the sole correlation ID source; all API errors use `{ code, message, requestId, details? }`.
@@ -179,26 +189,26 @@ git commit -m "chore: initialize pnpm monorepo and Vue app"
 pnpm dlx @nestjs/cli new hehuoren-api --directory apps/api --package-manager pnpm --skip-git --skip-install --strict --language TS --no-observe
 ```
 
-将包名改为 `@hehuoren/api`。用 `@nestjs/platform-fastify` 替换 `@nestjs/platform-express`；删除 CLI 默认 Hello World controller/service 与对应测试；添加 `@nestjs/config`、`@nestjs/swagger`、`class-validator`、`class-transformer`、`joi`、`fastify` 和生成 OpenAPI 所需的 `tsx`。将 CLI 生成的 `test`、`build`、`start` 命令改为以 Jest、`nest build` 和 Nest start 为基础，设置 `dev` 启动 `nest start --watch`，默认端口为 `3001`。
+将包名改为 `@hehuoren/api`。用 `@nestjs/platform-fastify` 替换 `@nestjs/platform-express`；删除 CLI 默认 Hello World controller/service、Vitest 配置与对应测试；添加 `@nestjs/config`、`@nestjs/swagger`、`@fastify/static`、`class-validator`、`class-transformer`、`joi`、`fastify`，以及 Jest、`ts-jest`、`@types/jest`、`@jest/globals`。`@fastify/static` 是 Swagger UI 在 Fastify adapter 下挂载静态资源所需的 peer dependency。将 CLI 生成的 `test`、`build`、`start` 命令改为 Jest、`nest build` 和 Nest start，设置 `dev` 启动 `nest start --watch`，默认端口为 `3001`。
 
-安装与移除依赖时运行 `pnpm --filter @hehuoren/api add @nestjs/platform-fastify @nestjs/config @nestjs/swagger class-validator class-transformer joi fastify`、`pnpm --filter @hehuoren/api remove @nestjs/platform-express` 和 `pnpm --filter @hehuoren/api add -D tsx`；仓库 `.npmrc` 将保存版本固定为精确值。
+Nest CLI v12 默认生成 ESM 包与 Vitest 配置；为保持本计划选用 Jest，API 使用 `"type": "module"` 与 `NodeNext` 编译，Jest/ts-jest 以 ESM 模式运行。Jest 脚本通过 `node --experimental-vm-modules ./node_modules/jest/bin/jest.js` 启动。安装与移除依赖时运行 `pnpm --filter @hehuoren/api add @nestjs/platform-fastify @nestjs/config @nestjs/swagger @fastify/static class-validator class-transformer joi fastify`、`pnpm --filter @hehuoren/api remove @nestjs/platform-express` 和 `pnpm --filter @hehuoren/api add -D jest ts-jest @types/jest @jest/globals`；仓库 `.npmrc` 将保存版本固定为精确值。
 
-在本任务开始时为包定义 `test:unit: "jest --runInBand"`、`test:integration: "jest --config test/jest-integration.json --runInBand"` 与 `test:e2e: "jest --config test/jest-e2e.json --runInBand"` 脚本，以便各 TDD 步骤可直接运行。两份测试配置使用 `rootDir: ".."`、`testEnvironment: "node"`、`transform: { "^.+\\.(t|j)s$": "ts-jest" }`，测试匹配分别为 `.*\\.integration-spec\\.ts$` 与 `.*\\.e2e-spec\\.ts$`。运行 `pnpm install` 安装 Nest CLI 生成的依赖。
+在本任务开始时定义 `test:unit`、`test:integration` 与 `test:e2e` 脚本，分别使用 `test/jest-unit.json`、`test/jest-integration.json` 与 `test/jest-e2e.json` 配置并追加 `--runInBand`。三份配置使用 `rootDir: ".."`、`testEnvironment: "node"`、`extensionsToTreatAsEsm: [".ts"]`、将相对导入的 `.js` 后缀映射到 TypeScript 源文件，并通过 `transform: { "^.+\\.ts$": ["ts-jest", { "useESM": true }] }` 编译测试。运行 `pnpm install` 安装依赖。
 
 - [ ] **Step 2: 先写环境校验单元测试**
 
 在 `src/config/env.validation.spec.ts` 固定默认端口和非法端口：
 
 ```ts
-describe('validateEnvironment', () => {
-  it('defaults PORT to 3001 when it is missing', () => {
-    expect(validateEnvironment({ NODE_ENV: 'test' }).PORT).toBe(3001)
-  })
+describe("validateEnvironment", () => {
+  it("defaults PORT to 3001 when it is missing", () => {
+    expect(validateEnvironment({ NODE_ENV: "test" }).PORT).toBe(3001);
+  });
 
-  it('rejects a PORT outside the TCP port range', () => {
-    expect(() => validateEnvironment({ PORT: '70000' })).toThrow()
-  })
-})
+  it("rejects a PORT outside the TCP port range", () => {
+    expect(() => validateEnvironment({ PORT: "70000" })).toThrow();
+  });
+});
 ```
 
 运行 `pnpm --filter @hehuoren/api test:unit -- src/config/env.validation.spec.ts`；预期先因校验函数未实现而失败。
@@ -214,14 +224,18 @@ describe('validateEnvironment', () => {
 在 `src/common/filters/api-exception.filter.spec.ts` 用 mock Fastify reply 验证未知异常会写出通用消息与请求 ID，而不会写出内部消息或堆栈：
 
 ```ts
-expect(reply.status).toHaveBeenCalledWith(500)
+expect(reply.status).toHaveBeenCalledWith(500);
 expect(reply.send).toHaveBeenCalledWith({
-  code: 'INTERNAL_SERVER_ERROR',
-  message: '服务器内部错误',
-  requestId: 'request-123',
-})
-expect(JSON.stringify(reply.send.mock.calls)).not.toContain('secret database password')
-expect(JSON.stringify(reply.send.mock.calls)).not.toContain('at internalFunction')
+  code: "INTERNAL_SERVER_ERROR",
+  message: "服务器内部错误",
+  requestId: "request-123",
+});
+expect(JSON.stringify(reply.send.mock.calls)).not.toContain(
+  "secret database password",
+);
+expect(JSON.stringify(reply.send.mock.calls)).not.toContain(
+  "at internalFunction",
+);
 ```
 
 同一测试组另测 `HttpException` 保留 HTTP 状态码和稳定错误码。运行 `pnpm --filter @hehuoren/api test:unit -- src/common/filters/api-exception.filter.spec.ts`，确认实现前失败。
@@ -239,13 +253,16 @@ expect(JSON.stringify(reply.send.mock.calls)).not.toContain('at internalFunction
 在 `test/health.integration-spec.ts` 创建真实 `AppModule`，使用 `FastifyAdapter` 初始化并调用 `configureApp(app)`，再执行 `await app.init()` 与 `await app.getHttpAdapter().getInstance().ready()`；不打开 TCP 端口，测试 `GET /api/v1/health` 的 HTTP 状态、字段和请求 ID：
 
 ```ts
-const response = await app.getHttpAdapter().getInstance().inject({ method: 'GET', url: '/api/v1/health' })
-const body = response.json()
+const response = await app
+  .getHttpAdapter()
+  .getInstance()
+  .inject({ method: "GET", url: "/api/v1/health" });
+const body = response.json();
 
-expect(response.statusCode).toBe(200)
-expect(body).toEqual({ status: 'ok', requestId: expect.any(String) })
-expect(body.requestId).not.toHaveLength(0)
-expect(response.headers['content-type']).toContain('application/json')
+expect(response.statusCode).toBe(200);
+expect(body).toEqual({ status: "ok", requestId: expect.any(String) });
+expect(body.requestId).not.toHaveLength(0);
+expect(response.headers["content-type"]).toContain("application/json");
 ```
 
 运行 `pnpm --filter @hehuoren/api test:integration`；预期路由未实现时返回 404 并失败。
@@ -258,7 +275,7 @@ expect(response.headers['content-type']).toContain('application/json')
 
 `test/health.e2e-spec.ts` 在随机本地端口启动 Nest/Fastify 应用，调用 `configureApp(app)`，通过 `fetch` 请求 `/api/v1/health` 和 `/docs-json`，并在 `afterAll` 关闭应用。断言健康响应中的 `requestId` 非空、schema 包含 `/api/v1/health`，且健康响应不含 `env`、`stack`、`database` 字段。为脚本提供单独的 Jest 配置，避免与单元及集成用例重复执行。
 
-新建 `scripts/write-openapi.ts`：用 `NestFactory.create(AppModule, { logger: false })` 创建应用但不调用 `listen`；调用 `configureApp(app)` 获取同一份 Swagger 文档，写入 `apps/api/openapi.json`，并在 `finally` 中 `await app.close()`。在 Jest 单元、集成和 e2e 配置中分别选择 `src/**/*.spec.ts`、`test/**/*.integration-spec.ts` 与 `test/**/*.e2e-spec.ts`。API 包脚本分别使用 `jest --config test/jest-unit.json --runInBand`、`jest --config test/jest-integration.json --runInBand` 和 `jest --config test/jest-e2e.json --runInBand`。另外添加 `openapi:write`、`typecheck`、`lint` 和 `build` 包脚本。
+新建 `scripts/write-openapi.ts`：用 `NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter(), { logger: false })` 创建应用但不调用 `listen`；调用 `configureApp(app)` 获取同一份 Swagger 文档，写入 `apps/api/openapi.json`，并在 `finally` 中 `await app.close()`。在 Jest 单元、集成和 e2e 配置中分别选择 `src/**/*.spec.ts`、`test/**/*.integration-spec.ts` 与 `test/**/*.e2e-spec.ts`。API 包脚本分别使用 `node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config test/jest-unit.json --runInBand`、`node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config test/jest-integration.json --runInBand` 和 `node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config test/jest-e2e.json --runInBand`。另外添加 `openapi:write`、`typecheck`、`lint` 和 `build` 包脚本。OpenAPI 脚本使用 `tsconfig.openapi.json` 编译至被忽略的 `dist-openapi/`，再由 Node 执行，以保留 NestJS 所需的装饰器元数据。
 
 - [ ] **Step 10: 运行 API 质量检查并提交**
 
@@ -272,6 +289,7 @@ git commit -m "feat(api): add health endpoint and safe errors"
 ### Task 3: 从 Swagger 生成并核验共享 API 类型
 
 **Files:**
+
 - Create: `packages/api-types/package.json`
 - Create: `packages/api-types/tsconfig.json`
 - Create: `packages/api-types/src/index.ts`
@@ -279,6 +297,7 @@ git commit -m "feat(api): add health endpoint and safe errors"
 - Modify: `apps/api/openapi.json`（由 API 源码生成）
 
 **Interfaces:**
+
 - Consumes: Task 2 的 `apps/api/openapi.json` 和 `GET /api/v1/health` Swagger 定义。
 - Produces: `@hehuoren/api-types` 的 `HealthResponse` 类型，精确对应 200 JSON 响应；Task 4 将其用于 Axios 与 Pinia。
 
@@ -293,9 +312,10 @@ pnpm --filter @hehuoren/api-types add -D openapi-typescript
 创建 `src/index.ts`，只从生成类型派生 `HealthResponse`：
 
 ```ts
-import type { paths } from './generated/schema'
+import type { paths } from "./generated/schema";
 
-export type HealthResponse = paths['/api/v1/health']['get']['responses'][200]['content']['application/json']
+export type HealthResponse =
+  paths["/api/v1/health"]["get"]["responses"][200]["content"]["application/json"];
 ```
 
 在 `package.json` 定义生成脚本：
@@ -329,6 +349,7 @@ git commit -m "build(api-types): generate contracts from OpenAPI"
 ### Task 4: 实现 Vue、Pinia 健康页与状态单元测试
 
 **Files:**
+
 - Modify: `apps/web/package.json`
 - Modify: `apps/web/vite.config.ts`
 - Modify: `apps/web/src/main.ts`
@@ -342,6 +363,7 @@ git commit -m "build(api-types): generate contracts from OpenAPI"
 - Create: `apps/web/vitest.config.ts`
 
 **Interfaces:**
+
 - Consumes: Task 3 的 `HealthResponse`，API 位于 `/api/v1/health`。
 - Produces: `useHealthStore()` 暴露 `state`、`requestId`、`errorMessage` 和异步 `refresh()`；状态值限定 `idle | loading | online | offline`。
 
@@ -354,37 +376,42 @@ git commit -m "build(api-types): generate contracts from OpenAPI"
 使用 `createPinia()` 和 `setActivePinia()` 重置 store；mock `healthApi.getHealth`。`src/api/health.ts` 导出 `healthApi` 对象，其 `getHealth()` 方法返回生成的 `HealthResponse`。覆盖成功响应与网络拒绝：
 
 ```ts
-it('publishes the request id after a successful health response', async () => {
-  vi.mocked(healthApi.getHealth).mockResolvedValue({ status: 'ok', requestId: 'request-123' })
-  const store = useHealthStore()
+it("publishes the request id after a successful health response", async () => {
+  vi.mocked(healthApi.getHealth).mockResolvedValue({
+    status: "ok",
+    requestId: "request-123",
+  });
+  const store = useHealthStore();
 
-  await store.refresh()
+  await store.refresh();
 
-  expect(store.state).toBe('online')
-  expect(store.requestId).toBe('request-123')
-  expect(store.errorMessage).toBeNull()
-})
+  expect(store.state).toBe("online");
+  expect(store.requestId).toBe("request-123");
+  expect(store.errorMessage).toBeNull();
+});
 
-it('moves offline and keeps a readable message when the request fails', async () => {
-  vi.mocked(healthApi.getHealth).mockRejectedValue(new Error('Network Error'))
-  const store = useHealthStore()
+it("moves offline and keeps a readable message when the request fails", async () => {
+  vi.mocked(healthApi.getHealth).mockRejectedValue(new Error("Network Error"));
+  const store = useHealthStore();
 
-  await store.refresh()
+  await store.refresh();
 
-  expect(store.state).toBe('offline')
-  expect(store.requestId).toBeNull()
-  expect(store.errorMessage).toBe('暂时无法连接服务，请稍后重试。')
-})
+  expect(store.state).toBe("offline");
+  expect(store.requestId).toBeNull();
+  expect(store.errorMessage).toBe("暂时无法连接服务，请稍后重试。");
+});
 
-it('uses the same offline state for a non-2xx API response', async () => {
-  vi.mocked(healthApi.getHealth).mockRejectedValue(new Error('Request failed with status code 500'))
-  const store = useHealthStore()
+it("uses the same offline state for a non-2xx API response", async () => {
+  vi.mocked(healthApi.getHealth).mockRejectedValue(
+    new Error("Request failed with status code 500"),
+  );
+  const store = useHealthStore();
 
-  await store.refresh()
+  await store.refresh();
 
-  expect(store.state).toBe('offline')
-  expect(store.errorMessage).toBe('暂时无法连接服务，请稍后重试。')
-})
+  expect(store.state).toBe("offline");
+  expect(store.errorMessage).toBe("暂时无法连接服务，请稍后重试。");
+});
 ```
 
 先在 web `package.json` 配置 `test:unit: "vitest run"`，在 `vitest.config.ts` 设置 Vue 插件、`environment: "jsdom"` 与 `include: ["src/**/*.spec.ts"]`。运行 `pnpm --filter @hehuoren/web test:unit`；预期先因 store/API 模块未实现而失败。
@@ -421,12 +448,14 @@ git commit -m "feat(web): add Pinia health status page"
 ### Task 5: 添加 GitHub Actions 质量门禁、协作模板与开发说明
 
 **Files:**
+
 - Create: `.github/workflows/ci.yml`
 - Create: `.github/PULL_REQUEST_TEMPLATE.md`
 - Create: `docs/adr/0001-phase-one-technology-foundation.md`
 - Modify: `README.md`
 
 **Interfaces:**
+
 - Consumes: Tasks 1–4 的根脚本与 API/Web 结构。
 - Produces: 质量 job 和固定名 `ci-gate`；PR 模板要求变更目的、验证记录、迁移说明和 UI 截图栏目；README 给出可复现的安装、开发、生成和验证命令。
 
