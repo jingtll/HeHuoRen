@@ -14,7 +14,7 @@
 
 - 单仓库使用 pnpm workspace，包含 `apps/web`、`apps/api`、`packages/api-types`。
 - 工作区包名为 `@hehuoren/web`、`@hehuoren/api`、`@hehuoren/api-types`；本地依赖使用 `workspace:*`。
-- Web 使用 Vue 3、TypeScript、Vite、Vant、Tailwind CSS、Vue Router 与 Axios。
+- Web 使用 Vue 3、TypeScript、Vite、Pinia、Vant、Tailwind CSS、Vue Router 与 Axios；Pinia 在应用入口注册。
 - API 使用 NestJS 与 Fastify Adapter；API 类型包只包含从 OpenAPI 生成的接口类型，不包含后端运行时代码。
 - 根脚本提供 `dev`、`lint`、`format:check`、`typecheck`、`api:generate`、`build`、`test:unit`、`test:integration` 与 `test:e2e` 入口。阶段一实现可运行的单元测试；数据库集成测试与 Playwright 流程测试留到相应阶段。
 - `.nvmrc` 固定到 Node.js 24.21.0 LTS，根 `package.json` 的 `packageManager` 固定到当前环境 pnpm 10.30.3。依赖精确版本由锁文件固定。
@@ -23,7 +23,7 @@ Node.js 官方发布信息列出 24.21.0 为 LTS；Nest CLI 文档要求生成�
 
 ## 请求流与服务边界
 
-Web 提供简洁的响应式状态页，通过 Vite 代理将 `/api/v1/health` 请求转发到 API。页面显示服务可用状态，并在不可用时给出清楚的失败提示；不展示伪造的比赛或队伍数据。
+Web 提供简洁的响应式状态页，通过 Vite 代理将 `/api/v1/health` 请求转发到 API。轻量 Pinia health store 负责加载、在线、离线状态、`requestId` 与错误信息，并通过 action 调用 API 模块；页面只呈现 store 状态，不展示伪造的比赛或队伍数据。阶段一不添加持久化插件或其他业务 store。
 
 API 提供 `GET /api/v1/health`，成功响应包含 `status` 与 `requestId`。该接口只表示应用进程已启动，不连接数据库，也不返回密钥、环境变量、系统路径或运行时细节。
 
@@ -51,7 +51,7 @@ Pull Request 模板包含变更目的、验证记录、数据库迁移说明和�
 ## 阶段一验收
 
 - 干净检出可按文档安装依赖，Web 与 API 可分别启动。
-- Web 经开发代理调用 API 健康接口，并展示真实响应状态。
+- Web 经开发代理调用 API 健康接口，Pinia store 能展示真实响应状态和请求失败状态。
 - API 健康接口不依赖数据库，不暴露环境或系统细节；Swagger 文档可访问。
 - OpenAPI 类型生成结果与提交内容一致；工作区 lint、格式、类型检查、构建和单元测试可运行。
- - GitHub Actions 的 `ci-gate` 能反映 quality 成败；故意引入类型错误并观察 GitHub CI 阻断、实际分支保护与 Auto-merge 验证都需要远端认证和仓库权限，未完成前单独记录，不虚报已验证。
+- GitHub Actions 的 `ci-gate` 能反映 quality 成败；故意引入类型错误并观察 GitHub CI 阻断、实际分支保护与 Auto-merge 验证都需要远端认证和仓库权限，未完成前单独记录，不虚报已验证。
