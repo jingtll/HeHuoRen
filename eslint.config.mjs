@@ -2,18 +2,20 @@ import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import vue from "eslint-plugin-vue";
+import prettier from "eslint-config-prettier/flat";
 
 export default tseslint.config(
-  { ignores: ["**/dist/**", "**/coverage/**", "**/src/generated/**"] },
+  {
+    ignores: [
+      "**/dist/**",
+      "**/dist-openapi/**",
+      "**/coverage/**",
+      "**/src/generated/**",
+    ],
+  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...vue.configs["flat/recommended"],
-  {
-    rules: {
-      "vue/max-attributes-per-line": "off",
-      "vue/singleline-html-element-content-newline": "off",
-    },
-  },
   {
     files: ["apps/web/**/*.{ts,vue}"],
     languageOptions: { globals: globals.browser },
@@ -22,4 +24,5 @@ export default tseslint.config(
     files: ["apps/api/**/*.ts", "packages/**/*.ts", "**/*.config.*"],
     languageOptions: { globals: globals.node },
   },
+  prettier,
 );
