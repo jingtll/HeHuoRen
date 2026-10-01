@@ -6,13 +6,13 @@
 
 **Architecture:** 根工作区统一管理 `apps/web`、`apps/api` 和 `packages/api-types`。API 维护版本化路由、环境校验、统一错误响应与 Swagger；Swagger JSON 驱动纯类型包生成。Web 的 Axios API 模块读取生成类型，Pinia health store 管理加载、在线和离线状态。GitHub Actions 在 PR 与 `main` 推送上运行同一套质量检查。
 
-**Tech Stack:** Node.js 24.21.0、pnpm 10.30.3、TypeScript、Vue 3、Vite、Pinia、Vant、Tailwind CSS、Vue Router、Axios、NestJS、Fastify、Swagger、Jest、Vitest、ESLint、Prettier、GitHub Actions。
+**Tech Stack:** Node.js 24.x（最低 24.15.0）、pnpm 10.30.3、TypeScript、Vue 3、Vite、Pinia、Vant、Tailwind CSS、Vue Router、Axios、NestJS、Fastify、Swagger、Jest、Vitest、ESLint、Prettier、GitHub Actions。
 
 **Spec:** `docs/superpowers/specs/2026-10-01-phase-one-foundation-design.md`
 
 ## Global Constraints
 
-- `.nvmrc` 必须固定为 `24.21.0`；根 `package.json` 必须声明 `"packageManager": "pnpm@10.30.3"`。
+- `.nvmrc` 使用 `24` 主版本；根 `package.json` 的 `engines.node` 为 `>=24.15.0 <25`，并声明 `"packageManager": "pnpm@10.30.3"`。
 - 工作区目录和包名固定为 `apps/web` (`@hehuoren/web`)、`apps/api` (`@hehuoren/api`)、`packages/api-types` (`@hehuoren/api-types`)；跨包依赖使用 `workspace:*`。
 - 健康路由为 `GET /api/v1/health`，成功结构为 `{ status, requestId }`；健康响应不包含系统、环境、密钥或数据库细节。
 - 统一错误结构为 `{ code, message, requestId, details? }`；未知异常返回通用 500 文案，响应体不得含堆栈。
@@ -52,7 +52,7 @@
 写入 `.nvmrc`：
 
 ```text
-24.21.0
+24
 ```
 
 写入 `.npmrc`：
@@ -77,7 +77,7 @@ packages:
   "name": "hehuoren",
   "private": true,
   "packageManager": "pnpm@10.30.3",
-  "engines": { "node": ">=24.21.0 <25" },
+  "engines": { "node": ">=24.15.0 <25" },
   "scripts": {
     "dev": "pnpm --parallel --filter @hehuoren/api --filter @hehuoren/web dev",
     "lint": "pnpm -r --if-present lint",

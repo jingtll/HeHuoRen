@@ -17,9 +17,9 @@
 - Web 使用 Vue 3、TypeScript、Vite、Pinia、Vant、Tailwind CSS、Vue Router 与 Axios；Pinia 在应用入口注册。
 - API 使用 NestJS 与 Fastify Adapter；API 类型包只包含从 OpenAPI 生成的接口类型，不包含后端运行时代码。
 - 根脚本提供 `dev`、`lint`、`format:check`、`typecheck`、`api:generate`、`build`、`test:unit`、`test:integration` 与 `test:e2e` 入口。阶段一实现可运行的单元测试；数据库集成测试与 Playwright 流程测试留到相应阶段。
-- `.nvmrc` 固定到 Node.js 24.21.0 LTS，根 `package.json` 的 `packageManager` 固定到当前环境 pnpm 10.30.3。依赖精确版本由锁文件固定。
+- `.nvmrc` 使用 Node.js 24 主版本，根 `package.json` 声明 `engines.node` 为 `>=24.15.0 <25`，并将 `packageManager` 固定到当前环境 pnpm 10.30.3。依赖精确版本由锁文件固定。
 
-Node.js 官方发布信息列出 24.21.0 为 LTS；Nest CLI 文档要求生成器运行于 Node 24.15 或更高补丁版本，Vite 8 要求 Node 20.19+ 或 22.12+。选择 Node 24.21.0 满足这几项约束：[Node.js releases](https://nodejs.org/en/blog)、[NestJS prerequisites](https://docs.nestjs.com/first-steps)、[Vite 8 release](https://vite.dev/blog/announcing-vite8)。
+阶段一采用 Node.js 24.x，并以 Nest CLI 生成器要求的 24.15.0 作为最低版本；`.nvmrc` 写主版本 `24`，允许版本管理器选择更新的 24.x 补丁版本。Vite 8 要求 Node 20.19+ 或 22.12+，由 Node 24.x 满足：[Node.js releases](https://nodejs.org/en/blog)、[NestJS prerequisites](https://docs.nestjs.com/first-steps)、[Vite 8 release](https://vite.dev/blog/announcing-vite8)。
 
 ## 请求流与服务边界
 
