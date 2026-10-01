@@ -1,0 +1,19 @@
+@import "tailwindcss";
+:root {
+  font-family: system-ui, "Microsoft YaHei", sans-serif;
+  color: #172b24;
+  background: #f4f7f5;
+  --van-primary-color: #217354;
+  --van-success-color: #217354;
+  --van-button-radius: 10px;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+}
+.request-id {
+  padding-inline: 0;
+}
+.request-id .van-cell__value {
+  overflow-wrap: anywhere;
+}

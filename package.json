@@ -1,0 +1,29 @@
+{
+  "name": "hehuoren",
+  "private": true,
+  "packageManager": "pnpm@10.30.3",
+  "engines": {
+    "node": ">=24.15.0 <25"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @hehuoren/api --filter @hehuoren/web dev",
+    "lint": "pnpm -r --if-present lint",
+    "format:check": "prettier --check .",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "api:generate": "pnpm --filter @hehuoren/api openapi:write && pnpm --filter @hehuoren/api-types generate",
+    "build": "pnpm -r --if-present build",
+    "test:unit": "pnpm -r --if-present test:unit",
+    "test:integration": "pnpm --filter @hehuoren/api test:integration",
+    "test:e2e": "pnpm --filter @hehuoren/api test:e2e"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.11.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-vue": "10.11.1",
+    "globals": "17.13.0",
+    "prettier": "3.9.9",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0"
+  }
+}

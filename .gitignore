@@ -1,0 +1,23 @@
+# Local Git worktrees are disposable development checkouts.
+.worktrees/
+
+# Dependencies and build output
+node_modules/
+*.tsbuildinfo
+dist/
+coverage/
+.turbo/
+
+# Local environment files (keep the documented template)
+.env
+.env.*
+!.env.example
+
+# Browser test output
+playwright-report/
+test-results/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
