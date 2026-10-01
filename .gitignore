@@ -1,0 +1,2 @@
+# Local Git worktrees are disposable development checkouts.
+.worktrees/
