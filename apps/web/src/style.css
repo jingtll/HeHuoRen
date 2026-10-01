@@ -1,0 +1,61 @@
+:root {
+  font-family: "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+  color: #19302a;
+  background: #f3f4ee;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+.starter-shell {
+  display: grid;
+  min-height: 100vh;
+  padding: 24px;
+  place-items: center;
+}
+
+.starter-card {
+  width: min(100%, 720px);
+  padding: clamp(28px, 7vw, 72px);
+  border: 1px solid #dce2d9;
+  border-radius: 24px;
+  background: #fbfcf8;
+  box-shadow: 0 24px 64px rgb(29 52 44 / 8%);
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: #607468;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 7vw, 3.75rem);
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+
+.description {
+  max-width: 48ch;
+  margin: 22px 0 0;
+  color: #52645a;
+  font-size: 1rem;
+  line-height: 1.75;
+}
