@@ -1,0 +1,49 @@
+name: 问题反馈
+description: 报告可以复现的功能或工程问题
+title: "[Bug] "
+labels: [bug, needs-triage]
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: 问题概述
+      description: 哪个操作或命令出现了什么问题？
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤
+      description: 提供最小复现步骤、输入或命令。
+      placeholder: |
+        1. 打开页面或启动服务
+        2. 执行操作
+        3. 出现问题
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期行为
+      description: 描述正确情况下应出现的结果。
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际行为
+      description: 描述错误结果，可附截图。
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 运行环境
+      description: 填写相关的操作系统、浏览器、Node.js／pnpm 版本及提交或分支。
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志与补充信息
+      description: 可填写请求 ID、错误日志或复现链接；提交前删除密钥和个人信息。

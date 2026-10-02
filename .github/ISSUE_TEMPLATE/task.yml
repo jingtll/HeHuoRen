@@ -1,0 +1,38 @@
+name: 开发任务
+description: 记录可实施、可验收的工程或业务任务
+title: "[Task] "
+labels: [enhancement, needs-triage]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: 背景与关联方案
+      description: 说明为什么需要这个任务，链接相关方案、父 Issue 或 ADR。
+    validations:
+      required: true
+  - type: textarea
+    id: deliverable
+    attributes:
+      label: 交付结果
+      description: 描述本任务完成后可以演示或验证的行为。
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 验收标准
+      placeholder: |
+        - [ ] 完成条件一
+        - [ ] 完成条件二
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: 阻塞关系
+      description: 列出必须先完成的 Issue；没有依赖时填写“无”。确认后使用 GitHub 原生阻塞关系关联。
+  - type: textarea
+    id: scope
+    attributes:
+      label: 实施范围与验证方式
+      description: 可填写约束、验证命令、测试场景及本次不包含的内容。

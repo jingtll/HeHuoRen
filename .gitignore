@@ -1,21 +1,70 @@
 # Local Git worktrees are disposable development checkouts.
 .worktrees/
 
+# Machine-specific agent settings and credentials
+.codex/
+.claude/settings.local.json
+.secrets/
+.aws/
+
 # Dependencies and build output
 node_modules/
+.pnpm-store/
 *.tsbuildinfo
 dist/
+dist-ssr/
+dist-openapi/
 coverage/
+.nyc_output/
 .turbo/
+.vite/
+.cache/
+.eslintcache
+.stylelintcache
 
 # Local environment files (keep the documented template)
 .env
 .env.*
 !.env.example
+!.env.*.example
+
+# Local logs, temporary files, and runtime data
+logs/
+*.log
+*.tmp
+*.temp
+/tmp/
+/temp/
+.data/
+apps/api/uploads/
+apps/api/storage/
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
 
 # Browser test output
+.auth/
+.playwright-mcp/
 playwright-report/
+blob-report/
 test-results/
+
+# Personal editor settings (keep shared project configuration)
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/*.code-snippets
+*.swp
+*.swo
+*~
 
 # Operating system files
 .DS_Store
