@@ -267,6 +267,140 @@
 }
 
 /* 为原生控件和 Vant 控件提供统一的键盘焦点提示。 */
+@layer components {
+  .auth-story {
+    margin-block: auto;
+    padding-block: 60px;
+  }
+  .auth-story h2 {
+    margin-block: 24px;
+    color: var(--hhr-color-brand);
+    font-size: clamp(38px, 4.5vw, 60px);
+    line-height: 1.4;
+    letter-spacing: 2px;
+  }
+  .auth-story p {
+    color: var(--hhr-color-muted);
+    line-height: 2;
+  }
+  .auth-story-line {
+    width: 64px;
+    height: 3px;
+    margin-block: 32px 18px;
+    background: var(--hhr-color-accent);
+  }
+  .auth-story .auth-story-footnote {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+  .auth-home-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-bottom: 12px;
+    color: var(--hhr-color-brand);
+  }
+  .auth-intro {
+    margin-top: 8px;
+    color: var(--hhr-color-muted);
+    font-size: 13px;
+  }
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 28px;
+  }
+  .auth-label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .auth-input-row {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    border: 1px solid var(--hhr-color-input-line);
+    border-radius: var(--hhr-radius-control);
+    background: var(--hhr-color-surface);
+  }
+  .auth-input-row:focus-within {
+    border-color: var(--hhr-color-brand);
+  }
+  .auth-input-row.has-error {
+    border-color: var(--hhr-color-danger);
+  }
+  .auth-input-row .hhr-input {
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    font-size: 16px;
+  }
+  .auth-input-row .van-button {
+    flex-shrink: 0;
+    margin-right: 4px;
+    padding-inline: 10px;
+    border: 0;
+    background: transparent;
+  }
+  .auth-input-row .auth-send {
+    background: var(--hhr-color-brand-soft);
+    font-size: 12px;
+  }
+  .auth-error,
+  .auth-hint {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .auth-error {
+    color: var(--hhr-color-danger);
+  }
+  .auth-hint,
+  .auth-service-note {
+    color: var(--hhr-color-muted);
+  }
+  .auth-service-note {
+    font-size: 12px;
+  }
+  .auth-feedback {
+    padding: 10px 12px;
+    border-radius: var(--hhr-radius-control);
+    background: var(--hhr-color-accent-soft);
+    color: var(--hhr-color-accent-ink);
+  }
+  .auth-submit {
+    font-weight: 600;
+  }
+  .auth-switch {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    color: var(--hhr-color-muted);
+    font-size: 13px;
+  }
+  .auth-switch a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--hhr-color-brand);
+    font-weight: 600;
+  }
+}
+@media (max-width: 767px) {
+  .auth-story {
+    display: none;
+  }
+  .auth-form {
+    gap: 16px;
+    margin-top: 24px;
+  }
+}
+
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,

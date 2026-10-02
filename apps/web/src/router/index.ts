@@ -143,19 +143,19 @@ export const routes: RouteRecordRaw[] = [
       {
         path: "login",
         name: "login",
-        component: placeholder,
+        component: () => import("../views/AuthView.vue"),
+        props: { mode: "login" },
         meta: {
           title: "登录",
-          description: "账号登录功能待开发，现在可直接浏览学生端各页面。",
         },
       },
       {
         path: "register",
         name: "register",
-        component: placeholder,
+        component: () => import("../views/AuthView.vue"),
+        props: { mode: "register" },
         meta: {
           title: "注册",
-          description: "账号注册功能待开发，现在可直接浏览学生端各页面。",
         },
       },
       {
