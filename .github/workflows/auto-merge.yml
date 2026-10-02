@@ -1,0 +1,49 @@
+name: Auto-merge
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: auto-merge-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+jobs:
+  auto-merge:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # 不检出或执行 PR 代码；只通过 GitHub API 操作已通过 CI 的提交。
+      - name: Enable auto-merge for the verified PR commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          prs=$(gh pr list --repo "$GH_REPO" --base main \
+            --head "$HEAD_BRANCH" --state open \
+            --json number,headRefOid,isDraft,isCrossRepository \
+            --jq ".[] | select(.headRefOid == \"$HEAD_SHA\" and .isDraft == false and .isCrossRepository == false) | .number")
+
+          if [[ -z "$prs" ]]; then
+            echo "No eligible PR for this verified commit."
+            exit 0
+          fi
+
+          while IFS= read -r pr; do
+            gh pr merge "$pr" --repo "$GH_REPO" --auto --merge \
+              --match-head-commit "$HEAD_SHA"
+          done <<< "$prs"
