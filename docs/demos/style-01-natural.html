@@ -1,0 +1,1106 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#367859" />
+    <title>禾伙人 · 01 清新自然校园风</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 100px;
+      }
+      body {
+        margin: 0;
+        min-width: 320px;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      .icon {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        vertical-align: middle;
+        flex-shrink: 0;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      a:focus-visible {
+        outline: 3px solid #d19f49;
+        outline-offset: 5px;
+      }
+      section[id] {
+        scroll-margin-top: 100px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .logo svg {
+        width: 31px;
+        height: 40px;
+      }
+      .mobile-nav {
+        display: none;
+      }
+      footer {
+        font-size: 11px;
+      }
+      ::selection {
+        background: #d6e6cb;
+        color: #233c28;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        * {
+          transition: none !important;
+        }
+      }
+      :root {
+        --green: #367859;
+        --ink: #263f30;
+        --muted: #7e8e7a;
+        --line: #e5ebde;
+        --paper: #f8faf4;
+        --serif: "Noto Serif CJK SC", "Songti SC", "SimSun", serif;
+      }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font:
+          14px/1.75 "Microsoft YaHei",
+          "PingFang SC",
+          sans-serif;
+      }
+      .container {
+        max-width: 1200px;
+        padding: 0 40px;
+        margin: auto;
+      }
+      .top {
+        border-bottom: 1px solid var(--line);
+        background: #ffffffdb;
+      }
+      .top .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 92px;
+        gap: 30px;
+      }
+      .logo {
+        color: var(--green);
+      }
+      .logo strong {
+        font-family: var(--serif);
+        font-size: 27px;
+        letter-spacing: 3px;
+      }
+      .logo small {
+        display: block;
+        font:
+          8px Georgia,
+          serif;
+        letter-spacing: 2px;
+        line-height: 1.7;
+        color: #89a078;
+      }
+      .nav {
+        display: flex;
+        gap: 30px;
+        font-size: 13px;
+        color: #7e9077;
+      }
+      .nav .active {
+        color: var(--green);
+        position: relative;
+        font-weight: 700;
+      }
+      .nav .active:after {
+        content: "";
+        position: absolute;
+        height: 3px;
+        width: 18px;
+        background: #79a16b;
+        left: 0;
+        bottom: -17px;
+        border-radius: 4px;
+      }
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+      }
+      .avatar {
+        height: 34px;
+        width: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #e6edd9;
+        color: #7c9467;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .hello {
+        display: flex;
+        justify-content: space-between;
+        margin: 27px 0 18px;
+        font-size: 11px;
+        color: #8e9c83;
+      }
+      .hello b {
+        color: #719465;
+        font-weight: 500;
+      }
+      .hero {
+        border-radius: 26px;
+        min-height: 356px;
+        background: #eaf2df;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid #e1e9d6;
+      }
+      .hero-copy {
+        padding: 42px;
+      }
+      .eyebrow {
+        font-size: 10px;
+        letter-spacing: 2px;
+        color: #7a956b;
+        margin-bottom: 13px;
+      }
+      .hero h1 {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: 43px;
+        line-height: 1.5;
+        letter-spacing: 1px;
+      }
+      .hero h1 em {
+        font-style: normal;
+        color: var(--green);
+      }
+      .hero p {
+        font-size: 12px;
+        color: #859477;
+        line-height: 1.9;
+        margin: 18px 0 22px;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        padding: 11px 19px;
+        background: var(--green);
+        color: white;
+        border-radius: 11px;
+        font-size: 12px;
+        transition:
+          transform 0.2s,
+          background 0.2s;
+      }
+      .button:hover {
+        background: #285d42;
+        transform: translateY(-2px);
+      }
+      .button.white {
+        background: #fff;
+        color: var(--green);
+        border: 1px solid var(--line);
+      }
+      .hero-art {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 480px;
+        padding: 15px 9px;
+      }
+      .hero-art svg {
+        width: 100%;
+        height: auto;
+      }
+      .section {
+        margin-top: 42px;
+      }
+      .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        gap: 16px;
+      }
+      .section-head h2 {
+        font-size: 23px;
+        letter-spacing: -0.5px;
+      }
+      .section-head p {
+        font-size: 11px;
+        color: #96a18b;
+        margin-top: 4px;
+      }
+      .more {
+        color: var(--green);
+        font-size: 12px;
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .filter-line {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        align-items: center;
+        margin-bottom: 22px;
+      }
+      .chips {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+      }
+      .chip {
+        padding: 7px 14px;
+        border-radius: 9px;
+        background: #fff;
+        border: 1px solid var(--line);
+        color: #8a9780;
+        font-size: 11px;
+      }
+      .chip.on {
+        background: var(--green);
+        color: #fff;
+        border-color: var(--green);
+      }
+      .filter {
+        font-size: 11px;
+        color: #8c9981;
+        background: white;
+        padding: 8px 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        white-space: nowrap;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+      .comp {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        overflow: hidden;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .comp:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px #536d3b0b;
+      }
+      .cover {
+        height: 112px;
+        padding: 23px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        background: #eaf0e1;
+      }
+      .cover.butter {
+        background: #f6edda;
+      }
+      .cover.lavender {
+        background: #e9efec;
+      }
+      .cover strong {
+        font:
+          italic 30px Georgia,
+          serif;
+        opacity: 0.35;
+      }
+      .cover small {
+        display: block;
+        font-size: 9px;
+        color: #8c9a7e;
+        letter-spacing: 1px;
+      }
+      .cover svg {
+        width: 55px;
+        height: 60px;
+        stroke-width: 1;
+        opacity: 0.45;
+        transform: rotate(-12deg);
+      }
+      .cover .year {
+        position: absolute;
+        right: 17px;
+        bottom: 12px;
+        font:
+          9px Georgia,
+          serif;
+        opacity: 0.45;
+      }
+      .comp-body {
+        padding: 20px 23px;
+      }
+      .badge {
+        display: inline-block;
+        background: #eff5e8;
+        color: #72935f;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-size: 10px;
+      }
+      .comp h3 {
+        font-size: 16px;
+        line-height: 1.65;
+        margin: 12px 0 7px;
+      }
+      .comp p {
+        font-size: 11px;
+        color: #92a086;
+      }
+      .meta {
+        font-size: 11px;
+        color: #8c9a80;
+        margin-top: 15px;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+      .meta svg {
+        width: 14px;
+        height: 14px;
+      }
+      .card-foot {
+        border-top: 1px solid #edf0e7;
+        margin-top: 18px;
+        padding-top: 13px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 10px;
+        color: #97a18d;
+      }
+      .card-foot a {
+        color: var(--green);
+      }
+      .team-card {
+        border: 1px solid var(--line);
+        background: white;
+        padding: 23px;
+        border-radius: 18px;
+        display: flex;
+        flex-direction: column;
+      }
+      .team-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .team-top span {
+        font-size: 10px;
+        color: #98a58f;
+      }
+      .team-top .badge {
+        color: #7c936b;
+      }
+      .team-card h3 {
+        font-size: 16px;
+        margin: 17px 0 10px;
+        line-height: 1.7;
+        min-height: 55px;
+      }
+      .team-card p {
+        font-size: 11px;
+        color: #8c9a7e;
+        line-height: 1.9;
+        min-height: 64px;
+      }
+      .tags {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+        margin-top: 17px;
+      }
+      .tags span {
+        font-size: 10px;
+        padding: 4px 8px;
+        background: #f3f6ed;
+        border-radius: 5px;
+        color: #8d9b80;
+      }
+      .team-card .meta {
+        font-size: 10px;
+        margin-top: 12px;
+      }
+      .team-card .card-foot {
+        margin-top: 17px;
+      }
+      .my-area {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 22px;
+        margin-top: 40px;
+      }
+      .my-card {
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 18px;
+        padding: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+      }
+      .my-card h3 {
+        font-size: 17px;
+        margin: 9px 0;
+      }
+      .my-card p {
+        font-size: 11px;
+        color: #92a184;
+      }
+      .quote {
+        border-radius: 18px;
+        background: #edf2e5;
+        padding: 26px;
+      }
+      .quote .eyebrow {
+        font-size: 9px;
+      }
+      .quote h3 {
+        font-family: var(--serif);
+        font-size: 23px;
+        font-weight: 500;
+        line-height: 1.6;
+      }
+      .quote p {
+        font-size: 11px;
+        color: #8fa07c;
+        margin-top: 8px;
+      }
+      .palette {
+        display: flex;
+        gap: 7px;
+        margin-top: 15px;
+      }
+      .palette i {
+        display: block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+      }
+      footer {
+        margin: 36px 0 24px;
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
+        color: #9ca68f;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        font-size: 10px;
+      }
+      footer span {
+        font-family: Georgia, serif;
+        letter-spacing: 1px;
+      }
+      @media (max-width: 1000px) {
+        .container {
+          padding: 0 28px;
+        }
+        .hero h1 {
+          font-size: 35px;
+        }
+        .hero-copy {
+          padding: 34px;
+        }
+        .grid {
+          gap: 16px;
+        }
+        .comp-body,
+        .team-card {
+          padding: 19px;
+        }
+        .nav {
+          gap: 18px;
+        }
+        .filter-line {
+          flex-wrap: wrap;
+        }
+        .hero {
+          min-height: 330px;
+        }
+      }
+      @media (max-width: 700px) {
+        html {
+          scroll-padding-top: 80px;
+        }
+        .container {
+          padding: 0 20px;
+        }
+        .top .container {
+          height: 72px;
+          gap: 12px;
+        }
+        .logo strong {
+          font-size: 23px;
+        }
+        .logo svg {
+          width: 25px;
+          height: 32px;
+        }
+        .nav {
+          display: none;
+        }
+        .user .name {
+          display: none;
+        }
+        .hello {
+          margin: 20px 0 15px;
+          font-size: 9px;
+        }
+        .hello span {
+          max-width: 50%;
+          text-align: right;
+        }
+        .hero {
+          display: block;
+          min-height: 0;
+          border-radius: 20px;
+        }
+        .hero-copy {
+          padding: 27px 25px 0;
+        }
+        .hero h1 {
+          font-size: 29px;
+          letter-spacing: 0;
+        }
+        .hero .eyebrow {
+          font-size: 8px;
+          letter-spacing: 1.3px;
+        }
+        .hero p {
+          font-size: 11px;
+          margin: 12px 0 17px;
+        }
+        .hero-art {
+          height: 205px;
+          padding: 0 10px;
+        }
+        .hero-art svg {
+          height: 220px;
+          width: auto;
+          max-width: 100%;
+          margin-top: -15px;
+        }
+        .button {
+          font-size: 11px;
+          min-height: 40px;
+        }
+        .section {
+          margin-top: 30px;
+        }
+        .section-head h2 {
+          font-size: 20px;
+        }
+        .section-head p {
+          font-size: 10px;
+        }
+        .section-head .more {
+          font-size: 10px;
+        }
+        .filter-line {
+          gap: 10px;
+          margin-bottom: 17px;
+        }
+        .chip {
+          padding: 6px 10px;
+          font-size: 10px;
+        }
+        .filter {
+          font-size: 10px;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+          gap: 17px;
+        }
+        .cover {
+          height: 95px;
+        }
+        .cover strong {
+          font-size: 31px;
+        }
+        .comp h3 {
+          font-size: 17px;
+        }
+        .comp-body {
+          padding: 21px;
+        }
+        .comp p,
+        .meta {
+          font-size: 12px;
+        }
+        .team-card {
+          padding: 22px;
+        }
+        .team-card h3 {
+          min-height: 0;
+          font-size: 17px;
+        }
+        .team-card p {
+          min-height: 0;
+          font-size: 12px;
+        }
+        .team-card .meta {
+          font-size: 11px;
+        }
+        .tags span {
+          font-size: 11px;
+        }
+        .my-area {
+          grid-template-columns: 1fr;
+          gap: 17px;
+          margin-top: 30px;
+        }
+        .my-card {
+          padding: 20px;
+        }
+        .my-card .button {
+          padding: 10px 12px;
+          white-space: nowrap;
+        }
+        .quote h3 {
+          font-size: 22px;
+        }
+        footer {
+          padding-bottom: 90px;
+          font-size: 9px;
+          line-height: 1.9;
+        }
+        footer span {
+          display: none;
+        }
+        .mobile-nav {
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 10;
+          background: #ffffffed;
+          border-top: 1px solid #e4eadb;
+          backdrop-filter: blur(10px);
+          justify-content: space-around;
+          padding: 11px 0 calc(9px + env(safe-area-inset-bottom));
+        }
+        .mobile-nav a {
+          display: grid;
+          justify-items: center;
+          gap: 3px;
+          font-size: 10px;
+          color: #7c9271;
+        }
+        .mobile-nav a:first-child {
+          color: var(--green);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      style="position: absolute; width: 0; height: 0; overflow: hidden"
+    >
+      <defs>
+        <symbol id="leaf" viewBox="0 0 32 40">
+          <path
+            d="M16 37V14M16 26C4 26 3 17 3 17c11-2 13 9 13 9ZM16 19C28 19 29 8 29 8c-11-1-13 11-13 11ZM16 12C10 7 16 2 16 2s6 5 0 10Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </symbol>
+        <symbol id="arrow" viewBox="0 0 24 24">
+          <path d="M4 12h16m-6-6 6 6-6 6" />
+        </symbol>
+        <symbol id="search" viewBox="0 0 24 24">
+          <circle cx="10" cy="10" r="6" />
+          <path d="m15 15 6 6" />
+        </symbol>
+        <symbol id="team" viewBox="0 0 24 24">
+          <circle cx="9" cy="8" r="3" />
+          <path
+            d="M3 20v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 4v2"
+          />
+        </symbol>
+        <symbol id="star" viewBox="0 0 24 24">
+          <path d="m12 3 3 6 6 1-4 5 1 6-6-3-6 3 1-6-4-5 6-1Z" />
+        </symbol>
+        <symbol id="clock" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 7v5l3 2" />
+        </symbol>
+        <symbol id="grid" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" />
+        </symbol>
+      </defs>
+    </svg>
+    <header class="top">
+      <div class="container">
+        <a class="logo" href="#top"
+          ><svg aria-hidden="true"><use href="#leaf" /></svg>
+          <div><strong>禾伙人</strong><small>GROW TOGETHER</small></div></a
+        >
+        <nav class="nav" aria-label="页面分区导航">
+          <a class="active" href="#competitions">发现比赛</a
+          ><a href="#teams">找队友</a><a href="#my">我的队伍</a>
+        </nav>
+        <a class="user" href="#my"
+          ><span class="avatar">林</span><span class="name">林同学</span></a
+        >
+      </div>
+    </header>
+    <main class="container" id="top">
+      <div class="hello">
+        <b>你好，今天也有新的可能。</b><span>STYLE 01 / 清新自然校园风</span>
+      </div>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">A SMALL IDEA. A SHARED ADVENTURE.</div>
+          <h1>好想法，<br />和<em>对的人</em>一起生长。</h1>
+          <p>
+            发现适合你的比赛，遇见互补的伙伴。<br />从一次组队开始，把热爱变成作品。
+          </p>
+          <a class="button" href="#teams"
+            >找一位同行的伙伴
+            <svg class="icon" aria-hidden="true"><use href="#arrow" /></svg
+          ></a>
+        </div>
+        <div class="hero-art">
+          <svg
+            viewBox="0 0 470 330"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="禾苗与一起生长的伙伴"
+          >
+            <path d="M60 274c102-86 230-111 370-72v128H60Z" fill="#d8e6c7" />
+            <circle cx="286" cy="157" r="116" fill="#dfebd0" />
+            <circle cx="364" cy="76" r="36" fill="#e9c979" />
+            <path
+              d="M279 275V120"
+              stroke="#367554"
+              stroke-width="5"
+              stroke-linecap="round"
+            />
+            <path
+              d="M279 209c-56 5-89-36-87-65 48-9 87 22 87 65Z"
+              fill="#86a878"
+            />
+            <path
+              d="M280 179c52-4 89-43 82-72-44-5-82 30-82 72Z"
+              fill="#438567"
+            />
+            <path
+              d="M280 128c-21-20-23-54 0-71 21 15 22 53 0 71Z"
+              fill="#b1c495"
+            />
+            <path
+              d="m279 209-63-46m64 16 62-54"
+              stroke="#dbe7bd"
+              stroke-width="1.3"
+              fill="none"
+            />
+            <path d="M244 265h70l-10 46h-50Z" fill="#d2aa58" />
+            <rect
+              x="238"
+              y="261"
+              width="82"
+              height="11"
+              rx="3"
+              fill="#e5c577"
+            />
+            <ellipse cx="279" cy="316" rx="63" ry="7" fill="#bdd0ab" />
+            <g transform="translate(24 120) rotate(-8)">
+              <rect
+                width="159"
+                height="76"
+                rx="14"
+                fill="#fffef7"
+                stroke="#d4dfc8"
+              />
+              <circle cx="30" cy="37" r="19" fill="#e8f0de" />
+              <path
+                d="m22 36 6 7 10-12"
+                fill="none"
+                stroke="#6c8d5b"
+                stroke-width="2"
+              />
+              <text
+                x="60"
+                y="34"
+                fill="#4b6946"
+                font-size="13"
+                font-family="Microsoft YaHei,sans-serif"
+              >
+                好想法已发芽
+              </text>
+              <text
+                x="60"
+                y="54"
+                fill="#91a084"
+                font-size="10"
+                font-family="Microsoft YaHei,sans-serif"
+              >
+                还差一位同行的人
+              </text>
+            </g>
+            <g transform="translate(317 239) rotate(8)">
+              <rect
+                width="145"
+                height="65"
+                rx="13"
+                fill="#fffef7"
+                stroke="#d4dfc8"
+              />
+              <circle cx="28" cy="32" r="17" fill="#f3e4b7" />
+              <text x="23" y="37" fill="#9b7c37" font-size="17">+</text>
+              <text
+                x="54"
+                y="28"
+                fill="#4b6946"
+                font-size="12"
+                font-family="Microsoft YaHei,sans-serif"
+              >
+                一起，慢慢长大
+              </text>
+              <text
+                x="54"
+                y="46"
+                fill="#91a084"
+                font-size="9"
+                font-family="Microsoft YaHei,sans-serif"
+              >
+                设计 × 技术 × 热爱
+              </text>
+            </g>
+            <path
+              d="M119 64v18m-9-9h18M411 167v16m-8-8h16"
+              stroke="#a4b791"
+              stroke-width="1.6"
+            />
+            <circle cx="188" cy="51" r="4" fill="#b3c39a" />
+          </svg>
+        </div>
+      </section>
+      <section class="section" id="competitions">
+        <div class="section-head">
+          <div>
+            <h2>值得一起做的事</h2>
+            <p>发现比赛 / 把好奇心变成行动</p>
+          </div>
+          <a class="more" href="#teams"
+            >也看看队伍
+            <svg class="icon" aria-hidden="true"><use href="#arrow" /></svg
+          ></a>
+        </div>
+        <div class="filter-line">
+          <div class="chips">
+            <span class="chip on">全部比赛</span
+            ><span class="chip">创新创业</span><span class="chip">科技实践</span
+            ><span class="chip">文化设计</span>
+          </div>
+          <div class="filter">可参赛学院：全部　⌄　｜　承办学院：全部　⌄</div>
+        </div>
+        <div class="grid">
+          <article class="comp">
+            <div class="cover mint">
+              <div>
+                <strong>INNOVATE</strong><small>把校园里的好想法，变成真</small>
+              </div>
+              <svg class="icon"><use href="#leaf" /></svg
+              ><span class="year">2026 EDITION</span>
+            </div>
+            <div class="comp-body">
+              <span class="badge">创新创业 · 演示届次</span>
+              <h3>大学生创新创业大赛</h3>
+              <p>管理学院承办 · 全校开放</p>
+              <div class="meta">
+                <svg class="icon" aria-hidden="true"><use href="#clock" /></svg
+                >报名截止 11.15
+              </div>
+              <div class="card-foot">
+                <span>3 支示例队伍</span><a href="#teams">看看招募 ↗</a>
+              </div>
+            </div>
+          </article>
+          <article class="comp">
+            <div class="cover butter">
+              <div>
+                <strong>CREATE</strong><small>用技术回应田野，让专业在</small>
+              </div>
+              <svg class="icon"><use href="#grid" /></svg
+              ><span class="year">2026 EDITION</span>
+            </div>
+            <div class="comp-body">
+              <span class="badge">科技实践 · 演示届次</span>
+              <h3>智慧农业应用设计赛</h3>
+              <p>信息工程学院承办 · 全校开放</p>
+              <div class="meta">
+                <svg class="icon" aria-hidden="true"><use href="#clock" /></svg
+                >报名截止 10.28
+              </div>
+              <div class="card-foot">
+                <span>2 支示例队伍</span><a href="#teams">看看招募 ↗</a>
+              </div>
+            </div>
+          </article>
+          <article class="comp">
+            <div class="cover lavender">
+              <div>
+                <strong>RETHINK</strong><small>从身边的小事开始，设计一</small>
+              </div>
+              <svg class="icon"><use href="#star" /></svg
+              ><span class="year">2026 EDITION</span>
+            </div>
+            <div class="comp-body">
+              <span class="badge">文化设计 · 演示届次</span>
+              <h3>校园可持续设计挑战赛</h3>
+              <p>风景园林学院承办 · 指定学院</p>
+              <div class="meta">
+                <svg class="icon" aria-hidden="true"><use href="#clock" /></svg
+                >报名截止 11.06
+              </div>
+              <div class="card-foot">
+                <span>1 支示例队伍</span><a href="#teams">看看招募 ↗</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="section" id="teams">
+        <div class="section-head">
+          <div>
+            <h2>刚好，缺一个你</h2>
+            <p>找到你的角色，和不同专业的伙伴同行</p>
+          </div>
+          <a class="more" href="#my"
+            >我的合作
+            <svg class="icon" aria-hidden="true"><use href="#arrow" /></svg
+          ></a>
+        </div>
+        <div class="grid">
+          <article class="team-card">
+            <div class="team-top">
+              <span class="badge">正在找伙伴</span><span>比赛项目</span>
+            </div>
+            <h3>让田间数据，被看懂。</h3>
+            <p>有农业和后端背景的我们，想找一位愿意一起打磨数据看板的伙伴。</p>
+            <div class="tags"><span>前端开发</span><span>数据分析</span></div>
+            <div class="meta">线上为主 · 每周 4–6 小时</div>
+            <div class="card-foot">
+              <span class="user"><span class="avatar">陈</span>陈同学</span
+              ><span>2 / 4 人</span>
+            </div>
+          </article>
+          <article class="team-card">
+            <div class="team-top">
+              <span class="badge">正在找伙伴</span><span>比赛项目</span>
+            </div>
+            <h3>一起做一款有温度的校园产品</h3>
+            <p>从校园真实需求出发，把调研、设计和技术串成一个能用的小产品。</p>
+            <div class="tags"><span>交互设计</span><span>前端开发</span></div>
+            <div class="meta">线上 + 线下 · 每周 3–5 小时</div>
+            <div class="card-foot">
+              <span class="user"><span class="avatar">周</span>周同学</span
+              ><span>3 / 5 人</span>
+            </div>
+          </article>
+          <article class="team-card">
+            <div class="team-top">
+              <span class="badge">正在找伙伴</span><span>课程项目</span>
+            </div>
+            <h3>一份包装的第二次生命</h3>
+            <p>让可持续设计走进校园日常，寻找喜欢观察生活、认真表达的你。</p>
+            <div class="tags"><span>视觉设计</span><span>调研策划</span></div>
+            <div class="meta">线上 + 线下 · 每周 2–4 小时</div>
+            <div class="card-foot">
+              <span class="user"><span class="avatar">许</span>许同学</span
+              ><span>2 / 4 人</span>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="my-area" id="my">
+        <article class="my-card">
+          <div>
+            <div class="eyebrow">MY LITTLE PROJECT</div>
+            <span class="badge">我是队长 · 示例</span>
+            <h3>校园可持续包装实验</h3>
+            <p>2 / 4 人 · 视觉设计 / 调研策划</p>
+          </div>
+          <a class="button white" href="#teams">认识新伙伴</a>
+        </article>
+        <aside class="quote">
+          <div class="eyebrow">THE FEELING OF THIS STYLE</div>
+          <h3>像一粒种子，<br />清爽而有生命力。</h3>
+          <p>禾苗绿 · 暖白 · 轻盈圆角 · 自然插画</p>
+          <div class="palette">
+            <i style="background: #367859"></i
+            ><i style="background: #dfeace"></i
+            ><i style="background: #e9c979"></i
+            ><i style="background: #fafbf7; border: 1px solid #d8e0cf"></i>
+          </div>
+        </aside>
+      </section>
+      <footer>
+        <div>
+          学生自建 · 非学校官方平台 · 静态样式参考 · 内容与日期均为示例<br />所有筛选与状态仅展示样式，导航可跳转页面分区。
+        </div>
+        <span>HEHUOREN / STYLE EXPLORATION 01</span>
+      </footer>
+    </main>
+    <nav class="mobile-nav" aria-label="页面分区导航">
+      <a href="#competitions"
+        ><svg class="icon" aria-hidden="true"><use href="#grid" /></svg>比赛</a
+      ><a href="#teams"
+        ><svg class="icon" aria-hidden="true"><use href="#team" /></svg
+        >找队友</a
+      ><a href="#my"
+        ><svg class="icon" aria-hidden="true"><use href="#leaf" /></svg>我的</a
+      >
+    </nav>
+  </body>
+</html>

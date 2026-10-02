@@ -1,0 +1,4439 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#27644b" />
+    <title>禾伙人 · 学生端样式 Demo</title>
+    <style>
+      :root {
+        --green: #27644b;
+        --green-dark: #183e30;
+        --green-soft: #eaf2e9;
+        --ink: #243d32;
+        --muted: #7b867e;
+        --paper: #f7f8f4;
+        --white: #fff;
+        --line: #e7ebe3;
+        --yellow: #e9bd56;
+        --yellow-soft: #fff4d9;
+        --red: #b85a49;
+        --radius: 18px;
+        --font:
+          "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+        --serif: "Noto Serif CJK SC", "Songti SC", "SimSun", serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font: 14px/1.65 var(--font);
+        min-width: 320px;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+      button,
+      a,
+      input,
+      select,
+      textarea {
+        -webkit-tap-highlight-color: transparent;
+      }
+      button {
+        cursor: pointer;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        color: inherit;
+      }
+      button:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible {
+        outline: 3px solid #d7af55;
+        outline-offset: 3px;
+      }
+      button {
+        border: 0;
+        background: none;
+      }
+      svg.icon {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        flex-shrink: 0;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      h1 {
+        font-size: 30px;
+        letter-spacing: -1px;
+        line-height: 1.4;
+      }
+      h2 {
+        font-size: 20px;
+        line-height: 1.5;
+      }
+      h3 {
+        font-size: 17px;
+        line-height: 1.55;
+      }
+      small {
+        font-size: 12px;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .small {
+        font-size: 12px;
+      }
+      .eyebrow {
+        font:
+          11px/1.5 Georgia,
+          serif;
+        letter-spacing: 2px;
+        color: var(--green);
+        margin-bottom: 7px;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .between {
+        justify-content: space-between;
+      }
+      .stack {
+        display: grid;
+        gap: 18px;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border-radius: 9px;
+        background: var(--green);
+        color: white;
+        font-size: 13px;
+        font-weight: 600;
+        min-height: 42px;
+        transition:
+          background 0.18s,
+          transform 0.18s;
+      }
+      .btn:hover {
+        background: var(--green-dark);
+        transform: translateY(-1px);
+      }
+      .btn.secondary {
+        background: white;
+        color: var(--green);
+        border: 1px solid var(--line);
+      }
+      .btn.secondary:hover {
+        background: var(--green-soft);
+      }
+      .btn.soft {
+        background: var(--green-soft);
+        color: var(--green);
+      }
+      .btn.danger {
+        background: #faeee9;
+        color: var(--red);
+      }
+      .text-btn {
+        color: var(--green);
+        font-size: 12px;
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        padding: 6px 0;
+      }
+      .text-btn:hover {
+        text-decoration: underline;
+      }
+      .icon-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        position: relative;
+      }
+      .icon-btn:hover {
+        background: var(--green-soft);
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        border-radius: 5px;
+        padding: 3px 8px;
+        background: var(--green-soft);
+        color: var(--green);
+        white-space: nowrap;
+      }
+      .badge.gold {
+        background: var(--yellow-soft);
+        color: #947127;
+      }
+      .badge.gray {
+        background: #eef0ec;
+        color: #7c847d;
+      }
+      .badge.red {
+        background: #faeae4;
+        color: var(--red);
+      }
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      .panel {
+        border: 1px solid var(--line);
+        background: white;
+        border-radius: var(--radius);
+        padding: 22px;
+      }
+      .avatar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #e6eddd;
+        color: #536746;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .avatar.gold {
+        background: #f2e7ca;
+        color: #876739;
+      }
+      .avatar.blue {
+        background: #e1ebec;
+        color: #547477;
+      }
+      .avatar.big {
+        width: 70px;
+        height: 70px;
+        font-size: 24px;
+      }
+      .avatar-group {
+        display: flex;
+        padding-left: 0;
+      }
+      .avatar-group .avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 10px;
+        border: 2px solid white;
+        margin-left: -6px;
+      }
+      .avatar-group .avatar:first-child {
+        margin-left: 0;
+      }
+      .tag {
+        display: inline-block;
+        padding: 4px 9px;
+        background: #f4f5f1;
+        border-radius: 5px;
+        color: #738071;
+        font-size: 11px;
+      }
+      .tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .empty {
+        text-align: center;
+        padding: 55px 20px;
+        border: 1px dashed #d5dfd2;
+        border-radius: 16px;
+        background: #fcfdf9;
+      }
+      .empty .icon {
+        width: 35px;
+        height: 35px;
+        color: #92a78f;
+        margin-bottom: 10px;
+      }
+      .empty p {
+        color: var(--muted);
+        margin: 10px 0 20px;
+      }
+      .input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid #dfe5da;
+        border-radius: 9px;
+        background: white;
+        color: var(--ink);
+        padding: 11px 12px;
+        min-height: 44px;
+      }
+      .input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 2px solid #a7bda4;
+        outline-offset: 1px;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 110px;
+      }
+      .form-field {
+        display: grid;
+        gap: 7px;
+        font-size: 13px;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .form-field.full {
+        grid-column: 1/-1;
+      }
+      .form-field small {
+        color: var(--muted);
+      }
+      .check {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .check input {
+        accent-color: var(--green);
+        margin-top: 5px;
+      }
+      .notice {
+        padding: 12px 15px;
+        background: #f4f7ee;
+        border-radius: 9px;
+        color: #75806b;
+        font-size: 12px;
+        border-left: 3px solid #bdcda8;
+      }
+      .notice.gold {
+        background: #fffaeb;
+        border-left-color: #e6c478;
+        color: #927648;
+      }
+      .sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        width: 218px;
+        background: #fff;
+        border-right: 1px solid var(--line);
+        z-index: 20;
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+      }
+      .brand {
+        display: flex;
+        gap: 11px;
+        align-items: center;
+        padding: 0 9px;
+      }
+      .brand-mark {
+        width: 39px;
+        height: 43px;
+        color: var(--green);
+      }
+      .brand-name {
+        font-family: var(--serif);
+        font-size: 26px;
+        letter-spacing: 3px;
+        font-weight: 700;
+        line-height: 1.3;
+      }
+      .brand small {
+        font-size: 9px;
+        letter-spacing: 2px;
+        color: #8b9685;
+      }
+      .school-label {
+        margin: 30px 8px 22px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        color: #758370;
+      }
+      .school-label .icon {
+        width: 17px;
+      }
+      .nav-label {
+        font-size: 10px;
+        letter-spacing: 2px;
+        color: #a0a99e;
+        margin: 18px 14px 8px;
+      }
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        border-radius: 9px;
+        margin-bottom: 5px;
+        font-size: 13px;
+        color: #7e887c;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .nav-link:hover {
+        background: #f6f8f2;
+        color: var(--green);
+      }
+      .nav-link.active {
+        background: #eaf2e5;
+        color: var(--green);
+        font-weight: 600;
+      }
+      .nav-link .count {
+        margin-left: auto;
+        font-size: 10px;
+        background: #d5e5ce;
+        border-radius: 5px;
+        padding: 0 5px;
+      }
+      .sidebar-bottom {
+        margin-top: auto;
+        padding: 18px 8px 0;
+      }
+      .seed-note {
+        padding: 16px;
+        background: #f6f7ef;
+        border-radius: 12px;
+        color: #849078;
+        font-size: 11px;
+      }
+      .seed-note svg {
+        width: 24px;
+        height: 24px;
+        color: #8d9d73;
+        margin-bottom: 8px;
+      }
+      .seed-note strong {
+        display: block;
+        color: #64775b;
+        font-weight: 500;
+      }
+      .sidebar-bottom .text-btn {
+        font-size: 11px;
+      }
+      .layout {
+        margin-left: 218px;
+      }
+      .topbar {
+        height: 82px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 42px;
+        background: rgba(247, 248, 244, 0.96);
+        gap: 20px;
+      }
+      .breadcrumb {
+        font-size: 12px;
+        color: #939b90;
+        white-space: nowrap;
+      }
+      .breadcrumb b {
+        color: #596b58;
+        font-weight: 500;
+      }
+      .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .search-top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 13px;
+        background: #eeefe9;
+        border-radius: 8px;
+        width: 255px;
+      }
+      .search-top .icon {
+        width: 17px;
+        color: #929d8b;
+      }
+      .search-top input {
+        border: 0;
+        outline: 0;
+        background: transparent;
+        width: 100%;
+        font-size: 12px;
+        color: var(--ink);
+      }
+      .notification-dot {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background: #dcb75f;
+        right: 9px;
+        top: 8px;
+        border: 1px solid var(--paper);
+        border-radius: 50%;
+      }
+      .top-user {
+        display: flex;
+        gap: 9px;
+        align-items: center;
+        font-size: 12px;
+      }
+      .mobile-brand {
+        display: none;
+      }
+      .main {
+        padding: 31px 42px 24px;
+        max-width: 1440px;
+        margin: auto;
+      }
+      .page-heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: flex-end;
+        margin-bottom: 24px;
+      }
+      .page-heading p {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+      .page-heading .btn {
+        flex-shrink: 0;
+      }
+      .edition {
+        font-size: 11px;
+        color: #869178;
+      }
+      .hero {
+        display: flex;
+        position: relative;
+        overflow: hidden;
+        background: #e8efdf;
+        border: 1px solid #e0e8d6;
+        border-radius: 20px;
+        min-height: 237px;
+        margin-bottom: 30px;
+      }
+      .hero-copy {
+        padding: 34px 37px;
+        z-index: 1;
+        width: 58%;
+      }
+      .hero .eyebrow {
+        font-size: 10px;
+        color: #79916a;
+        letter-spacing: 2.5px;
+      }
+      .hero h2 {
+        font-family: var(--serif);
+        font-size: 37px;
+        font-weight: 500;
+        line-height: 1.45;
+        letter-spacing: 1px;
+        margin: 9px 0 10px;
+      }
+      .hero p {
+        color: #7a896f;
+        font-size: 12px;
+        margin-bottom: 20px;
+        max-width: 350px;
+      }
+      .hero .btn {
+        padding: 9px 16px;
+        min-height: 39px;
+      }
+      .hero-art {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 46%;
+      }
+      .hero-art svg {
+        width: 100%;
+        height: 100%;
+      }
+      .hero-label {
+        position: absolute;
+        right: 30px;
+        bottom: 18px;
+        color: #78906b;
+        font-size: 9px;
+        letter-spacing: 2px;
+      }
+      .two-col {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 270px;
+        gap: 26px;
+      }
+      .section-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 17px;
+      }
+      .section-title h2 {
+        font-size: 19px;
+      }
+      .section-title h2 small {
+        font-weight: 400;
+        font-size: 11px;
+        margin-left: 10px;
+        color: #96a08e;
+      }
+      .chips {
+        display: flex;
+        gap: 8px;
+        overflow: auto;
+        padding-bottom: 4px;
+        margin-bottom: 17px;
+        scrollbar-width: none;
+      }
+      .chip {
+        padding: 7px 14px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: white;
+        color: #85907d;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+      .chip.active {
+        background: var(--green);
+        color: white;
+        border-color: var(--green);
+      }
+      .chip span {
+        margin-left: 6px;
+        font-size: 10px;
+        opacity: 0.65;
+      }
+      .filterbar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 0 16px;
+        margin-bottom: 3px;
+        flex-wrap: wrap;
+      }
+      .filterbar select {
+        font-size: 11px;
+        padding: 7px 23px 7px 10px;
+        min-height: 34px;
+        width: auto;
+        max-width: 200px;
+        background: #f7f8f4;
+        border-color: #e2e7dc;
+      }
+      .filterbar .filter-label {
+        font-size: 11px;
+        color: #95a08c;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+      .filterbar .filter-label svg {
+        width: 15px;
+      }
+      .filterbar .result-count {
+        font-size: 10px;
+        color: #9aa18f;
+        margin-left: auto;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 17px;
+      }
+      .competition-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        overflow: hidden;
+        transition:
+          box-shadow 0.2s,
+          transform 0.2s;
+      }
+      .competition-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px #243d3209;
+      }
+      .card-art {
+        height: 90px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        background: #edf1e5;
+      }
+      .card-art.gold {
+        background: #f5edda;
+      }
+      .card-art.blue {
+        background: #e7eeee;
+      }
+      .card-art.pink {
+        background: #f1eae1;
+      }
+      .card-art .art-word {
+        font:
+          italic 34px/1 Georgia,
+          serif;
+        opacity: 0.28;
+        letter-spacing: -1px;
+        z-index: 1;
+      }
+      .card-art .art-sub {
+        font-size: 9px;
+        color: #839076;
+        letter-spacing: 2px;
+        margin-top: 4px;
+      }
+      .card-art .art-symbol {
+        width: 72px;
+        height: 72px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.1;
+        opacity: 0.55;
+        transform: rotate(-10deg);
+      }
+      .card-art .year {
+        position: absolute;
+        right: 16px;
+        bottom: 10px;
+        font:
+          9px Georgia,
+          serif;
+        opacity: 0.4;
+      }
+      .card-body {
+        padding: 19px 20px;
+      }
+      .card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .favorite-btn {
+        color: #a0a992;
+        padding: 4px;
+        display: inline-flex;
+      }
+      .favorite-btn.active {
+        color: #b08b3e;
+      }
+      .favorite-btn.active svg {
+        fill: #f0d38b;
+      }
+      .card-body h3 {
+        font-size: 15px;
+        line-height: 1.65;
+        margin-bottom: 6px;
+      }
+      .card-body p {
+        font-size: 11px;
+        color: #8b9586;
+        min-height: 18px;
+      }
+      .card-meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 10px;
+        color: #8b967f;
+        margin: 13px 0 14px;
+      }
+      .card-meta svg {
+        width: 13px;
+        height: 13px;
+      }
+      .card-bottom {
+        border-top: 1px solid #edf0e8;
+        padding-top: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .card-bottom .text-btn {
+        font-size: 11px;
+      }
+      .card-bottom .icon {
+        width: 15px;
+        height: 15px;
+      }
+      .aside-panel {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        padding: 20px;
+      }
+      .aside-panel h3 {
+        font-size: 14px;
+        margin-bottom: 17px;
+      }
+      .calendar-heading {
+        font-size: 10px;
+        letter-spacing: 1px;
+        color: #9ca58f;
+        margin-bottom: 9px;
+      }
+      .deadline {
+        display: flex;
+        gap: 13px;
+        padding: 13px 0;
+        border-bottom: 1px solid #eef1e7;
+      }
+      .deadline:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+      .date-block {
+        width: 38px;
+        flex-shrink: 0;
+        text-align: center;
+        border-radius: 7px;
+        background: #f4f5ef;
+        align-self: flex-start;
+        padding: 4px;
+      }
+      .date-block strong {
+        font:
+          20px Georgia,
+          serif;
+        display: block;
+        line-height: 1.15;
+      }
+      .date-block small {
+        font-size: 9px;
+        color: #95a187;
+      }
+      .deadline strong {
+        font-size: 11px;
+        line-height: 1.8;
+        display: block;
+        font-weight: 500;
+      }
+      .deadline p {
+        font-size: 10px;
+        color: #a0a78f;
+      }
+      .guide {
+        background: #f0f2e7;
+        border: 1px solid #e6ead9;
+      }
+      .guide h3 {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: 19px;
+      }
+      .guide p {
+        font-size: 11px;
+        color: #8b947e;
+        line-height: 1.9;
+        margin: 9px 0;
+      }
+      .guide ol {
+        list-style: none;
+        margin: 18px 0 6px;
+        padding: 0;
+        display: grid;
+        gap: 14px;
+      }
+      .guide li {
+        display: flex;
+        gap: 11px;
+        font-size: 11px;
+        color: #6e7b62;
+        align-items: center;
+      }
+      .guide li span {
+        font:
+          12px Georgia,
+          serif;
+        border: 1px solid #cbd4bc;
+        width: 24px;
+        height: 24px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .mini-profile {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .mini-profile strong {
+        font-size: 13px;
+      }
+      .mini-profile p {
+        font-size: 10px;
+        color: #99a38e;
+      }
+      .profile-progress {
+        height: 4px;
+        background: #edf0e5;
+        border-radius: 4px;
+        margin: 17px 0 8px;
+        overflow: hidden;
+      }
+      .profile-progress div {
+        height: 100%;
+        width: 75%;
+        background: #9eb285;
+      }
+      .side-caption {
+        font-size: 10px;
+        letter-spacing: 1px;
+        color: #a4ac98;
+        line-height: 2;
+        padding: 0 6px;
+      }
+      .page-footer {
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+        color: #a6ad9c;
+        border-top: 1px solid var(--line);
+        margin-top: 34px;
+        padding-top: 17px;
+        gap: 15px;
+      }
+      .page-footer span {
+        font-family: Georgia, serif;
+        letter-spacing: 1px;
+      }
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+      .team-card {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--line);
+        background: white;
+        border-radius: 15px;
+        padding: 23px;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .team-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px #243d3209;
+      }
+      .team-card h3 {
+        margin: 15px 0 8px;
+        font-size: 16px;
+      }
+      .team-card .desc {
+        font-size: 11px;
+        line-height: 1.85;
+        color: #8b9583;
+        min-height: 62px;
+      }
+      .team-card .tags {
+        margin: 17px 0;
+      }
+      .team-info {
+        font-size: 11px;
+        color: #94a086;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin: 3px 0 10px;
+      }
+      .team-info svg {
+        width: 14px;
+        height: 14px;
+      }
+      .team-card .bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid var(--line);
+        padding-top: 15px;
+        margin-top: auto;
+      }
+      .member-count {
+        font-size: 11px;
+        color: #98a388;
+      }
+      .member-count strong {
+        color: var(--green);
+        font-size: 17px;
+        font-weight: 500;
+      }
+      .role-banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        border-radius: 15px;
+        background: #eef2e6;
+        padding: 23px 27px;
+        margin-bottom: 24px;
+      }
+      .role-banner h2 {
+        font-family: var(--serif);
+        font-size: 23px;
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+      .role-banner p {
+        font-size: 12px;
+        color: #8a977d;
+      }
+      .tabs {
+        display: flex;
+        gap: 24px;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 22px;
+        overflow: auto;
+      }
+      .tab {
+        font-size: 13px;
+        color: #8a9680;
+        padding: 12px 0;
+        white-space: nowrap;
+        border-bottom: 2px solid transparent;
+      }
+      .tab.active {
+        color: var(--green);
+        border-bottom-color: var(--green);
+        font-weight: 600;
+      }
+      .application-row {
+        display: grid;
+        grid-template-columns: 50px 1fr auto;
+        gap: 17px;
+        align-items: center;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        padding: 22px;
+        margin-bottom: 15px;
+      }
+      .application-emblem {
+        width: 47px;
+        height: 47px;
+        background: var(--green-soft);
+        color: #7f9973;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .application-emblem svg {
+        width: 24px;
+        height: 24px;
+      }
+      .application-row h3 {
+        font-size: 15px;
+        margin-bottom: 5px;
+      }
+      .application-row p {
+        font-size: 11px;
+        color: #919e84;
+      }
+      .application-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .application-actions .btn {
+        font-size: 11px;
+        min-height: 36px;
+        padding: 8px 13px;
+      }
+      .status-step {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 13px;
+        font-size: 10px;
+        color: #a1ab94;
+      }
+      .status-step .done {
+        color: var(--green);
+      }
+      .status-step i {
+        width: 22px;
+        height: 1px;
+        background: #dce4d1;
+      }
+      .my-team-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 18px;
+      }
+      .my-team-card .row.between {
+        align-items: flex-start;
+      }
+      .my-team-card h3 {
+        margin-top: 8px;
+      }
+      .my-team-card p {
+        font-size: 12px;
+        color: #8e9c83;
+        margin-top: 6px;
+      }
+      .my-team-card .team-toolbar {
+        display: flex;
+        gap: 10px;
+        border-top: 1px solid var(--line);
+        padding-top: 20px;
+        margin-top: 22px;
+        flex-wrap: wrap;
+      }
+      .notification {
+        display: grid;
+        grid-template-columns: 40px 1fr auto;
+        gap: 17px;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 12px;
+      }
+      .notification.read {
+        opacity: 0.62;
+      }
+      .notification .circle {
+        background: var(--yellow-soft);
+        color: #b19344;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 39px;
+        height: 39px;
+        border-radius: 50%;
+      }
+      .notification h3 {
+        font-size: 14px;
+      }
+      .notification p {
+        font-size: 12px;
+        color: #919b85;
+        margin-top: 5px;
+      }
+      .notification time {
+        font-size: 10px;
+        color: #a3ad96;
+      }
+      .profile-layout {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 24px;
+      }
+      .profile-card {
+        text-align: center;
+        padding: 30px 22px;
+        align-self: start;
+      }
+      .profile-card h2 {
+        font-size: 19px;
+        margin: 12px 0 5px;
+      }
+      .profile-card p {
+        font-size: 11px;
+        color: #929d86;
+      }
+      .profile-card .tags {
+        justify-content: center;
+        margin: 20px 0;
+      }
+      .profile-card .profile-stat {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 25px;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+      }
+      .profile-stat strong {
+        display: block;
+        font:
+          23px Georgia,
+          serif;
+        color: var(--green);
+      }
+      .profile-stat small {
+        color: #9ba58f;
+        font-size: 10px;
+      }
+      .profile-form h3 {
+        margin-bottom: 22px;
+      }
+      .profile-form .btn {
+        margin-top: 22px;
+      }
+      .privacy-setting {
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+      .privacy-setting h3 {
+        margin-bottom: 8px;
+      }
+      .privacy-setting p {
+        font-size: 12px;
+        color: #8d9880;
+        margin-bottom: 16px;
+      }
+      .privacy-toggle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        gap: 14px;
+      }
+      .switch {
+        appearance: none;
+        width: 40px;
+        height: 23px;
+        background: #dfe5d7;
+        border-radius: 20px;
+        position: relative;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+      .switch:before {
+        content: "";
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 17px;
+        height: 17px;
+        background: white;
+        border-radius: 50%;
+        transition: transform 0.2s;
+      }
+      .switch:checked {
+        background: var(--green);
+      }
+      .switch:checked:before {
+        transform: translateX(17px);
+      }
+      .style-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+      }
+      .swatch {
+        height: 92px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        border: 1px solid #00000008;
+      }
+      .token-caption {
+        font-size: 12px;
+      }
+      .token-caption code {
+        display: block;
+        font-size: 10px;
+        color: #8f9988;
+        margin-top: 4px;
+      }
+      dialog {
+        border: 1px solid #e3e8dd;
+        border-radius: 20px;
+        padding: 0;
+        background: var(--paper);
+        color: var(--ink);
+        width: min(640px, calc(100vw - 30px));
+        max-height: 88dvh;
+        box-shadow: 0 20px 90px #183e3020;
+      }
+      dialog::backdrop {
+        background: #1a2e2855;
+        backdrop-filter: blur(3px);
+      }
+      .dialog-header {
+        padding: 22px 27px 17px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--line);
+        background: white;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+      }
+      .dialog-header h2 {
+        font-size: 17px;
+      }
+      .dialog-body {
+        padding: 26px 28px;
+      }
+      .dialog-body h3 {
+        font-size: 15px;
+        margin: 22px 0 11px;
+      }
+      .dialog-body p {
+        font-size: 12px;
+        line-height: 1.95;
+        color: #7f8d75;
+      }
+      .detail-title {
+        font-size: 24px;
+        margin: 12px 0;
+      }
+      .detail-facts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        padding: 20px;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        margin: 20px 0;
+      }
+      .detail-facts small {
+        display: block;
+        color: #9aa78e;
+        font-size: 10px;
+        margin-bottom: 4px;
+      }
+      .detail-facts strong {
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .track {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 15px;
+        background: white;
+        margin-bottom: 10px;
+      }
+      .track strong {
+        font-size: 12px;
+      }
+      .track small {
+        font-size: 10px;
+        color: #94a184;
+      }
+      .dialog-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 25px;
+        flex-wrap: wrap;
+      }
+      .member-list {
+        display: grid;
+        gap: 12px;
+      }
+      .member-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: white;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+      }
+      .member-row strong {
+        display: block;
+        font-size: 12px;
+      }
+      .member-row small {
+        color: #96a18c;
+        font-size: 11px;
+      }
+      .member-row .badge {
+        margin-left: auto;
+      }
+      .toast {
+        position: fixed;
+        bottom: 27px;
+        left: calc(50% + 109px);
+        transform: translate(-50%, 20px);
+        padding: 12px 20px;
+        background: var(--green-dark);
+        border-radius: 9px;
+        color: #fff;
+        font-size: 12px;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 60;
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+        max-width: calc(100vw - 30px);
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      .mobile-nav {
+        display: none;
+      }
+      .desktop-only {
+        display: initial;
+      }
+      .reveal {
+        animation: appear 0.45s ease-out;
+      }
+      @keyframes appear {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (min-width: 1600px) {
+        .main {
+          padding-top: 42px;
+        }
+        .hero {
+          min-height: 270px;
+        }
+        .hero-copy {
+          padding: 42px;
+        }
+        .hero h2 {
+          font-size: 43px;
+        }
+        .cards {
+          gap: 22px;
+        }
+        .card-art {
+          height: 105px;
+        }
+        .card-body {
+          padding: 22px;
+        }
+      }
+      @media (max-width: 1200px) {
+        .sidebar {
+          width: 190px;
+          padding: 25px 14px;
+        }
+        .layout {
+          margin-left: 190px;
+        }
+        .topbar {
+          padding: 0 28px;
+        }
+        .main {
+          padding: 27px 28px;
+        }
+        .two-col {
+          grid-template-columns: minmax(0, 1fr) 235px;
+          gap: 20px;
+        }
+        .hero h2 {
+          font-size: 31px;
+        }
+        .hero-copy {
+          padding: 30px;
+          width: 62%;
+        }
+        .team-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .toast {
+          left: calc(50% + 95px);
+        }
+        .top-actions {
+          gap: 12px;
+        }
+      }
+      @media (max-width: 1000px) {
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+        .aside {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 18px;
+        }
+        .aside .stack {
+          display: contents;
+        }
+        .aside .aside-panel:nth-child(3),
+        .side-caption {
+          display: none;
+        }
+        .search-top {
+          width: 210px;
+        }
+        .top-user span {
+          display: none;
+        }
+        .hero-art {
+          width: 43%;
+          opacity: 0.85;
+        }
+        .profile-layout {
+          grid-template-columns: 220px 1fr;
+        }
+      }
+      @media (max-width: 760px) {
+        .sidebar {
+          display: none;
+        }
+        .layout {
+          margin: 0;
+        }
+        .topbar {
+          height: 66px;
+          padding: 0 20px;
+          background: white;
+          position: sticky;
+          top: 0;
+          z-index: 15;
+        }
+        .breadcrumb,
+        .search-top,
+        .top-user {
+          display: none;
+        }
+        .mobile-brand {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        .mobile-brand svg {
+          width: 26px;
+          height: 30px;
+          color: var(--green);
+        }
+        .mobile-brand strong {
+          font-family: var(--serif);
+          font-size: 21px;
+          letter-spacing: 2px;
+        }
+        .mobile-brand small {
+          font-size: 9px;
+          color: #9aa58f;
+          border-left: 1px solid var(--line);
+          padding-left: 9px;
+          margin-left: 2px;
+        }
+        .top-actions {
+          gap: 6px;
+        }
+        .main {
+          padding: 25px 20px 94px;
+        }
+        .page-heading {
+          margin-bottom: 19px;
+          gap: 12px;
+        }
+        .page-heading h1 {
+          font-size: 24px;
+          letter-spacing: 0;
+        }
+        .page-heading p {
+          font-size: 11px;
+          max-width: 250px;
+        }
+        .page-heading .edition {
+          display: none;
+        }
+        .page-heading .btn {
+          font-size: 11px;
+          padding: 9px 11px;
+          min-height: 38px;
+        }
+        .hero {
+          min-height: 213px;
+          margin-bottom: 26px;
+        }
+        .hero-copy {
+          padding: 25px 22px;
+          width: 100%;
+        }
+        .hero h2 {
+          font-size: 25px;
+          letter-spacing: 0;
+          margin: 10px 0;
+        }
+        .hero p {
+          font-size: 10px;
+          max-width: 200px;
+          line-height: 1.8;
+          margin-bottom: 17px;
+        }
+        .hero .eyebrow {
+          font-size: 8px;
+          letter-spacing: 1.5px;
+        }
+        .hero-art {
+          width: 145px;
+          height: 140px;
+          right: -8px;
+          opacity: 0.8;
+          top: auto;
+          bottom: 5px;
+        }
+        .hero-label {
+          display: none;
+        }
+        .hero .btn {
+          font-size: 11px;
+          min-height: 34px;
+          padding: 7px 12px;
+        }
+        .hero-copy h2,
+        .hero-copy p {
+          position: relative;
+          z-index: 1;
+        }
+        .section-title h2 {
+          font-size: 17px;
+        }
+        .section-title h2 small {
+          font-size: 10px;
+        }
+        .section-title .text-btn {
+          font-size: 10px;
+        }
+        .chips {
+          gap: 7px;
+          margin-bottom: 9px;
+        }
+        .chip {
+          font-size: 11px;
+          padding: 7px 12px;
+        }
+        .filterbar {
+          padding-top: 8px;
+          gap: 7px;
+        }
+        .filterbar select {
+          max-width: calc(50% - 7px);
+          flex: 1;
+          min-width: 0;
+          font-size: 10px;
+        }
+        .filterbar .filter-label {
+          display: none;
+        }
+        .filterbar .result-count {
+          flex-basis: 100%;
+          text-align: right;
+          margin-top: 4px;
+          font-size: 9px;
+        }
+        .cards {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .card-art {
+          height: 73px;
+          padding: 12px;
+        }
+        .card-art .art-word {
+          font-size: 25px;
+        }
+        .card-art .art-sub {
+          font-size: 7px;
+          letter-spacing: 1px;
+        }
+        .card-art .art-symbol {
+          width: 45px;
+          height: 45px;
+          position: absolute;
+          right: 7px;
+          opacity: 0.4;
+        }
+        .card-art .year {
+          font-size: 8px;
+          right: 11px;
+        }
+        .card-body {
+          padding: 18px;
+        }
+        .card-body h3 {
+          font-size: 15px;
+          margin-bottom: 6px;
+        }
+        .card-top {
+          margin-bottom: 7px;
+        }
+        .badge {
+          font-size: 9px;
+          padding: 3px 6px;
+        }
+        .card-body p {
+          font-size: 11px;
+        }
+        .card-meta {
+          font-size: 11px;
+          gap: 4px;
+          margin: 10px 0;
+          flex-wrap: wrap;
+        }
+        .card-meta svg {
+          width: 11px;
+          height: 11px;
+        }
+        .card-bottom {
+          flex-wrap: wrap;
+          gap: 4px;
+          padding-top: 9px;
+        }
+        .card-bottom .text-btn {
+          font-size: 10px;
+        }
+        .card-bottom .small {
+          font-size: 11px;
+        }
+        .favorite-btn .icon {
+          width: 17px;
+          height: 17px;
+        }
+        .two-col {
+          gap: 23px;
+        }
+        .aside {
+          grid-template-columns: 1fr;
+        }
+        .aside .guide {
+          display: none;
+        }
+        .aside-panel {
+          padding: 18px;
+        }
+        .deadline {
+          padding: 12px 0;
+        }
+        .aside-panel h3 {
+          font-size: 14px;
+        }
+        .page-footer {
+          font-size: 9px;
+          line-height: 1.9;
+          margin-top: 25px;
+        }
+        .page-footer span {
+          display: none;
+        }
+        .mobile-nav {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          border-top: 1px solid #e2e8dc;
+          background: #ffffffed;
+          backdrop-filter: blur(10px);
+          display: flex;
+          justify-content: space-around;
+          z-index: 20;
+          padding: 9px 0 calc(8px + env(safe-area-inset-bottom));
+        }
+        .mobile-nav a {
+          display: grid;
+          justify-items: center;
+          gap: 4px;
+          color: #a1aa97;
+          font-size: 9px;
+          min-width: 50px;
+        }
+        .mobile-nav a.active {
+          color: var(--green);
+        }
+        .mobile-nav svg {
+          width: 21px;
+          height: 21px;
+        }
+        .toast {
+          left: 50%;
+          bottom: 84px;
+          font-size: 11px;
+          white-space: normal;
+          min-width: 220px;
+          text-align: center;
+        }
+        .team-grid {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+        .team-card {
+          padding: 21px;
+        }
+        .team-card .desc {
+          min-height: 0;
+        }
+        .team-card h3 {
+          font-size: 16px;
+        }
+        .role-banner {
+          padding: 18px;
+          align-items: flex-start;
+        }
+        .role-banner h2 {
+          font-size: 19px;
+        }
+        .role-banner p {
+          font-size: 10px;
+        }
+        .role-banner .icon {
+          width: 32px;
+          height: 32px;
+          flex-shrink: 0;
+        }
+        .application-row {
+          grid-template-columns: 38px 1fr;
+          gap: 12px;
+          padding: 17px;
+        }
+        .application-emblem {
+          width: 38px;
+          height: 38px;
+        }
+        .application-actions {
+          grid-column: 2;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
+        .application-row h3 {
+          font-size: 13px;
+        }
+        .application-row p {
+          font-size: 10px;
+        }
+        .tabs {
+          gap: 20px;
+        }
+        .tab {
+          font-size: 12px;
+        }
+        .my-team-card {
+          padding: 20px;
+        }
+        .my-team-card .team-toolbar .btn {
+          font-size: 11px;
+          padding: 8px 11px;
+        }
+        .notification {
+          grid-template-columns: 34px 1fr;
+          gap: 12px;
+          padding: 17px;
+        }
+        .notification .circle {
+          width: 34px;
+          height: 34px;
+        }
+        .notification > time {
+          grid-column: 2;
+        }
+        .notification h3 {
+          font-size: 12px;
+        }
+        .notification p {
+          font-size: 11px;
+        }
+        .profile-layout {
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
+        .profile-card {
+          padding: 25px;
+        }
+        .profile-card .profile-stat {
+          margin-top: 18px;
+          padding-top: 17px;
+        }
+        .profile-form {
+          padding: 21px;
+        }
+        .form-grid {
+          gap: 15px 12px;
+        }
+        .form-field {
+          font-size: 12px;
+        }
+        .form-field small {
+          font-size: 10px;
+        }
+        .style-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .dialog-header {
+          padding: 17px 19px;
+        }
+        .dialog-header h2 {
+          font-size: 15px;
+        }
+        .dialog-body {
+          padding: 20px;
+        }
+        .detail-title {
+          font-size: 21px;
+        }
+        .detail-facts {
+          padding: 15px;
+          gap: 13px;
+        }
+        .desktop-only {
+          display: none;
+        }
+        .profile-form .form-field.full textarea {
+          min-height: 90px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *:before,
+        *:after {
+          animation: none !important;
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg
+      aria-hidden="true"
+      style="position: absolute; width: 0; height: 0; overflow: hidden"
+    >
+      <defs>
+        <symbol id="i-sprout" viewBox="0 0 32 40">
+          <path
+            d="M16 37V15M16 26C4 26 3 17 3 17c11-2 13 9 13 9ZM16 19C28 19 29 8 29 8c-11-1-13 11-13 11ZM16 12C10 7 16 2 16 2s6 5 0 10Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </symbol>
+        <symbol id="i-grid" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7" rx="2" />
+          <rect x="14" y="3" width="7" height="7" rx="2" />
+          <rect x="3" y="14" width="7" height="7" rx="2" />
+          <rect x="14" y="14" width="7" height="7" rx="2" />
+        </symbol>
+        <symbol id="i-users" viewBox="0 0 24 24">
+          <circle cx="9" cy="8" r="3" />
+          <path
+            d="M3 20v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 4v2"
+          />
+        </symbol>
+        <symbol id="i-file" viewBox="0 0 24 24">
+          <path
+            d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9ZM14 3v6h6M8 13h8M8 17h5"
+          />
+        </symbol>
+        <symbol id="i-heart" viewBox="0 0 24 24">
+          <path
+            d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"
+          />
+        </symbol>
+        <symbol id="i-bell" viewBox="0 0 24 24">
+          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" />
+        </symbol>
+        <symbol id="i-user" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 21v-2a8 8 0 0 1 16 0v2" />
+        </symbol>
+        <symbol id="i-search" viewBox="0 0 24 24">
+          <circle cx="10.5" cy="10.5" r="6.5" />
+          <path d="m16 16 5 5" />
+        </symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24">
+          <path d="M4 12h16m-6-6 6 6-6 6" />
+        </symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24">
+          <path d="M12 4v16M4 12h16" />
+        </symbol>
+        <symbol id="i-clock" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 7v5l3 2" />
+        </symbol>
+        <symbol id="i-filter" viewBox="0 0 24 24">
+          <path d="M4 6h16M7 12h10M10 18h4" />
+          <circle cx="8" cy="6" r="2" fill="currentColor" stroke="none" />
+        </symbol>
+        <symbol id="i-close" viewBox="0 0 24 24">
+          <path d="m6 6 12 12M6 18 18 6" />
+        </symbol>
+        <symbol id="i-check" viewBox="0 0 24 24">
+          <path d="m5 12 4 4L19 6" />
+        </symbol>
+        <symbol id="i-campus" viewBox="0 0 24 24">
+          <path d="m3 9 9-6 9 6M5 10v10h14V10M9 20v-6h6v6M2 21h20" />
+        </symbol>
+        <symbol id="i-leaf" viewBox="0 0 24 24">
+          <path d="M20 3C8 2 2 8 5 15c3 7 15 6 15-12ZM4 21 16 9" />
+        </symbol>
+        <symbol id="i-trophy" viewBox="0 0 24 24">
+          <path
+            d="M7 3h10v5a5 5 0 0 1-10 0ZM7 5H3v2a4 4 0 0 0 4 4M17 5h4v2a4 4 0 0 1-4 4M12 13v6M8 21h8M9 19h6"
+          />
+        </symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24">
+          <rect x="4" y="10" width="16" height="11" rx="2" />
+          <path d="M8 10V6a4 4 0 0 1 8 0v4M12 14v3" />
+        </symbol>
+        <symbol id="i-palette" viewBox="0 0 24 24">
+          <path
+            d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1-4c-1-1 0-3 2-3h2a3 3 0 0 0 3-3c0-5-4-8-9-8Z"
+          />
+          <circle cx="7.5" cy="10" r=".6" />
+          <circle cx="11" cy="7" r=".6" />
+          <circle cx="16" cy="8" r=".6" />
+        </symbol>
+      </defs>
+    </svg>
+    <aside class="sidebar">
+      <a class="brand" href="#competitions" aria-label="禾伙人首页"
+        ><svg class="brand-mark"><use href="#i-sprout" /></svg>
+        <div>
+          <div class="brand-name">禾伙人</div>
+          <small>GROW TOGETHER</small>
+        </div></a
+      >
+      <div class="school-label">
+        <svg class="icon"><use href="#i-campus" /></svg>四川农业大学 · 学生自建
+      </div>
+      <div class="nav-label">发现 · 一起出发</div>
+      <nav aria-label="主导航">
+        <a class="nav-link" data-page="competitions" href="#competitions"
+          ><svg class="icon"><use href="#i-grid" /></svg>发现比赛</a
+        >
+        <a class="nav-link" data-page="teams" href="#teams"
+          ><svg class="icon"><use href="#i-users" /></svg>找队友</a
+        >
+      </nav>
+      <div class="nav-label">我的 · 慢慢生长</div>
+      <nav aria-label="个人导航">
+        <a class="nav-link" data-page="my-teams" href="#my-teams"
+          ><svg class="icon"><use href="#i-leaf" /></svg>我的队伍</a
+        >
+        <a class="nav-link" data-page="applications" href="#applications"
+          ><svg class="icon"><use href="#i-file" /></svg>申请与邀请<span
+            class="count"
+            id="invite-count"
+            >1</span
+          ></a
+        >
+        <a class="nav-link" data-page="favorites" href="#favorites"
+          ><svg class="icon"><use href="#i-heart" /></svg>我的收藏</a
+        >
+        <a class="nav-link" data-page="notifications" href="#notifications"
+          ><svg class="icon"><use href="#i-bell" /></svg>站内通知</a
+        >
+        <a class="nav-link" data-page="profile" href="#profile"
+          ><svg class="icon"><use href="#i-user" /></svg>个人资料</a
+        >
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="seed-note">
+          <svg class="icon"><use href="#i-sprout" /></svg
+          ><strong>一个人有想法，一群人有办法。</strong
+          >每一种热爱，都值得找到同行的人。
+        </div>
+        <div class="row between" style="margin-top: 13px">
+          <a href="#style" class="text-btn">样式规范 ↗</a
+          ><button class="text-btn" data-action="reset">重置演示</button>
+        </div>
+      </div>
+    </aside>
+    <div class="layout">
+      <header class="topbar">
+        <div class="breadcrumb">
+          禾伙人 <span style="padding: 0 10px; color: #c0c7b9">/</span>
+          <b id="breadcrumb-title">发现比赛</b>
+        </div>
+        <a class="mobile-brand" href="#competitions"
+          ><svg><use href="#i-sprout" /></svg><strong>禾伙人</strong
+          ><small>学生端 DEMO</small></a
+        >
+        <div class="top-actions">
+          <form id="search-form" class="search-top" role="search">
+            <svg class="icon"><use href="#i-search" /></svg
+            ><input
+              id="global-search"
+              aria-label="搜索比赛或招募"
+              placeholder="搜索比赛、项目、技能…"
+            />
+          </form>
+          <a class="icon-btn" href="#notifications" aria-label="站内通知"
+            ><svg class="icon"><use href="#i-bell" /></svg
+            ><span class="notification-dot" id="notification-dot"></span
+          ></a>
+          <a class="top-user" href="#profile"
+            ><span class="avatar" id="top-avatar">林</span
+            ><span id="top-name">林同学</span></a
+          >
+          <button class="icon-btn" data-action="more" aria-label="更多入口">
+            <svg class="icon"><use href="#i-user" /></svg>
+          </button>
+        </div>
+      </header>
+      <main class="main" id="main"></main>
+    </div>
+    <nav class="mobile-nav" aria-label="移动端导航">
+      <a data-page="competitions" href="#competitions"
+        ><svg class="icon"><use href="#i-grid" /></svg>比赛</a
+      >
+      <a data-page="teams" href="#teams"
+        ><svg class="icon"><use href="#i-users" /></svg>找队友</a
+      >
+      <a data-page="my-teams" href="#my-teams"
+        ><svg class="icon"><use href="#i-leaf" /></svg>队伍</a
+      >
+      <a data-page="applications" href="#applications"
+        ><svg class="icon"><use href="#i-file" /></svg>申请</a
+      >
+      <a data-page="profile" href="#profile"
+        ><svg class="icon"><use href="#i-user" /></svg>我的</a
+      >
+    </nav>
+    <dialog id="dialog" aria-labelledby="dialog-title">
+      <div class="dialog-header">
+        <h2 id="dialog-title"></h2>
+        <button class="icon-btn" data-action="close" aria-label="关闭弹窗">
+          <svg class="icon"><use href="#i-close" /></svg>
+        </button>
+      </div>
+      <div class="dialog-body" id="dialog-content"></div>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script>
+      "use strict";
+      const $ = (s, root = document) => root.querySelector(s);
+      const $$ = (s, root = document) => [...root.querySelectorAll(s)];
+      const esc = (value) =>
+        String(value ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      const icon = (name) =>
+        '<svg class="icon" aria-hidden="true"><use href="#i-' +
+        name +
+        '"/></svg>';
+      const badge = (text, type = "") =>
+        '<span class="badge ' + type + '">' + esc(text) + "</span>";
+      const demoNotice =
+        '<div class="notice gold">本页面全部比赛、队伍、人物和日期均为演示数据，不代表真实招募或报名信息。</div>';
+      const labels = {
+        competitions: "发现比赛",
+        teams: "找队友",
+        "my-teams": "我的队伍",
+        applications: "申请与邀请",
+        favorites: "我的收藏",
+        notifications: "站内通知",
+        profile: "个人资料",
+        style: "样式规范",
+      };
+      const storageKey = "hehuoren.student.style-demo.v1";
+      const competitions = [
+        {
+          id: "c1",
+          title: "2026 年大学生创新创业大赛",
+          category: "创新创业",
+          host: "管理学院",
+          scope: "all",
+          colleges: [],
+          rule: "面向全校学生；具体年级与赛道要求请核对主办方通知。",
+          date: "2026-11-15",
+          status: "open",
+          tracks: [
+            ["创意赛道", "3–5 人"],
+            ["创业实践赛道", "3–6 人"],
+          ],
+          art: "INNOVATE",
+          subtitle: "让好想法，落地生根",
+          color: "",
+          symbol: "sprout",
+          summary:
+            "从校园生活到乡村实践，寻找真实问题，提出可实施的创新方案。演示届次开放跨学院组队。",
+        },
+        {
+          id: "c2",
+          title: "2026 年智慧农业应用设计赛",
+          category: "科技实践",
+          host: "信息工程学院",
+          scope: "all",
+          colleges: [],
+          rule: "全校开放，可跨专业组队；不同赛道人数要求独立。",
+          date: "2026-10-28",
+          status: "open",
+          tracks: [
+            ["物联网应用赛道", "3–5 人"],
+            ["软件应用赛道", "2–4 人"],
+          ],
+          art: "CREATE",
+          subtitle: "技术与田野的下一次相遇",
+          color: "gold",
+          symbol: "leaf",
+          summary:
+            "以智慧农业为主题，围绕传感、数据采集与可视化开展应用设计。欢迎技术、设计与农业背景学生共同探索。",
+        },
+        {
+          id: "c3",
+          title: "2026 年校园可持续设计挑战赛",
+          category: "文化设计",
+          host: "风景园林学院",
+          scope: "selected",
+          colleges: ["风景园林学院", "信息工程学院"],
+          rule: "演示参赛范围为风景园林学院、信息工程学院；承办学院独立记录。",
+          date: "2026-11-06",
+          status: "open",
+          tracks: [
+            ["产品设计赛道", "2–4 人"],
+            ["服务创新赛道", "3–5 人"],
+          ],
+          art: "RETHINK",
+          subtitle: "用设计回应日常",
+          color: "blue",
+          symbol: "palette",
+          summary:
+            "从绿色校园出发，围绕资源循环、公共空间与生活体验提出设计方案。",
+        },
+        {
+          id: "c4",
+          title: "2026 年乡村文旅策划创意赛",
+          category: "文化设计",
+          host: "商旅学院",
+          scope: "rules",
+          colleges: [],
+          rule: "有额外专业条件：队伍至少包含一名旅游管理专业学生。请核对完整规则，不自动判定资格。",
+          date: "2026-11-20",
+          status: "open",
+          tracks: [["文旅策划赛道", "3–5 人"]],
+          art: "EXPLORE",
+          subtitle: "让乡土故事被看见",
+          color: "pink",
+          symbol: "campus",
+          summary:
+            "以乡村文化与在地资源为线索，设计有温度的文旅体验。此演示比赛有额外专业条件。",
+        },
+        {
+          id: "c5",
+          title: "2025 年大学生数据分析挑战赛",
+          category: "科技实践",
+          host: "理学院",
+          scope: "all",
+          colleges: [],
+          rule: "历史演示届次，已结束报名。",
+          date: "2025-11-10",
+          status: "archived",
+          tracks: [["数据分析赛道", "2–4 人"]],
+          art: "INSIGHT",
+          subtitle: "从数据里，发现可能",
+          color: "blue",
+          symbol: "grid",
+          summary:
+            "历史届次用于展示归档样式。历史比赛不提供当前报名或发布关联招募入口。",
+        },
+      ];
+      const initialTeams = [
+        {
+          id: "t1",
+          title: "把田间数据，变成看得懂的故事",
+          type: "比赛项目",
+          competition: "c2",
+          track: "软件应用赛道",
+          roles: ["前端开发", "数据分析"],
+          summary:
+            "正在搭建一个轻量的农田数据看板。我们有农业背景和后端同学，希望找到愿意一起打磨体验的伙伴。",
+          leader: "陈同学",
+          college: "信息工程学院",
+          campus: "成都校区",
+          mode: "线上为主",
+          hours: "每周 4–6 小时",
+          members: 2,
+          capacity: 4,
+          date: "2026-10-20",
+          status: "OPEN",
+          hidden: false,
+        },
+        {
+          id: "t2",
+          title: "一起做一款有温度的校园产品",
+          type: "比赛项目",
+          competition: "c1",
+          track: "创意赛道",
+          roles: ["交互设计", "前端开发"],
+          summary:
+            "从校园的真实需求出发，完成调研、原型与可运行的产品。寻找对产品体验有好奇心的你。",
+          leader: "周同学",
+          college: "管理学院",
+          campus: "成都校区",
+          mode: "线上 + 线下",
+          hours: "每周 3–5 小时",
+          members: 3,
+          capacity: 5,
+          date: "2026-10-25",
+          status: "OPEN",
+          hidden: false,
+        },
+        {
+          id: "t3",
+          title: "收集乡村故事，设计新的相遇",
+          type: "比赛项目",
+          competition: "c4",
+          track: "文旅策划赛道",
+          roles: ["调研策划", "视觉设计"],
+          summary:
+            "计划以一个真实村落为样本，开展文旅体验策划。队内已有旅游管理专业同学，期待擅长调研与表达的伙伴。",
+          leader: "许同学",
+          college: "商旅学院",
+          campus: "都江堰校区",
+          mode: "线下为主",
+          hours: "每周 4–6 小时",
+          members: 2,
+          capacity: 5,
+          date: "2026-11-01",
+          status: "OPEN",
+          hidden: false,
+        },
+        {
+          id: "t4",
+          title: "一份包装的第二次生命",
+          type: "课程项目",
+          competition: "",
+          track: "",
+          roles: ["视觉设计", "调研策划"],
+          summary:
+            "把可持续设计带进校园日常，完成可循环包装的调研与概念设计。更看重认真投入，而不是比赛经验。",
+          leader: "林同学",
+          college: "信息工程学院",
+          campus: "成都校区",
+          mode: "线上 + 线下",
+          hours: "每周 2–4 小时",
+          members: 2,
+          capacity: 4,
+          date: "2026-11-05",
+          status: "OPEN",
+          hidden: false,
+          owned: true,
+        },
+        {
+          id: "t5",
+          title: "为植物做一本数字生长日记",
+          type: "大创项目",
+          competition: "",
+          track: "",
+          roles: ["数据分析", "硬件开发"],
+          summary:
+            "用传感器记录植物的生长环境，尝试低成本的长期观测方案。目前在需求探索阶段，欢迎一起从零开始。",
+          leader: "何同学",
+          college: "农学院",
+          campus: "成都校区",
+          mode: "线下为主",
+          hours: "每周 3–5 小时",
+          members: 3,
+          capacity: 4,
+          date: "2026-10-30",
+          status: "PAUSED",
+          hidden: false,
+        },
+        {
+          id: "t6",
+          title: "把一个小问题，做成一个小工具",
+          type: "学习项目",
+          competition: "",
+          track: "",
+          roles: ["前端开发"],
+          summary:
+            "每周挑一个生活里的小问题，用代码解决它。以学习和练习为主，一起分享思路与实现。",
+          leader: "顾同学",
+          college: "信息工程学院",
+          campus: "雅安校区",
+          mode: "线上为主",
+          hours: "每周 2–3 小时",
+          members: 3,
+          capacity: 3,
+          date: "2026-10-25",
+          status: "PAUSED",
+          hidden: false,
+        },
+      ];
+      function initialState() {
+        return {
+          leftTeams: [],
+          favorites: [],
+          teams: JSON.parse(JSON.stringify(initialTeams)),
+          applications: [
+            {
+              id: "a1",
+              team: "t2",
+              status: "INVITED",
+              role: "前端开发",
+              message: "想参与前端页面与交互实现。",
+              date: "2026-10-02",
+              expires: "2026-10-04 18:00",
+            },
+            {
+              id: "a2",
+              team: "t3",
+              status: "PENDING",
+              role: "调研策划",
+              message: "希望参与访谈与方案梳理。",
+              date: "2026-10-01",
+            },
+          ],
+          inbox: [
+            {
+              id: "n1",
+              title: "你收到了一份入队邀请",
+              body: "周同学邀请你加入「一起做一款有温度的校园产品」。请在有效期内确认。",
+              read: false,
+              route: "applications",
+              date: "10 月 2 日 · 14:30",
+            },
+            {
+              id: "n2",
+              title: "你的队伍收到一份新申请",
+              body: "叶同学希望加入「一份包装的第二次生命」，申请角色为视觉设计。",
+              read: false,
+              route: "my-teams",
+              date: "10 月 2 日 · 10:15",
+            },
+            {
+              id: "n3",
+              title: "完善资料，让队友更了解你",
+              body: "补充技能、专业与时间投入，帮助队长了解你的合作意向。",
+              read: true,
+              route: "profile",
+              date: "10 月 1 日 · 16:20",
+            },
+          ],
+          profile: {
+            name: "林同学",
+            campus: "成都校区",
+            college: "信息工程学院",
+            major: "计算机科学与技术",
+            grade: "2024 级",
+            skills: "前端开发,交互设计",
+            hours: "每周 3–5 小时",
+            bio: "想把好奇心变成能用的作品，期待和不同专业的同学一起合作。",
+            share: false,
+          },
+          captainApplications: [
+            {
+              id: "ca1",
+              team: "t4",
+              name: "叶同学",
+              role: "视觉设计",
+              college: "风景园林学院",
+              message:
+                "熟悉 Figma 和视觉设计，愿意每周投入 4 小时，一起完成调研和包装原型。",
+              status: "PENDING",
+            },
+          ],
+        };
+      }
+      let state = initialState();
+      let storageAvailable = true;
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey));
+        if (
+          saved &&
+          Array.isArray(saved.teams) &&
+          Array.isArray(saved.applications) &&
+          Array.isArray(saved.favorites) &&
+          Array.isArray(saved.inbox) &&
+          saved.profile &&
+          Array.isArray(saved.captainApplications)
+        )
+          state = saved;
+      } catch {
+        storageAvailable = false;
+      }
+      state.leftTeams = Array.isArray(state.leftTeams) ? state.leftTeams : [];
+      let page = "competitions";
+      let activeFilter = "全部";
+      let appFilter = "全部";
+      let query = "";
+      let scopeFilter = "";
+      let hostFilter = "";
+      let timeFilter = "open";
+      let roleFilter = "";
+      let modeFilter = "";
+      let pendingCompetition = "";
+      let toastTimer;
+      const nowDemo = "2026-10-02";
+      function persist() {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(state));
+        } catch {
+          storageAvailable = false;
+        }
+      }
+      function toast(message) {
+        clearTimeout(toastTimer);
+        $("#toast").textContent = message;
+        $("#toast").classList.add("show");
+        toastTimer = setTimeout(
+          () => $("#toast").classList.remove("show"),
+          3500,
+        );
+      }
+      function teamById(id) {
+        return state.teams.find((t) => t.id === id);
+      }
+      function competitionById(id) {
+        return competitions.find((c) => c.id === id);
+      }
+      function teamOpen(t) {
+        return (
+          t.status === "OPEN" &&
+          !t.hidden &&
+          t.members < t.capacity &&
+          t.date >= nowDemo
+        );
+      }
+      function isMember(team) {
+        return (
+          !state.leftTeams.includes(team) &&
+          state.applications.some(
+            (a) => a.team === team && a.status === "ACCEPTED",
+          ) &&
+          teamById(team)?.status !== "DISBANDED"
+        );
+      }
+      function currentApplication(team) {
+        return state.applications.find(
+          (a) =>
+            a.team === team &&
+            (["PENDING", "INVITED"].includes(a.status) ||
+              (a.status === "ACCEPTED" && isMember(team))),
+        );
+      }
+      function statusLabel(status) {
+        return (
+          {
+            PENDING: "待处理",
+            INVITED: "待确认邀请",
+            ACCEPTED: "已确认入队",
+            REJECTED: "未通过",
+            WITHDRAWN: "已撤回",
+            DECLINED: "已拒绝邀请",
+            REVOKED: "邀请已撤销",
+            EXPIRED: "已失效",
+          }[status] || status
+        );
+      }
+      function statusBadge(status) {
+        return badge(
+          statusLabel(status),
+          status === "INVITED"
+            ? "gold"
+            : ["PENDING", "ACCEPTED"].includes(status)
+              ? ""
+              : "gray",
+        );
+      }
+      function teamStatus(t) {
+        return t.hidden
+          ? "已隐藏"
+          : t.members >= t.capacity
+            ? "已满员"
+            : t.date < nowDemo
+              ? "已截止"
+              : {
+                  OPEN: "招募中",
+                  PAUSED: "已暂停",
+                  CLOSED: "已关闭",
+                  DISBANDED: "已解散",
+                }[t.status];
+      }
+      function move(route) {
+        if (location.hash.slice(1) === route) {
+          render();
+        } else {
+          location.hash = route;
+        }
+      }
+      function footer() {
+        return '<footer class="page-footer"><div>学生自建项目 · 非学校官方平台 · 所有信息均为演示数据</div><span>HEHUOREN / GROW TOGETHER</span></footer>';
+      }
+      function heading(eyebrow, title, subtitle, action = "") {
+        return (
+          '<div class="page-heading"><div><div class="eyebrow">' +
+          eyebrow +
+          "</div><h1>" +
+          title +
+          "</h1><p>" +
+          subtitle +
+          "</p></div>" +
+          (action || '<div class="edition">2026 / 秋日生长计划</div>') +
+          "</div>"
+        );
+      }
+      function empty(title, description, action = "") {
+        return (
+          '<div class="empty">' +
+          icon("sprout") +
+          "<h3>" +
+          esc(title) +
+          "</h3><p>" +
+          esc(description) +
+          "</p>" +
+          action +
+          "</div>"
+        );
+      }
+      function options(items, selected, first = "全部") {
+        return (
+          '<option value="">' +
+          esc(first) +
+          "</option>" +
+          items
+            .map(
+              (x) =>
+                '<option value="' +
+                esc(x) +
+                '" ' +
+                (selected === x ? "selected" : "") +
+                ">" +
+                esc(x) +
+                "</option>",
+            )
+            .join("")
+        );
+      }
+      function hero() {
+        return (
+          '<section class="hero"><div class="hero-copy"><div class="eyebrow">GOOD IDEAS NEED GOOD COMPANY</div><h2>让每一个好想法，<br>都找到一起生长的人。</h2><p>发现适合你的比赛，遇见互补的伙伴。<br>从一次组队开始，把热爱变成作品。</p><a class="btn" href="#teams">寻找我的队友 ' +
+          icon("arrow") +
+          '</a></div><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 490 270" xmlns="http://www.w3.org/2000/svg"><circle cx="300" cy="142" r="102" fill="#dbe6c8"/><circle cx="366" cy="57" r="29" fill="#ead086"/><path d="M65 218h375" stroke="#b9c9a6" stroke-width="1"/><path d="M210 218c20-66 62-122 106-155" stroke="#94a77c" stroke-width="1" fill="none"/><path d="M289 209V100" stroke="#35694a" stroke-width="4" stroke-linecap="round"/><path d="M289 171c-42 2-66-30-64-55 35-4 64 17 64 55Z" fill="#6e9564"/><path d="M290 149c39-5 70-40 64-62-34-1-63 23-64 62Z" fill="#396e4d"/><path d="M289 109c-15-13-17-41 0-54 17 12 17 41 0 54Z" fill="#89a46e"/><path d="m289 171-47-40m48 18 46-43" stroke="#a5bb85" stroke-width="1.2" fill="none"/><path d="M260 198h58l-8 35h-41Z" fill="#dcb55b"/><path d="M256 198h65v8h-65Z" fill="#e5c475"/><ellipse cx="288" cy="237" rx="57" ry="5" fill="#c9d4b7"/><g transform="translate(74 84) rotate(-8)"><rect width="122" height="63" rx="10" fill="#fffdf4" stroke="#d4dec8"/><circle cx="26" cy="30" r="15" fill="#e4ecd7"/><path d="m20 30 5 5 8-9" stroke="#789069" stroke-width="2" fill="none"/><text x="49" y="28" font-size="11" fill="#526747" font-family="Microsoft YaHei,sans-serif">你的好点子</text><text x="49" y="44" font-size="8" fill="#93a084" font-family="Microsoft YaHei,sans-serif">值得被认真看见</text></g><g transform="translate(336 157) rotate(7)"><rect width="120" height="61" rx="10" fill="#fffdf4" stroke="#d4dec8"/><circle cx="23" cy="29" r="13" fill="#f2e4ba"/><text x="17" y="33" font-size="10" fill="#977b3b">+</text><text x="46" y="27" font-size="11" fill="#526747" font-family="Microsoft YaHei,sans-serif">刚好，缺一个你</text><text x="46" y="43" font-size="8" fill="#93a084" font-family="Microsoft YaHei,sans-serif">设计 × 技术 × 热爱</text></g><path d="M150 185v15m-7-7h14M400 112v12m-6-6h12" stroke="#a7b492" stroke-width="1.5"/><circle cx="193" cy="42" r="3" fill="#b6c49d"/><circle cx="394" cy="228" r="3" fill="#b6c49d"/><path d="M108 217c4-19 15-32 29-35m-17 35c-2-13-8-20-18-22" stroke="#a4b48c" stroke-width="2" fill="none"/></svg><div class="hero-label">PLANT AN IDEA. GROW TOGETHER.</div></div></section>'
+        );
+      }
+      function competitionCard(c) {
+        const favorite = state.favorites.includes(c.id),
+          n = state.teams.filter(
+            (t) => t.competition === c.id && teamOpen(t),
+          ).length;
+        return (
+          '<article class="competition-card"><div class="card-art ' +
+          c.color +
+          '"><div><div class="art-word">' +
+          c.art +
+          '</div><div class="art-sub">' +
+          c.subtitle +
+          '</div></div><svg class="art-symbol" aria-hidden="true"><use href="#i-' +
+          c.symbol +
+          '"/></svg><span class="year">' +
+          c.date.slice(0, 4) +
+          ' EDITION</span></div><div class="card-body"><div class="card-top">' +
+          badge(
+            c.status === "open" ? "开放报名 · 演示" : "历史届次 · 演示",
+            c.status === "open" ? "" : "gray",
+          ) +
+          '<button class="favorite-btn ' +
+          (favorite ? "active" : "") +
+          '" data-action="favorite" data-id="' +
+          c.id +
+          '" aria-label="' +
+          (favorite ? "取消收藏" : "收藏") +
+          esc(c.title) +
+          '" aria-pressed="' +
+          favorite +
+          '">' +
+          icon("heart") +
+          '</button></div><h3><button style="padding:0;text-align:left;font-weight:600;line-height:inherit" data-action="competition" data-id="' +
+          c.id +
+          '">' +
+          esc(c.title) +
+          "</button></h3><p>" +
+          esc(c.host) +
+          "承办 · " +
+          (c.scope === "all"
+            ? "全校开放"
+            : c.scope === "selected"
+              ? "指定学院"
+              : "需核对专业条件") +
+          '</p><div class="card-meta">' +
+          icon("clock") +
+          "<span>" +
+          c.date.slice(5).replace("-", " / ") +
+          " " +
+          (c.status === "open" ? "报名截止" : "已归档") +
+          "</span>" +
+          (c.scope === "rules" ? badge("有额外条件", "gold") : "") +
+          '</div><div class="card-bottom"><span class="small muted">' +
+          n +
+          ' 支队伍正在找伙伴</span><button class="text-btn" data-action="competition" data-id="' +
+          c.id +
+          '">看看比赛 ' +
+          icon("arrow") +
+          "</button></div></div></article>"
+        );
+      }
+      function filteredCompetitions() {
+        return competitions.filter(
+          (c) =>
+            (activeFilter === "全部" || c.category === activeFilter) &&
+            (!query || (c.title + c.summary + c.host).includes(query)) &&
+            (!hostFilter || c.host === hostFilter) &&
+            (!timeFilter || c.status === timeFilter) &&
+            (!scopeFilter ||
+              c.scope === "all" ||
+              (c.scope === "selected" && c.colleges.includes(scopeFilter))),
+        );
+      }
+      function competitionFilters() {
+        const categories = ["全部", "创新创业", "科技实践", "文化设计"];
+        return (
+          '<div class="chips" aria-label="比赛分类">' +
+          categories
+            .map(
+              (x) =>
+                '<button class="chip ' +
+                (activeFilter === x ? "active" : "") +
+                '" data-action="category" data-id="' +
+                x +
+                '">' +
+                x +
+                "<span>" +
+                competitions.filter((c) => x === "全部" || c.category === x)
+                  .length +
+                "</span></button>",
+            )
+            .join("") +
+          '</div><div class="filterbar"><span class="filter-label">' +
+          icon("filter") +
+          '筛选</span><select id="scope-filter" aria-label="可参赛学院">' +
+          options(
+            [
+              "信息工程学院",
+              "管理学院",
+              "风景园林学院",
+              "商旅学院",
+              "农学院",
+              "理学院",
+            ],
+            scopeFilter,
+            "可参赛学院：全部",
+          ) +
+          '</select><select id="host-filter" aria-label="承办学院">' +
+          options(
+            ["管理学院", "信息工程学院", "风景园林学院", "商旅学院", "理学院"],
+            hostFilter,
+            "承办学院：全部",
+          ) +
+          '</select><select id="time-filter" aria-label="比赛时间状态"><option value="open" ' +
+          (timeFilter === "open" ? "selected" : "") +
+          '>开放报名</option><option value="" ' +
+          (!timeFilter ? "selected" : "") +
+          '>全部届次</option><option value="archived" ' +
+          (timeFilter === "archived" ? "selected" : "") +
+          '>历史届次</option></select><span class="result-count">找到 ' +
+          filteredCompetitions().length +
+          " 项比赛</span></div>" +
+          (scopeFilter
+            ? '<div class="notice" style="margin-bottom:17px">已包含全校开放比赛。有额外专业条件的比赛需核对规则；此筛选不代表资格认证。<button class="text-btn" data-action="extra-rules" style="margin-left:8px">查看有额外条件的比赛</button></div>'
+            : "")
+        );
+      }
+      function aside() {
+        const upcoming = competitions
+          .filter((c) => c.status === "open")
+          .sort((a, b) => a.date.localeCompare(b.date))
+          .slice(0, 3);
+        return (
+          '<aside class="aside"><div class="stack"><section class="aside-panel"><div class="row between"><h3>别错过，下一次出发</h3>' +
+          icon("clock") +
+          '</div><div class="calendar-heading">UPCOMING / 演示截止日</div>' +
+          upcoming
+            .map(
+              (c) =>
+                '<button class="deadline" style="width:100%;text-align:left" data-action="competition" data-id="' +
+                c.id +
+                '"><div class="date-block"><strong>' +
+                c.date.slice(8) +
+                "</strong><small>" +
+                c.date.slice(5, 7) +
+                " 月</small></div><div><strong>" +
+                esc(c.title.replace("2026 年", "")) +
+                "</strong><p>" +
+                esc(c.host) +
+                " · 报名截止</p></div></button>",
+            )
+            .join("") +
+          '</section><section class="aside-panel guide"><div class="eyebrow">A LITTLE GUIDE</div><h3>不必一个人，<br>从零走到一。</h3><p>先找到共同的方向，再一起发挥各自的长处。</p><ol><li><span>01</span>看看比赛，找到想做的事</li><li><span>02</span>了解招募，提交你的申请</li><li><span>03</span>确认邀请，正式成为队友</li></ol><a class="text-btn" href="#applications">看看我的邀请 ' +
+          icon("arrow") +
+          '</a></section><section class="aside-panel"><div class="mini-profile"><span class="avatar">' +
+          esc(state.profile.name.slice(0, 1)) +
+          '</span><div><strong>让伙伴多了解你一点</strong><p>填好资料，认真介绍你的热爱</p></div></div><div class="profile-progress"><div></div></div><div class="row between"><small class="muted">技能、专业、投入时间</small><a class="text-btn" href="#profile">去完善 ↗</a></div></section><p class="side-caption">这里没有标准答案。<br>你的每一种可能，都能成为团队的拼图。</p></div></aside>'
+        );
+      }
+      function renderCompetitions() {
+        $("#main").innerHTML =
+          heading(
+            "DISCOVER / AUTUMN 2026",
+            "你的下一次出发，在这里。",
+            "按兴趣发现比赛，让不同专业的想法相遇。",
+          ) +
+          hero() +
+          '<div class="two-col"><section><div class="section-title"><h2>值得一起做的事<small>比赛发现</small></h2><button class="text-btn" data-action="search">搜索比赛 ' +
+          icon("search") +
+          "</button></div>" +
+          competitionFilters() +
+          (query
+            ? '<div class="notice" style="margin-bottom:15px">搜索：' +
+              esc(query) +
+              ' <button class="text-btn" data-action="clear-query">清除搜索</button></div>'
+            : "") +
+          '<div class="cards">' +
+          filteredCompetitions().map(competitionCard).join("") +
+          "</div>" +
+          (filteredCompetitions().length
+            ? ""
+            : empty(
+                "暂时没有匹配的比赛",
+                "换一个分类或学院，看看新的可能。",
+                '<button class="btn secondary" data-action="clear-filters">重置筛选</button>',
+              )) +
+          "</section>" +
+          aside() +
+          "</div>" +
+          footer();
+      }
+      function teamCard(t) {
+        const c = competitionById(t.competition);
+        return (
+          '<article class="team-card"><div class="row between">' +
+          badge(t.type, "gray") +
+          badge(teamStatus(t), teamOpen(t) ? "" : "gray") +
+          '</div><h3><button data-action="team" data-id="' +
+          t.id +
+          '" style="padding:0;text-align:left;font-weight:600">' +
+          esc(t.title) +
+          '</button></h3><p class="desc">' +
+          esc(t.summary) +
+          '</p><div class="tags">' +
+          t.roles
+            .map((x) => '<span class="tag">' + esc(x) + "</span>")
+            .join("") +
+          '</div><div class="team-info">' +
+          icon("campus") +
+          esc(t.mode) +
+          " · " +
+          esc(t.hours) +
+          '</div><div class="team-info">' +
+          icon(c ? "trophy" : "leaf") +
+          esc(c ? c.title.replace("2026 年", "") : t.type + " · " + t.campus) +
+          '</div><div class="bottom"><div class="row" style="gap:8px"><div class="avatar-group"><span class="avatar">' +
+          esc(t.leader.slice(0, 1)) +
+          '</span><span class="avatar gold">禾</span>' +
+          (t.members > 2 ? '<span class="avatar blue">友</span>' : "") +
+          '</div><span class="member-count"><strong>' +
+          t.members +
+          "</strong> / " +
+          t.capacity +
+          ' 人</span></div><button class="text-btn" data-action="team" data-id="' +
+          t.id +
+          '">了解队伍 ' +
+          icon("arrow") +
+          "</button></div></article>"
+        );
+      }
+      function filteredTeams() {
+        return state.teams.filter(
+          (t) =>
+            !t.hidden &&
+            t.status !== "DISBANDED" &&
+            (activeFilter === "全部" || t.type === activeFilter) &&
+            (!query ||
+              (t.title + t.summary + t.roles.join("")).includes(query)) &&
+            (!roleFilter || t.roles.includes(roleFilter)) &&
+            (!modeFilter || t.mode === modeFilter),
+        );
+      }
+      function renderTeams() {
+        const categories = [
+          "全部",
+          "比赛项目",
+          "课程项目",
+          "大创项目",
+          "学习项目",
+        ];
+        $("#main").innerHTML =
+          heading(
+            "FIND YOUR PEOPLE",
+            "刚好，缺一个你。",
+            "技术、设计、调研、表达，每一种长处都有它的位置。",
+            '<button class="btn" data-action="publish">' +
+              icon("plus") +
+              "发布招募</button>",
+          ) +
+          '<section class="role-banner"><div><div class="eyebrow">BETTER TOGETHER</div><h2>找到互补的伙伴，一起把事情做好。</h2><p>看看目标、角色缺口和时间投入，选择适合你的合作。</p></div><svg class="icon" style="width:52px;height:52px;stroke-width:1;color:#8d9f73"><use href="#i-users"/></svg></section><div class="section-title"><h2>正在寻找同行的人<small>示例招募</small></h2><button class="text-btn" data-action="search">搜索招募 ' +
+          icon("search") +
+          '</button></div><div class="chips">' +
+          categories
+            .map(
+              (x) =>
+                '<button class="chip ' +
+                (activeFilter === x ? "active" : "") +
+                '" data-action="category" data-id="' +
+                x +
+                '">' +
+                x +
+                "</button>",
+            )
+            .join("") +
+          '</div><div class="filterbar"><span class="filter-label">' +
+          icon("filter") +
+          '筛选</span><select id="role-filter" aria-label="招募角色">' +
+          options(
+            [
+              "前端开发",
+              "数据分析",
+              "交互设计",
+              "视觉设计",
+              "调研策划",
+              "硬件开发",
+            ],
+            roleFilter,
+            "招募角色：全部",
+          ) +
+          '</select><select id="mode-filter" aria-label="合作方式">' +
+          options(
+            ["线上为主", "线上 + 线下", "线下为主"],
+            modeFilter,
+            "合作方式：全部",
+          ) +
+          '</select><span class="result-count">找到 ' +
+          filteredTeams().length +
+          " 支队伍</span></div>" +
+          (query
+            ? '<div class="notice" style="margin-bottom:17px">搜索：' +
+              esc(query) +
+              ' <button class="text-btn" data-action="clear-query">清除搜索</button></div>'
+            : "") +
+          '<div class="team-grid">' +
+          filteredTeams().map(teamCard).join("") +
+          "</div>" +
+          (filteredTeams().length
+            ? ""
+            : empty(
+                "还没有找到合适的队伍",
+                "试试其他角色，或发布自己的招募。",
+                '<button class="btn secondary" data-action="clear-filters">重置筛选</button>',
+              )) +
+          footer();
+      }
+      function renderApplications() {
+        const list = state.applications.filter(
+          (a) =>
+            appFilter === "全部" ||
+            (appFilter === "待处理" && a.status === "PENDING") ||
+            (appFilter === "待确认" && a.status === "INVITED") ||
+            (appFilter === "已结束" &&
+              !["PENDING", "INVITED"].includes(a.status)),
+        );
+        $("#main").innerHTML =
+          heading(
+            "ONE STEP CLOSER",
+            "从一份申请，到并肩同行。",
+            "邀请不预占名额，确认时以剩余名额为准。",
+          ) +
+          '<div class="notice gold" style="margin-bottom:20px">固定演示日期：2026 年 10 月 2 日。邀请有效期和状态仅供界面体验，实际结果应由服务端校验。</div><div class="tabs">' +
+          ["全部", "待处理", "待确认", "已结束"]
+            .map(
+              (x) =>
+                '<button class="tab ' +
+                (appFilter === x ? "active" : "") +
+                '" data-action="app-filter" data-id="' +
+                x +
+                '">' +
+                x +
+                "</button>",
+            )
+            .join("") +
+          "</div>" +
+          list
+            .map((a) => {
+              const t = teamById(a.team);
+              if (!t) return "";
+              const actions =
+                a.status === "INVITED"
+                  ? '<button class="btn secondary" data-action="decline" data-id="' +
+                    a.id +
+                    '">拒绝邀请</button><button class="btn" data-action="confirm-invite" data-id="' +
+                    a.id +
+                    '">确认入队 ' +
+                    icon("arrow") +
+                    "</button>"
+                  : a.status === "PENDING"
+                    ? '<button class="text-btn" data-action="withdraw" data-id="' +
+                      a.id +
+                      '">撤回申请</button>'
+                    : a.status === "ACCEPTED" && isMember(a.team)
+                      ? '<a class="text-btn" href="#my-teams">查看我的队伍 ' +
+                        icon("arrow") +
+                        "</a>"
+                      : a.status === "ACCEPTED"
+                        ? '<span class="small muted">成员关系已结束</span>'
+                        : "";
+              return (
+                '<article class="application-row"><div class="application-emblem">' +
+                icon("leaf") +
+                '</div><div><div class="row between" style="gap:8px;flex-wrap:wrap"><h3><button data-action="team" data-id="' +
+                t.id +
+                '" style="padding:0;text-align:left;font-weight:600">' +
+                esc(t.title) +
+                "</button></h3>" +
+                statusBadge(a.status) +
+                "</div><p>申请角色：" +
+                esc(a.role) +
+                " · 队长：" +
+                esc(t.leader) +
+                " · " +
+                esc(a.date) +
+                "</p>" +
+                (a.status === "INVITED"
+                  ? '<p style="color:#a68b4d;margin-top:5px">邀请有效至 ' +
+                    esc(a.expires) +
+                    " · 剩余 " +
+                    Math.max(0, t.capacity - t.members) +
+                    " 个名额</p>"
+                  : "") +
+                '<div class="status-step"><span class="done">提交申请</span><i></i><span class="' +
+                (["INVITED", "ACCEPTED"].includes(a.status) ? "done" : "") +
+                '">收到邀请</span><i></i><span class="' +
+                (a.status === "ACCEPTED" ? "done" : "") +
+                '">确认入队</span></div></div><div class="application-actions">' +
+                actions +
+                "</div></article>"
+              );
+            })
+            .join("") +
+          (list.length
+            ? ""
+            : empty(
+                "这里还没有记录",
+                "发现想参与的项目，从一份认真填写的申请开始。",
+                '<a class="btn" href="#teams">去找队友 ' +
+                  icon("arrow") +
+                  "</a>",
+              )) +
+          '<div style="margin-top:22px"><button class="text-btn" data-action="simulate-invite">演示控制：模拟收到队长邀请 ↗</button></div>' +
+          footer();
+      }
+      function renderMyTeams() {
+        const my = state.teams.filter(
+          (t) => (t.owned || isMember(t.id)) && t.status !== "DISBANDED",
+        );
+        $("#main").innerHTML =
+          heading(
+            "GROWING TOGETHER",
+            "一起，把想法变成作品。",
+            "管理你的队伍，认真对待每一位同行的人。",
+            '<button class="btn" data-action="publish">' +
+              icon("plus") +
+              "发布招募</button>",
+          ) +
+          my
+            .map((t) => {
+              const pending = state.captainApplications.filter(
+                (a) => a.team === t.id && a.status === "PENDING",
+              ).length;
+              return (
+                '<article class="my-team-card"><div class="row between"><div><div class="row" style="gap:8px;flex-wrap:wrap">' +
+                badge(t.owned ? "我是队长" : "队伍成员") +
+                badge(teamStatus(t), "gray") +
+                "</div><h3>" +
+                esc(t.title) +
+                "</h3><p>" +
+                esc(t.type) +
+                " · " +
+                esc(t.campus) +
+                " · " +
+                t.members +
+                " / " +
+                t.capacity +
+                ' 人（含队长）</p></div><div class="avatar-group desktop-only"><span class="avatar">' +
+                esc(t.leader.slice(0, 1)) +
+                '</span><span class="avatar gold">禾</span></div></div><div class="team-toolbar"><button class="btn secondary" data-action="members" data-id="' +
+                t.id +
+                '">' +
+                icon("users") +
+                "成员与授权</button>" +
+                (t.owned
+                  ? '<button class="btn soft" data-action="captain-apps" data-id="' +
+                    t.id +
+                    '">查看申请' +
+                    (pending ? " · " + pending : "") +
+                    '</button><button class="btn secondary" data-action="edit-team" data-id="' +
+                    t.id +
+                    '">编辑招募</button><button class="text-btn" data-action="toggle-team" data-id="' +
+                    t.id +
+                    '">' +
+                    (t.status === "OPEN" ? "暂停招募" : "恢复招募") +
+                    '</button><button class="text-btn" data-action="close-team" data-id="' +
+                    t.id +
+                    '" style="color:var(--red)">关闭招募</button>'
+                  : '<button class="btn secondary" data-action="leave-team" data-id="' +
+                    t.id +
+                    '">退出队伍</button>') +
+                "</div></article>"
+              );
+            })
+            .join("") +
+          (my.length
+            ? ""
+            : empty(
+                "你的队伍，会从一次相遇开始",
+                "加入一支队伍，或发起属于你的项目。",
+                '<a class="btn" href="#teams">看看招募 ' +
+                  icon("arrow") +
+                  "</a>",
+              )) +
+          footer();
+      }
+      function renderFavorites() {
+        const items = competitions.filter((c) =>
+          state.favorites.includes(c.id),
+        );
+        $("#main").innerHTML =
+          heading(
+            "KEEP THE POSSIBILITIES",
+            "把感兴趣的可能，先留在这里。",
+            "收藏的比赛不会错过，下一次出发可以慢慢想。",
+          ) +
+          '<div class="cards">' +
+          items.map(competitionCard).join("") +
+          "</div>" +
+          (items.length
+            ? ""
+            : empty(
+                "还没有收藏的比赛",
+                "在比赛卡片上点一下爱心，留住感兴趣的方向。",
+                '<a class="btn" href="#competitions">发现比赛 ' +
+                  icon("arrow") +
+                  "</a>",
+              )) +
+          footer();
+      }
+      function renderNotifications() {
+        $("#main").innerHTML =
+          heading(
+            "A LITTLE NEWS",
+            "你的新消息，来啦。",
+            "申请、邀请与队伍动态，都在这里。",
+            '<button class="btn secondary" data-action="read-all">' +
+              icon("check") +
+              "全部已读</button>",
+          ) +
+          state.inbox
+            .map(
+              (n) =>
+                '<article class="notification ' +
+                (n.read ? "read" : "") +
+                '"><div class="circle">' +
+                icon(n.route === "profile" ? "sprout" : "bell") +
+                '</div><div><div class="row between"><h3>' +
+                esc(n.title) +
+                "</h3>" +
+                (!n.read ? badge("未读", "gold") : "") +
+                "</div><p>" +
+                esc(n.body) +
+                '</p><button class="text-btn" data-action="read-notification" data-id="' +
+                n.id +
+                '">查看详情 ' +
+                icon("arrow") +
+                "</button></div><time>" +
+                esc(n.date) +
+                "</time></article>",
+            )
+            .join("") +
+          footer();
+      }
+      function renderProfile() {
+        const p = state.profile;
+        $("#main").innerHTML =
+          heading(
+            "THIS IS YOU",
+            "你的长处，值得被看见。",
+            "资料为本人填写，不代表学籍或专业认证。",
+          ) +
+          '<div class="profile-layout"><section class="panel profile-card"><span class="avatar big">' +
+          esc(p.name.slice(0, 1)) +
+          "</span><h2>" +
+          esc(p.name) +
+          "</h2><p>" +
+          esc(p.college) +
+          " · " +
+          esc(p.grade) +
+          '</p><div class="tags">' +
+          p.skills
+            .split(/[,，]/)
+            .filter(Boolean)
+            .map((s) => '<span class="tag">' + esc(s) + "</span>")
+            .join("") +
+          "</div><p>" +
+          esc(p.bio) +
+          '</p><div class="profile-stat"><div><strong>' +
+          state.teams.filter(
+            (t) => (t.owned || isMember(t.id)) && t.status !== "DISBANDED",
+          ).length +
+          "</strong><small>我的队伍</small></div><div><strong>" +
+          state.favorites.length +
+          '</strong><small>收藏比赛</small></div></div><div class="stack" style="gap:5px;margin-top:20px"><a class="text-btn" href="#favorites">我的收藏 ' +
+          icon("arrow") +
+          '</a><a class="text-btn" href="#notifications">站内通知 ' +
+          icon("arrow") +
+          '</a><a class="text-btn" href="#style">查看样式规范 ' +
+          icon("arrow") +
+          '</a><button class="text-btn" data-action="login">登录 / 注册演示</button><button class="text-btn" data-action="reset">重置演示数据</button></div></section><form class="panel profile-form" id="profile-form"><h3>关于你的一些小事</h3><div class="form-grid"><label class="form-field">昵称<input class="input" name="name" maxlength="16" required value="' +
+          esc(p.name) +
+          '"></label><label class="form-field">校区<select name="campus">' +
+          ["成都校区", "雅安校区", "都江堰校区"]
+            .map(
+              (s) =>
+                "<option " +
+                (s === p.campus ? "selected" : "") +
+                ">" +
+                s +
+                "</option>",
+            )
+            .join("") +
+          '</select></label><label class="form-field">学院<select name="college">' +
+          [
+            "信息工程学院",
+            "管理学院",
+            "风景园林学院",
+            "商旅学院",
+            "农学院",
+            "理学院",
+          ]
+            .map(
+              (s) =>
+                "<option " +
+                (s === p.college ? "selected" : "") +
+                ">" +
+                s +
+                "</option>",
+            )
+            .join("") +
+          '</select><small>仅展示演示样例，非学校完整名录</small></label><label class="form-field">专业<input class="input" name="major" maxlength="40" required value="' +
+          esc(p.major) +
+          '"></label><label class="form-field">年级<input class="input" name="grade" maxlength="16" required value="' +
+          esc(p.grade) +
+          '"></label><label class="form-field">可投入时间<input class="input" name="hours" maxlength="40" required value="' +
+          esc(p.hours) +
+          '"></label><label class="form-field full">你的技能<input class="input" name="skills" maxlength="80" required value="' +
+          esc(p.skills) +
+          '"><small>用逗号分隔，例如：前端开发，交互设计</small></label><label class="form-field full">介绍一下自己<textarea name="bio" maxlength="300">' +
+          esc(p.bio) +
+          '</textarea></label></div><section class="privacy-setting"><div class="row" style="margin-bottom:6px">' +
+          icon("lock") +
+          '<h3 style="margin:0">联系方式，由你决定</h3></div><p>默认不共享，仅在你授权后向同队有效成员展示。离开队伍后，相应查看权限失效。</p><label class="privacy-toggle"><span>允许同队有效成员查看我的联系方式<br><small class="muted">演示仅保存开关，不收集真实联系方式</small></span><input class="switch" type="checkbox" name="share" ' +
+          (p.share ? "checked" : "") +
+          ' aria-label="共享联系方式"></label></section><button class="btn" type="submit">保存个人资料 ' +
+          icon("check") +
+          "</button></form></div>" +
+          footer();
+      }
+      function renderStyle() {
+        $("#main").innerHTML =
+          heading(
+            "THE VISUAL LANGUAGE",
+            "像一粒种子，清爽而有生命力。",
+            "学生端统一使用暖白、禾苗绿与谷物黄；保持内容和操作清晰。",
+          ) +
+          '<section class="panel"><h3>色彩 / COLOR</h3><div class="style-grid" style="margin-top:20px">' +
+          [
+            ["禾苗绿", "#27644b"],
+            ["暖白", "#f7f8f4"],
+            ["嫩叶浅绿", "#eaf2e9"],
+            ["谷物黄", "#e9bd56"],
+          ]
+            .map(
+              ([n, c]) =>
+                '<div><div class="swatch" style="background:' +
+                c +
+                '"></div><div class="token-caption">' +
+                n +
+                "<code>" +
+                c +
+                "</code></div></div>",
+            )
+            .join("") +
+          '</div></section><section class="panel" style="margin-top:20px"><div class="eyebrow">TYPOGRAPHY / 字体层次</div><h2 style="font-family:var(--serif);font-size:32px;font-weight:500">让好想法，一起生长。</h2><p style="margin-top:12px;color:var(--muted);font-size:12px">品牌与主题文案使用中文衬线体，业务信息使用易读的无衬线体；均使用本地字体回退，无外部字体请求。</p></section><section class="panel" style="margin-top:20px"><h3>组件 / COMPONENTS</h3><div class="row" style="margin-top:20px;flex-wrap:wrap"><button class="btn" data-action="publish">主要操作</button><button class="btn secondary" data-action="search">次要操作</button><button class="btn soft" data-action="style-toast">轻量操作</button><button class="btn" disabled>不可操作</button></div><div class="row" style="margin-top:18px;flex-wrap:wrap">' +
+          badge("招募中") +
+          badge("待确认邀请", "gold") +
+          badge("历史届次", "gray") +
+          badge("已失效", "red") +
+          '</div><p class="small muted" style="margin-top:18px">卡片圆角 15–18px · 间距 8 / 12 / 18 / 24px · 按钮保留可见焦点 · 状态同时以文字区分</p></section><section class="panel" style="margin-top:20px"><h3>交互与业务表达</h3><p class="small muted" style="margin-top:12px;line-height:2">移动端底部导航，桌面侧栏导航；比赛承办与参赛范围分别筛选；队长计入成员总数；邀请需主动确认；历史比赛、暂停招募和满员状态限制操作；联系方式默认不共享。</p><p class="small muted" style="margin-top:12px">固定演示日期为 2026-10-02，所有业务仅在浏览器模拟。' +
+          (storageAvailable
+            ? "演示改动保存在当前浏览器，可从个人资料重置。"
+            : "浏览器存储不可用，改动仅在当前页面会话有效。") +
+          "</p></section>" +
+          footer();
+      }
+      function render() {
+        const hash = location.hash.slice(1),
+          parts = hash.split("?");
+        const next = Object.prototype.hasOwnProperty.call(labels, parts[0])
+          ? parts[0]
+          : "competitions";
+        if (next !== page) {
+          activeFilter = "全部";
+          query = "";
+          scopeFilter = "";
+          hostFilter = "";
+          roleFilter = "";
+          modeFilter = "";
+          timeFilter = "open";
+          appFilter = "全部";
+        }
+        page = next;
+        if (page === "competitions" || page === "teams") {
+          const params = new URLSearchParams(parts[1] || "");
+          activeFilter = params.get("category") || "全部";
+          query = params.get("q") || "";
+          scopeFilter = params.get("scope") || "";
+          hostFilter = params.get("host") || "";
+          timeFilter = params.has("time") ? params.get("time") : "open";
+          roleFilter = params.get("role") || "";
+          modeFilter = params.get("mode") || "";
+          const categories =
+            page === "competitions"
+              ? ["全部", "创新创业", "科技实践", "文化设计"]
+              : ["全部", "比赛项目", "课程项目", "大创项目", "学习项目"];
+          if (!categories.includes(activeFilter)) activeFilter = "全部";
+        }
+        $("#breadcrumb-title").textContent = labels[page];
+        $$("[data-page]").forEach((el) => {
+          el.classList.toggle("active", el.dataset.page === page);
+          if (el.dataset.page === page) el.setAttribute("aria-current", "page");
+          else el.removeAttribute("aria-current");
+        });
+        $("#invite-count").textContent = state.applications.filter(
+          (a) => a.status === "INVITED",
+        ).length;
+        $("#notification-dot").classList.toggle(
+          "hidden",
+          !state.inbox.some((n) => !n.read),
+        );
+        $("#top-name").textContent = state.profile.name;
+        $("#top-avatar").textContent = state.profile.name.slice(0, 1);
+        $("#global-search").value = query;
+        ({
+          competitions: renderCompetitions,
+          teams: renderTeams,
+          applications: renderApplications,
+          "my-teams": renderMyTeams,
+          favorites: renderFavorites,
+          notifications: renderNotifications,
+          profile: renderProfile,
+          style: renderStyle,
+        })[page]();
+        $("#main").classList.remove("reveal");
+        void $("#main").offsetWidth;
+        $("#main").classList.add("reveal");
+      }
+      function updateFilterURL() {
+        const params = new URLSearchParams();
+        if (activeFilter !== "全部") params.set("category", activeFilter);
+        if (query) params.set("q", query);
+        if (page === "competitions") {
+          if (scopeFilter) params.set("scope", scopeFilter);
+          if (hostFilter) params.set("host", hostFilter);
+          if (timeFilter !== "open") params.set("time", timeFilter);
+        }
+        if (page === "teams") {
+          if (roleFilter) params.set("role", roleFilter);
+          if (modeFilter) params.set("mode", modeFilter);
+        }
+        history.replaceState(
+          null,
+          "",
+          "#" + page + (params.size ? "?" + params.toString() : ""),
+        );
+        render();
+      }
+      function openDialog(title, content) {
+        $("#dialog-title").textContent = title;
+        $("#dialog-content").innerHTML = content;
+        if (!$("#dialog").open) $("#dialog").showModal();
+      }
+      function closeDialog() {
+        $("#dialog").close();
+      }
+      function showCompetition(id) {
+        const c = competitionById(id);
+        if (!c) return;
+        const teams = state.teams.filter(
+          (t) => t.competition === id && !t.hidden && t.status !== "DISBANDED",
+        );
+        openDialog(
+          "比赛详情 · 演示届次",
+          badge(c.category, "gray") +
+            " " +
+            badge(
+              c.status === "open" ? "开放报名 · 演示" : "历史届次 · 演示",
+              c.status === "open" ? "" : "gray",
+            ) +
+            '<h2 class="detail-title">' +
+            esc(c.title) +
+            "</h2><p>" +
+            esc(c.summary) +
+            '</p><div class="detail-facts"><div><small>承办学院</small><strong>' +
+            esc(c.host) +
+            "</strong></div><div><small>参赛范围</small><strong>" +
+            (c.scope === "all"
+              ? "全校开放"
+              : c.scope === "selected"
+                ? esc(c.colleges.join("、"))
+                : "其他明确规则") +
+            "</strong></div><div><small>比赛报名截止</small><strong>" +
+            c.date +
+            " · 23:59（北京时间）</strong></div><div><small>届次 / 信息核对</small><strong>" +
+            c.date.slice(0, 4) +
+            " 年 / 2026-10-02（演示）</strong></div></div><h3>参赛规则</h3><p>" +
+            esc(c.rule) +
+            "</p><h3>赛道与人数</h3>" +
+            c.tracks
+              .map(
+                ([n, p]) =>
+                  '<div class="track"><strong>' +
+                  esc(n) +
+                  "</strong><small>" +
+                  p +
+                  "（含队长）</small></div>",
+              )
+              .join("") +
+            '<h3>来源信息</h3><p>来源：样式演示样例，无真实比赛通知链接。正式页面应展示主办方通知与更新时间。</p><div class="notice gold" style="margin:15px 0">在平台找到队伍不等于完成官方比赛报名，报名要求以主办方通知为准。</div><h3>关联招募</h3>' +
+            teams
+              .map(
+                (t) =>
+                  '<button class="track" style="width:100%;text-align:left" data-action="team" data-id="' +
+                  t.id +
+                  '"><strong>' +
+                  esc(t.title) +
+                  "</strong>" +
+                  badge(teamStatus(t), teamOpen(t) ? "" : "gray") +
+                  "</button>",
+              )
+              .join("") +
+            (teams.length ? "" : "<p>这项比赛暂时没有关联招募。</p>") +
+            '<div class="dialog-actions"><button class="btn secondary" data-action="favorite" data-id="' +
+            id +
+            '">' +
+            (state.favorites.includes(id) ? "取消收藏" : "收藏比赛") +
+            '</button><button class="btn" data-action="publish" data-id="' +
+            id +
+            '" ' +
+            (c.status === "archived" ? "disabled" : "") +
+            ">发布关联招募 " +
+            icon("plus") +
+            "</button></div>",
+        );
+      }
+      function showTeam(id) {
+        const t = teamById(id);
+        if (!t || t.hidden || t.status === "DISBANDED")
+          return toast("队伍暂不可查看");
+        const c = competitionById(t.competition),
+          a = currentApplication(id),
+          open = teamOpen(t);
+        const text = t.owned
+          ? "管理我的队伍"
+          : a
+            ? a.status === "ACCEPTED"
+              ? "你已是队伍成员"
+              : statusLabel(a.status)
+            : open
+              ? "申请加入"
+              : "当前不可申请";
+        openDialog(
+          "队伍详情 · 招募信息",
+          badge(t.type, "gray") +
+            " " +
+            badge(teamStatus(t), open ? "" : "gray") +
+            '<h2 class="detail-title">' +
+            esc(t.title) +
+            '</h2><div class="row" style="margin:15px 0"><span class="avatar">' +
+            esc(t.leader.slice(0, 1)) +
+            '</span><div><strong style="font-size:12px">' +
+            esc(t.leader) +
+            " · 队长</strong><p>" +
+            esc(t.college) +
+            ' · 资料为本人填写</p></div></div><p style="white-space:pre-line">' +
+            esc(t.summary) +
+            '</p><div class="detail-facts"><div><small>当前成员 / 人数上限</small><strong>' +
+            t.members +
+            " / " +
+            t.capacity +
+            " 人（含队长）</strong></div><div><small>合作方式 / 校区</small><strong>" +
+            esc(t.mode) +
+            " / " +
+            esc(t.campus) +
+            "</strong></div><div><small>每周时间投入</small><strong>" +
+            esc(t.hours) +
+            "</strong></div><div><small>招募截止</small><strong>" +
+            t.date +
+            ' · 23:59（北京时间）</strong></div></div><h3>我们正在寻找</h3><div class="tags">' +
+            t.roles
+              .map((r) => '<span class="tag">' + esc(r) + "</span>")
+              .join("") +
+            "</div>" +
+            (c
+              ? '<h3>关联比赛与赛道</h3><button class="text-btn" data-action="competition" data-id="' +
+                c.id +
+                '">' +
+                esc(c.title) +
+                " ↗</button><p>" +
+                esc(t.track) +
+                " · 比赛报名截止 " +
+                c.date +
+                '（与招募截止分别记录）</p><div class="notice gold" style="margin-top:12px">' +
+                esc(c.rule) +
+                "</div>"
+              : "") +
+            '<h3>联系方式</h3><div class="notice">' +
+            icon("lock") +
+            ' 联系方式不对公众展示。入队后仍需联系方式拥有者主动授权。</div><div class="dialog-actions"><button class="text-btn" data-action="report" data-id="' +
+            id +
+            '">举报招募</button><button class="btn" data-action="' +
+            (t.owned ? "go-my-teams" : a ? "go-applications" : "apply") +
+            '" data-id="' +
+            id +
+            '" ' +
+            (!t.owned && !a && !open ? "disabled" : "") +
+            ">" +
+            text +
+            " " +
+            icon("arrow") +
+            "</button></div>",
+        );
+      }
+      function applyForm(id) {
+        const t = teamById(id);
+        if (!t || !teamOpen(t) || t.owned || currentApplication(id))
+          return toast("当前无法申请该队伍");
+        openDialog(
+          "申请加入队伍",
+          '<h2 style="font-size:20px;margin-bottom:8px">' +
+            esc(t.title) +
+            '</h2><p>认真说明你的长处和可投入时间，帮助队长了解你。</p><form id="apply-form" data-id="' +
+            id +
+            '" class="stack" style="margin-top:22px"><label class="form-field">希望参与的角色<select name="role">' +
+            t.roles.map((r) => "<option>" + esc(r) + "</option>").join("") +
+            '</select></label><label class="form-field">给队长的一段自我介绍<textarea name="message" minlength="10" maxlength="500" required placeholder="我能做些什么、每周能投入多少时间，为什么想加入这个项目…"></textarea><small>10–500 字；提交后等待队长处理，申请不会直接建立成员关系。</small></label><label class="check"><input type="checkbox" required>我已阅读招募信息，了解项目目标与时间要求。</label><div class="dialog-actions"><button class="btn secondary" type="button" data-action="close">再想想</button><button class="btn" type="submit">提交申请 ' +
+            icon("arrow") +
+            "</button></div></form>",
+        );
+      }
+      function publishForm(competitionId = "", editId = "") {
+        const t = editId ? teamById(editId) : null;
+        if (editId && (!t || !t.owned))
+          return toast("你没有编辑这支队伍的权限");
+        pendingCompetition = t ? t.competition : competitionId;
+        const c = competitionById(pendingCompetition);
+        openDialog(
+          t ? "编辑招募" : "发布一份新招募",
+          '<p>把目标、角色和时间说清楚，让适合的伙伴找到你。</p><form id="publish-form" data-edit="' +
+            esc(editId) +
+            '" class="form-grid" style="margin-top:22px"><label class="form-field full">项目名称<input class="input" name="title" required maxlength="40" value="' +
+            esc(t?.title || "") +
+            '" placeholder="例如：一起做一个校园低碳出行工具"></label><label class="form-field">项目类型<select name="type" id="publish-type">' +
+            ["比赛项目", "课程项目", "大创项目", "学习项目"]
+              .map(
+                (s) =>
+                  "<option " +
+                  (s === (t ? t.type : competitionId ? "比赛项目" : "学习项目")
+                    ? "selected"
+                    : "") +
+                  ">" +
+                  s +
+                  "</option>",
+              )
+              .join("") +
+            '</select></label><label class="form-field">人数上限（含队长）<input class="input" name="capacity" type="number" min="' +
+            (t ? t.members : 2) +
+            '" max="10" required value="' +
+            (t ? t.capacity : 4) +
+            '"><small>编辑时不能低于当前有效成员数</small></label><label class="form-field full" id="competition-field">关联比赛<select name="competition" id="publish-competition">' +
+            options(
+              competitions.filter((c) => c.status === "open").map((c) => c.id),
+              pendingCompetition,
+              "请选择比赛",
+            ).replace(
+              />c([1-5])</g,
+              (_, n) => ">" + esc(competitionById("c" + n).title) + "<",
+            ) +
+            '</select></label><label class="form-field full" id="track-field">赛道<select name="track" id="publish-track">' +
+            (c
+              ? c.tracks
+                  .map(
+                    ([n, p]) =>
+                      '<option value="' +
+                      esc(n) +
+                      '" ' +
+                      (n === t?.track ? "selected" : "") +
+                      ">" +
+                      esc(n) +
+                      " · " +
+                      p +
+                      "</option>",
+                  )
+                  .join("")
+              : '<option value="">先选择关联比赛</option>') +
+            '</select></label><label class="form-field full">角色缺口<input class="input" name="roles" required maxlength="80" value="' +
+            esc(t ? t.roles.join("，") : "") +
+            '" placeholder="例如：前端开发，视觉设计"><small>用逗号分隔，1–6 个角色</small></label><label class="form-field">合作方式<select name="mode">' +
+            ["线上为主", "线上 + 线下", "线下为主"]
+              .map(
+                (s) =>
+                  "<option " +
+                  (s === t?.mode ? "selected" : "") +
+                  ">" +
+                  s +
+                  "</option>",
+              )
+              .join("") +
+            '</select></label><label class="form-field">每周时间投入<input class="input" name="hours" maxlength="40" required value="' +
+            esc(t?.hours || "每周 3–5 小时") +
+            '"></label><label class="form-field">招募截止日期<input class="input" name="date" type="date" required min="2026-10-03" value="' +
+            (t ? t.date : "2026-10-25") +
+            '"><small>北京时间，截止日 23:59</small></label><label class="form-field">校区<select name="campus">' +
+            ["成都校区", "雅安校区", "都江堰校区"]
+              .map(
+                (s) =>
+                  "<option " +
+                  (s === (t?.campus || state.profile.campus)
+                    ? "selected"
+                    : "") +
+                  ">" +
+                  s +
+                  "</option>",
+              )
+              .join("") +
+            '</select></label><label class="form-field full">目标、进度与合作期待<textarea name="summary" required minlength="15" maxlength="600" placeholder="现在做到了哪里？需要怎样的伙伴？希望一起完成什么？">' +
+            esc(t?.summary || "") +
+            '</textarea></label><div class="form-field full notice">发布后你成为队长，计入队伍人数。此表单只在浏览器保存演示信息。</div><div class="dialog-actions form-field full" style="display:flex"><button type="button" class="btn secondary" data-action="close">取消</button><button type="submit" class="btn">' +
+            (t ? "保存修改" : "发布招募") +
+            " " +
+            icon("arrow") +
+            "</button></div></form>",
+        );
+        updatePublishFields();
+      }
+      function updatePublishFields() {
+        const form = $("#publish-form");
+        if (!form) return;
+        const isCompetition = form.elements.type.value === "比赛项目";
+        $("#competition-field").classList.toggle("hidden", !isCompetition);
+        $("#track-field").classList.toggle("hidden", !isCompetition);
+        form.elements.competition.required = isCompetition;
+        form.elements.track.required = isCompetition;
+      }
+      function memberDialog(id) {
+        const t = teamById(id);
+        if (!t || (!t.owned && !isMember(id)))
+          return toast("仅同队有效成员可以查看");
+        const names = [
+          t.leader,
+          ...Array.from({ length: t.members - 1 }, (_, i) =>
+            i === 0
+              ? t.owned
+                ? "禾同学"
+                : state.profile.name
+              : ["安同学", "青同学", "秋同学"][i % 3],
+          ),
+        ];
+        openDialog(
+          "队伍成员与联系方式",
+          '<h2 style="font-size:20px;margin-bottom:8px">' +
+            esc(t.title) +
+            "</h2><p>" +
+            t.members +
+            ' 位有效成员（含队长）。仅展示示例成员，未填入真实联系方式。</p><div class="member-list" style="margin-top:22px">' +
+            names
+              .map(
+                (n, i) =>
+                  '<div class="member-row"><span class="avatar ' +
+                  (i % 2 ? "gold" : "") +
+                  '">' +
+                  esc(n.slice(0, 1)) +
+                  "</span><div><strong>" +
+                  esc(n) +
+                  (i === 0 ? " · 队长" : "") +
+                  "</strong><small>" +
+                  (n === state.profile.name
+                    ? state.profile.share
+                      ? "你已开启分享；本演示未收集联系方式"
+                      : "你尚未授权共享"
+                    : "尚未授权共享联系方式") +
+                  "</small></div>" +
+                  badge(i === 0 ? "队长" : "成员", "gray") +
+                  "</div>",
+              )
+              .join("") +
+            '</div><div class="notice" style="margin-top:20px">联系方式默认不共享，授权仅对同队有效成员生效。退出后会清理对应成员访问入口。</div><div class="dialog-actions">' +
+            (t.owned
+              ? '<button class="btn secondary" data-action="captain-life" data-id="' +
+                id +
+                '">队长移交 / 解散</button>'
+              : "") +
+            '<button class="btn" data-action="go-profile">管理我的授权</button></div>',
+        );
+      }
+      function captainApps(id) {
+        const t = teamById(id);
+        if (!t?.owned) return toast("仅该队队长可以处理申请");
+        const list = state.captainApplications.filter((a) => a.team === id);
+        openDialog(
+          "队长 · 处理申请",
+          '<h2 style="font-size:20px;margin-bottom:8px">' +
+            esc(t.title) +
+            '</h2><p>发出邀请不直接建立成员关系，也不预占名额。</p><div class="stack" style="margin-top:22px">' +
+            list
+              .map(
+                (a) =>
+                  '<article class="panel" style="padding:18px"><div class="row between"><div class="row"><span class="avatar gold">' +
+                  esc(a.name.slice(0, 1)) +
+                  '</span><div><strong style="font-size:13px">' +
+                  esc(a.name) +
+                  "</strong><p>" +
+                  esc(a.college) +
+                  " · " +
+                  esc(a.role) +
+                  "</p></div></div>" +
+                  statusBadge(a.status) +
+                  '</div><p style="margin-top:13px">' +
+                  esc(a.message) +
+                  "</p>" +
+                  (a.status === "PENDING"
+                    ? '<div class="dialog-actions"><button class="btn secondary" data-action="captain-reject" data-id="' +
+                      a.id +
+                      '">拒绝申请</button><button class="btn" data-action="captain-invite" data-id="' +
+                      a.id +
+                      '" ' +
+                      (!teamOpen(t) ? "disabled" : "") +
+                      ">发出邀请</button></div>"
+                    : a.status === "INVITED"
+                      ? '<p style="margin-top:12px">等待对方确认 · 有效至 2026-10-04 18:00</p><button class="text-btn" data-action="captain-revoke" data-id="' +
+                        a.id +
+                        '">撤销邀请</button>'
+                      : "") +
+                  "</article>",
+              )
+              .join("") +
+            (list.length
+              ? ""
+              : empty(
+                  "还没有收到申请",
+                  "公开招募后，合适的伙伴可以提交申请。",
+                )) +
+            "</div>",
+        );
+      }
+      function confirmAction(title, description, action, id) {
+        openDialog(
+          title,
+          "<p>" +
+            esc(description) +
+            '</p><div class="dialog-actions"><button class="btn secondary" data-action="close">取消</button><button class="btn ' +
+            (["do-reset", "do-leave", "do-disband", "do-close-team"].includes(
+              action,
+            )
+              ? "danger"
+              : "") +
+            '" data-action="' +
+            action +
+            '" data-id="' +
+            esc(id || "") +
+            '">确认</button></div>',
+        );
+      }
+      function addNotice(title, body, route) {
+        state.inbox.unshift({
+          id: "n" + Date.now(),
+          title,
+          body,
+          route,
+          read: false,
+          date: "10 月 2 日 · 演示操作",
+        });
+      }
+      function finish(message, route) {
+        persist();
+        closeDialog();
+        if (route) move(route);
+        else render();
+        toast(message);
+      }
+      function expireOtherApplications(team, exclude = "") {
+        for (const a of state.applications)
+          if (
+            a.team === team &&
+            a.id !== exclude &&
+            ["PENDING", "INVITED"].includes(a.status)
+          )
+            a.status = "EXPIRED";
+        for (const a of state.captainApplications)
+          if (a.team === team && ["PENDING", "INVITED"].includes(a.status))
+            a.status = "EXPIRED";
+      }
+      function loginForm(register = false) {
+        openDialog(
+          register ? "注册 · 样式演示" : "欢迎回到禾伙人",
+          '<div style="text-align:center;margin-bottom:22px"><svg class="brand-mark"><use href="#i-sprout"/></svg><h2 style="font-family:var(--serif);font-size:25px;font-weight:500;margin-top:10px">让相遇，从这里开始。</h2><p>邮箱与密码界面演示，未接入真实认证。</p></div><form id="login-form" class="stack">' +
+            (register
+              ? '<label class="form-field">昵称<input class="input" name="nickname" required maxlength="16" placeholder="怎么称呼你"></label>'
+              : "") +
+            '<label class="form-field">邮箱<input class="input" type="email" name="email" required placeholder="使用示例邮箱，如 hello@example.com" autocomplete="off"></label><label class="form-field">密码<input class="input" type="password" name="password" minlength="8" required placeholder="填写演示密码，至少 8 位" autocomplete="off"></label><p class="small muted">请使用示例信息。提交后仅进入演示身份，不保存邮箱或密码。</p><button class="btn" type="submit">' +
+            (register ? "创建演示身份" : "进入演示身份") +
+            " " +
+            icon("arrow") +
+            '</button><button class="text-btn" type="button" data-action="' +
+            (register ? "login" : "register") +
+            '" style="justify-content:center">' +
+            (register ? "已有账号？查看登录样式" : "第一次来？查看注册样式") +
+            "</button></form>",
+        );
+      }
+      document.addEventListener("click", (e) => {
+        const el = e.target.closest("[data-action]");
+        if (!el || el.disabled) return;
+        const id = el.dataset.id,
+          action = el.dataset.action;
+        if (action === "close") return closeDialog();
+        if (action === "competition") return showCompetition(id);
+        if (action === "team") return showTeam(id);
+        if (action === "category") {
+          activeFilter = id;
+          return updateFilterURL();
+        }
+        if (action === "app-filter") {
+          appFilter = id;
+          return renderApplications();
+        }
+        if (action === "favorite") {
+          const i = state.favorites.indexOf(id);
+          if (i < 0) state.favorites.push(id);
+          else state.favorites.splice(i, 1);
+          persist();
+          render();
+          if (
+            $("#dialog").open &&
+            $("#dialog-title").textContent.startsWith("比赛详情")
+          )
+            showCompetition(id);
+          toast(i < 0 ? "已收藏，留住一个新的可能" : "已取消收藏");
+          return;
+        }
+        if (action === "clear-query") {
+          query = "";
+          return updateFilterURL();
+        }
+        if (action === "clear-filters") {
+          activeFilter = "全部";
+          query = "";
+          scopeFilter = "";
+          hostFilter = "";
+          roleFilter = "";
+          modeFilter = "";
+          timeFilter = "open";
+          return updateFilterURL();
+        }
+        if (action === "extra-rules") {
+          return openDialog(
+            "有额外专业条件的比赛",
+            '<p style="margin-bottom:17px">这类条件需核对规则与来源，不自动判定你是否具备参赛资格。</p>' +
+              competitions
+                .filter((c) => c.scope === "rules")
+                .map(
+                  (c) =>
+                    '<button class="track" style="width:100%;text-align:left" data-action="competition" data-id="' +
+                    c.id +
+                    '"><strong>' +
+                    esc(c.title) +
+                    "</strong>" +
+                    icon("arrow") +
+                    "</button>",
+                )
+                .join(""),
+          );
+        }
+        if (action === "search") {
+          return openDialog(
+            page === "teams" ? "搜索招募" : "搜索比赛",
+            '<form id="dialog-search" class="stack"><label class="form-field">输入关键词<input class="input" name="q" value="' +
+              esc(query) +
+              '" maxlength="80" placeholder="例如：农业、设计、前端" autofocus></label><button class="btn" type="submit">搜索 ' +
+              icon("search") +
+              "</button></form>",
+          );
+        }
+        if (action === "publish") return publishForm(id || "");
+        if (action === "edit-team") return publishForm("", id);
+        if (action === "apply") return applyForm(id);
+        if (
+          action === "go-my-teams" ||
+          action === "go-applications" ||
+          action === "go-profile"
+        ) {
+          closeDialog();
+          return move(
+            {
+              "go-my-teams": "my-teams",
+              "go-applications": "applications",
+              "go-profile": "profile",
+            }[action],
+          );
+        }
+        if (action === "confirm-invite") {
+          const a = state.applications.find((a) => a.id === id),
+            t = a && teamById(a.team);
+          if (!a || a.status !== "INVITED" || !t)
+            return toast("这份邀请已处理");
+          return openDialog(
+            "确认，成为队友",
+            '<h2 style="font-size:20px;margin-bottom:10px">' +
+              esc(t.title) +
+              "</h2><p>确认后，你将成为队伍的有效成员。当前 " +
+              t.members +
+              " / " +
+              t.capacity +
+              ' 人。</p><div class="notice gold" style="margin-top:17px">邀请不预占名额，确认时以剩余名额为准。联系方式仍按你的授权设置展示。</div><div class="dialog-actions"><button class="btn secondary" data-action="close">再想想</button><button class="btn" data-action="do-accept" data-id="' +
+              id +
+              '">确认入队 ' +
+              icon("check") +
+              "</button></div>",
+          );
+        }
+        if (action === "do-accept") {
+          const a = state.applications.find((a) => a.id === id),
+            t = a && teamById(a.team);
+          if (!a || !t || a.status !== "INVITED")
+            return toast("这份邀请已经处理，不会重复入队");
+          if (!teamOpen(t) || a.expires < nowDemo + " 12:00") {
+            a.status = "EXPIRED";
+            return finish("招募或邀请已失效，暂时无法入队");
+          }
+          a.status = "ACCEPTED";
+          state.leftTeams = state.leftTeams.filter((id) => id !== t.id);
+          t.members++;
+          if (t.members >= t.capacity) {
+            t.status = "PAUSED";
+            expireOtherApplications(t.id, a.id);
+          }
+          addNotice(
+            "你已确认入队",
+            "欢迎加入「" + t.title + "」，一起让想法生长。",
+            "my-teams",
+          );
+          return finish("确认成功，你们现在是队友了！", "my-teams");
+        }
+        if (["withdraw", "decline"].includes(action))
+          return confirmAction(
+            action === "withdraw" ? "撤回这份申请？" : "拒绝这份邀请？",
+            "确认后本次记录结束；需要时可以重新提交申请。",
+            action === "withdraw" ? "do-withdraw" : "do-decline",
+            id,
+          );
+        if (["do-withdraw", "do-decline"].includes(action)) {
+          const a = state.applications.find((a) => a.id === id);
+          if (!a || !["PENDING", "INVITED"].includes(a.status))
+            return toast("申请状态已变化");
+          a.status = action === "do-withdraw" ? "WITHDRAWN" : "DECLINED";
+          return finish(action === "do-withdraw" ? "已撤回申请" : "已拒绝邀请");
+        }
+        if (action === "members") return memberDialog(id);
+        if (action === "captain-apps") return captainApps(id);
+        if (
+          ["captain-invite", "captain-reject", "captain-revoke"].includes(
+            action,
+          )
+        ) {
+          const a = state.captainApplications.find((a) => a.id === id),
+            t = a && teamById(a.team);
+          if (!a || !t?.owned) return toast("无法处理这份申请");
+          if (
+            action === "captain-invite" &&
+            (a.status !== "PENDING" || !teamOpen(t))
+          )
+            return toast("当前无法发出邀请");
+          if (action === "captain-reject" && a.status !== "PENDING")
+            return toast("申请已处理");
+          if (action === "captain-revoke" && a.status !== "INVITED")
+            return toast("邀请已处理");
+          a.status = {
+            "captain-invite": "INVITED",
+            "captain-reject": "REJECTED",
+            "captain-revoke": "REVOKED",
+          }[action];
+          persist();
+          captainApps(t.id);
+          render();
+          return toast(
+            action === "captain-invite"
+              ? "邀请已发出，等待对方确认；人数未增加"
+              : "处理结果已更新",
+          );
+        }
+        if (action === "toggle-team") {
+          const t = teamById(id);
+          if (!t?.owned) return;
+          if (!["OPEN", "PAUSED"].includes(t.status))
+            return toast("已关闭或解散的招募不能直接恢复");
+          if (
+            t.status === "PAUSED" &&
+            (t.members >= t.capacity || t.date < nowDemo)
+          )
+            return toast("当前人数或截止时间不满足恢复条件");
+          t.status = t.status === "OPEN" ? "PAUSED" : "OPEN";
+          persist();
+          render();
+          return toast(t.status === "OPEN" ? "招募已恢复" : "招募已暂停");
+        }
+        if (action === "close-team")
+          return confirmAction(
+            "关闭这份招募？",
+            "队伍成员关系保留，未完成的申请与邀请将失效。",
+            "do-close-team",
+            id,
+          );
+        if (action === "do-close-team") {
+          const t = teamById(id);
+          if (!t?.owned) return;
+          t.status = "CLOSED";
+          expireOtherApplications(id);
+          return finish("招募已关闭，队伍成员关系保留");
+        }
+        if (action === "leave-team")
+          return confirmAction(
+            "退出这支队伍？",
+            "退出后不再拥有队伍成员的访问权限；队伍不会自动恢复招募。",
+            "do-leave",
+            id,
+          );
+        if (action === "do-leave") {
+          const t = teamById(id),
+            a = state.applications.find(
+              (a) => a.team === id && a.status === "ACCEPTED",
+            );
+          if (!t || t.owned || !a || !isMember(id))
+            return toast("当前无法退出");
+          t.members--;
+          state.leftTeams.push(id);
+          return finish("已退出队伍，对应成员访问入口已清理");
+        }
+        if (action === "captain-life") {
+          const t = teamById(id);
+          if (!t?.owned) return;
+          return openDialog(
+            "队长移交与解散",
+            '<p>队长不能直接退出。可以移交给已确认的队员，或解散整个队伍。</p><div class="notice" style="margin-top:15px">移交演示对象为现有有效成员「禾同学」；移交后你保留普通成员身份。</div><div class="dialog-actions"><button class="btn secondary" data-action="transfer-team" data-id="' +
+              id +
+              '" ' +
+              (t.members < 2 ? "disabled" : "") +
+              '>移交给禾同学</button><button class="btn danger" data-action="disband-team" data-id="' +
+              id +
+              '">解散队伍</button></div>',
+          );
+        }
+        if (action === "transfer-team")
+          return confirmAction(
+            "移交队长身份？",
+            "禾同学将成为队长。你保留成员身份，无法继续处理申请或修改招募。",
+            "do-transfer",
+            id,
+          );
+        if (action === "do-transfer") {
+          const t = teamById(id);
+          if (!t?.owned || t.members < 2) return toast("没有可移交的有效成员");
+          t.owned = false;
+          t.leader = "禾同学";
+          state.leftTeams = state.leftTeams.filter((x) => x !== id);
+          state.applications.push({
+            id: "a" + Date.now(),
+            team: id,
+            status: "ACCEPTED",
+            role: "项目发起人",
+            date: nowDemo,
+          });
+          return finish("已完成移交，你现在是普通成员");
+        }
+        if (action === "disband-team")
+          return confirmAction(
+            "解散这支队伍？",
+            "所有成员关系结束，申请与邀请失效。演示数据可通过重置恢复。",
+            "do-disband",
+            id,
+          );
+        if (action === "do-disband") {
+          const t = teamById(id);
+          if (!t?.owned) return;
+          t.status = "DISBANDED";
+          t.members = 0;
+          expireOtherApplications(id);
+          if (!state.leftTeams.includes(id)) state.leftTeams.push(id);
+          return finish("队伍已解散，成员关系已结束");
+        }
+        if (action === "read-all") {
+          state.inbox.forEach((n) => (n.read = true));
+          persist();
+          render();
+          return toast("全部通知已标记为已读");
+        }
+        if (action === "read-notification") {
+          const n = state.inbox.find((n) => n.id === id);
+          if (!n) return;
+          n.read = true;
+          persist();
+          move(n.route);
+          return;
+        }
+        if (action === "report") {
+          return openDialog(
+            "举报招募 · 演示",
+            "<p>举报「" +
+              esc(teamById(id)?.title) +
+              '」，请说明原因。本 Demo 不向外部提交举报。</p><form id="report-form" data-id="' +
+              id +
+              '" class="stack" style="margin-top:20px"><label class="form-field">原因<select name="reason"><option>内容失实</option><option>招募已失效</option><option>违规或不当内容</option><option>其他原因</option></select></label><label class="form-field">具体说明<textarea name="message" minlength="5" maxlength="300" required placeholder="填写说明，至少 5 字"></textarea></label><button class="btn" type="submit">提交演示举报</button></form>',
+          );
+        }
+        if (action === "reset")
+          return confirmAction(
+            "重置演示数据？",
+            "收藏、申请、招募和资料将恢复初始示例；只影响本 Demo 的浏览器数据。",
+            "do-reset",
+            "",
+          );
+        if (action === "do-reset") {
+          state = initialState();
+          return finish("演示数据已恢复", "competitions");
+        }
+        if (action === "login" || action === "register")
+          return loginForm(action === "register");
+        if (action === "style-toast") return toast("这是轻量操作的反馈样式");
+        if (action === "more")
+          return openDialog(
+            "我的禾伙人",
+            '<div class="stack"><a class="btn secondary" href="#favorites" data-action="close">我的收藏</a><a class="btn secondary" href="#notifications" data-action="close">站内通知</a><a class="btn secondary" href="#profile" data-action="close">个人资料</a><button class="btn secondary" data-action="login">登录 / 注册演示</button><a class="text-btn" href="#style" data-action="close">查看样式规范 ↗</a><button class="text-btn" data-action="reset">重置演示数据</button></div>',
+          );
+        if (action === "simulate-invite") {
+          const pending = state.applications.filter(
+            (a) => a.status === "PENDING" && teamOpen(teamById(a.team)),
+          );
+          return openDialog(
+            "推进演示 · 模拟队长处理",
+            '<p>此处仅用于演示状态变化，正式学生界面没有替其他队长处理申请的权限。</p><div class="stack" style="margin-top:18px">' +
+              pending
+                .map(
+                  (a) =>
+                    '<button class="btn secondary" data-action="do-simulate-invite" data-id="' +
+                    a.id +
+                    '">模拟收到「' +
+                    esc(teamById(a.team).title) +
+                    "」的邀请</button>",
+                )
+                .join("") +
+              (pending.length
+                ? ""
+                : "<p>没有待处理且有效的申请，先去招募详情提交一份申请。</p>") +
+              "</div>",
+          );
+        }
+        if (action === "do-simulate-invite") {
+          const a = state.applications.find((a) => a.id === id),
+            t = a && teamById(a.team);
+          if (!a || a.status !== "PENDING" || !t || !teamOpen(t))
+            return toast("此申请无法生成邀请");
+          a.status = "INVITED";
+          a.expires = "2026-10-04 18:00";
+          addNotice(
+            "你收到了一份入队邀请",
+            t.leader + "邀请你加入「" + t.title + "」。",
+            "applications",
+          );
+          return finish("已模拟收到邀请，仍需你主动确认");
+        }
+      });
+      document.addEventListener("change", (e) => {
+        const map = {
+            "scope-filter": "scope",
+            "host-filter": "host",
+            "time-filter": "time",
+            "role-filter": "role",
+            "mode-filter": "mode",
+          },
+          kind = map[e.target.id];
+        if (kind) {
+          if (kind === "scope") scopeFilter = e.target.value;
+          if (kind === "host") hostFilter = e.target.value;
+          if (kind === "time") timeFilter = e.target.value;
+          if (kind === "role") roleFilter = e.target.value;
+          if (kind === "mode") modeFilter = e.target.value;
+          updateFilterURL();
+        }
+        if (e.target.id === "publish-type") updatePublishFields();
+        if (e.target.id === "publish-competition") {
+          const c = competitionById(e.target.value);
+          $("#publish-track").innerHTML = c
+            ? c.tracks
+                .map(
+                  ([n, p]) =>
+                    '<option value="' +
+                    esc(n) +
+                    '">' +
+                    esc(n) +
+                    " · " +
+                    p +
+                    "</option>",
+                )
+                .join("")
+            : '<option value="">先选择关联比赛</option>';
+        }
+      });
+      document.addEventListener("submit", (e) => {
+        const form = e.target;
+        if (
+          ![
+            "profile-form",
+            "apply-form",
+            "publish-form",
+            "dialog-search",
+            "search-form",
+            "login-form",
+            "report-form",
+          ].includes(form.id)
+        )
+          return;
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(form));
+        if (form.id === "profile-form") {
+          if (
+            ["name", "major", "grade", "hours", "skills"].some(
+              (k) => !data[k].trim(),
+            )
+          )
+            return toast("请填写有效的资料");
+          const oldName = state.profile.name;
+          state.profile = {
+            ...state.profile,
+            ...data,
+            share: form.elements.share.checked,
+          };
+          state.teams
+            .filter((t) => t.owned && t.leader === oldName)
+            .forEach((t) => (t.leader = data.name));
+          return finish(
+            storageAvailable
+              ? "资料已保存，队友可以更了解你了"
+              : "资料已更新，当前浏览器未启用持久保存",
+          );
+        }
+        if (form.id === "apply-form") {
+          const t = teamById(form.dataset.id);
+          if (!t || !teamOpen(t) || t.owned || currentApplication(t.id))
+            return toast("当前无法提交，请重新查看队伍状态");
+          if (data.message.trim().length < 10)
+            return toast("请填写至少 10 字的有效介绍");
+          state.applications.push({
+            id: "a" + Date.now(),
+            team: t.id,
+            status: "PENDING",
+            role: data.role,
+            message: data.message.trim(),
+            date: nowDemo,
+          });
+          addNotice(
+            "申请已提交",
+            "已向「" + t.title + "」提交申请，等待队长处理。",
+            "applications",
+          );
+          return finish("申请已提交，等待队长处理", "applications");
+        }
+        if (form.id === "publish-form") {
+          const edit = teamById(form.dataset.edit),
+            capacity = Number(data.capacity),
+            roles = data.roles
+              .split(/[,，]/)
+              .map((s) => s.trim())
+              .filter(Boolean);
+          if (!data.title.trim() || data.summary.trim().length < 15)
+            return toast("请填写项目名称与至少 15 字的项目介绍");
+          if (!roles.length || roles.length > 6)
+            return toast("请填写 1–6 个招募角色");
+          if (
+            !Number.isInteger(capacity) ||
+            capacity < (edit ? edit.members : 2) ||
+            capacity > 10
+          )
+            return toast("人数上限须有效，且不能低于当前有效成员数");
+          if (data.date < "2026-10-03")
+            return toast("招募截止须晚于固定演示日期");
+          let competition = "",
+            track = "";
+          if (data.type === "比赛项目") {
+            const c = competitionById(data.competition),
+              tr = c?.tracks.find(([n]) => n === data.track);
+            if (!c || c.status !== "open" || !tr)
+              return toast("请选择有效的比赛与其赛道");
+            const bounds = tr[1].match(/\d+/g).map(Number);
+            if (capacity < bounds[0] || capacity > bounds[1])
+              return toast(
+                "该赛道人数上限应在 " +
+                  bounds[0] +
+                  "–" +
+                  bounds[1] +
+                  " 人之间（含队长）",
+              );
+            competition = c.id;
+            track = data.track;
+          }
+          const values = {
+            title: data.title.trim(),
+            type: data.type,
+            competition,
+            track,
+            roles,
+            summary: data.summary.trim(),
+            mode: data.mode,
+            hours: data.hours.trim(),
+            date: data.date,
+            campus: data.campus,
+            capacity,
+          };
+          if (edit) {
+            if (!edit.owned) return toast("仅队长可以编辑");
+            Object.assign(edit, values);
+            if (edit.members >= edit.capacity) edit.status = "PAUSED";
+          } else
+            state.teams.unshift({
+              ...values,
+              id: "t" + Date.now(),
+              leader: state.profile.name,
+              college: state.profile.college,
+              members: 1,
+              status: "OPEN",
+              hidden: false,
+              owned: true,
+            });
+          return finish(
+            edit ? "招募信息已更新" : "发布成功，你已成为队长并计入人数",
+            "my-teams",
+          );
+        }
+        if (form.id === "dialog-search" || form.id === "search-form") {
+          query = (data.q ?? $("#global-search").value).trim();
+          closeDialog();
+          if (page !== "teams" && page !== "competitions") {
+            location.hash = "competitions?q=" + encodeURIComponent(query);
+          } else updateFilterURL();
+          return;
+        }
+        if (form.id === "login-form") {
+          return finish("已进入林同学演示身份，未创建真实账号", "competitions");
+        }
+        if (form.id === "report-form") {
+          if (data.message.trim().length < 5)
+            return toast("请填写至少 5 字的有效说明");
+          addNotice(
+            "演示举报已记录",
+            "关于「" +
+              teamById(form.dataset.id)?.title +
+              "」的示例举报：" +
+              data.reason +
+              "。未发送至服务器。",
+            "notifications",
+          );
+          return finish("演示举报已记录；未发送到外部");
+        }
+      });
+      $("#dialog").addEventListener("click", (e) => {
+        if (e.target === $("#dialog")) {
+          const r = $("#dialog").getBoundingClientRect();
+          if (
+            e.clientX < r.left ||
+            e.clientX > r.right ||
+            e.clientY < r.top ||
+            e.clientY > r.bottom
+          )
+            closeDialog();
+        }
+      });
+      window.addEventListener("hashchange", () => {
+        closeDialog();
+        render();
+        window.scrollTo({ top: 0, behavior: "instant" });
+      });
+      render();
+    </script>
+  </body>
+</html>

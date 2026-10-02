@@ -1,19 +1,283 @@
+@layer theme, base, vant, components, utilities;
 @import "tailwindcss";
+@import "vant/lib/index.css" layer(vant);
+
+/* 视觉基准：docs/demos/hehuoren-student-demo.html（第一版学生端 Demo）。 */
 :root {
-  font-family: system-ui, "Microsoft YaHei", sans-serif;
-  color: #172b24;
-  background: #f4f7f5;
-  --van-primary-color: #217354;
-  --van-success-color: #217354;
-  --van-button-radius: 10px;
+  --hhr-color-brand: #27644b;
+  --hhr-color-brand-hover: #183e30;
+  --hhr-color-brand-soft: #eaf2e9;
+  --hhr-color-ink: #243d32;
+  --hhr-color-muted: #7b867e;
+  --hhr-color-page: #f7f8f4;
+  --hhr-color-surface: #fff;
+  --hhr-color-line: #e7ebe3;
+  --hhr-color-accent: #e9bd56;
+  --hhr-color-accent-soft: #fff4d9;
+  --hhr-color-accent-ink: #947127;
+  --hhr-color-danger: #b85a49;
+  --hhr-color-danger-soft: #faeee9;
+  --hhr-color-focus: #d7af55;
+  --hhr-color-input-line: #dfe5da;
+  --hhr-font-body:
+    "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+  --hhr-font-display: "Noto Serif CJK SC", "Songti SC", "SimSun", serif;
+  --hhr-radius-control: 9px;
+  --hhr-radius-badge: 5px;
+  --hhr-radius-card: 15px;
+  --hhr-radius-panel: 18px;
+  --hhr-duration: 180ms;
+
+  /* Vant 通过公开主题变量消费同一套视觉基准。 */
+  --van-base-font: var(--hhr-font-body);
+  --van-primary-color: var(--hhr-color-brand);
+  --van-success-color: var(--hhr-color-brand);
+  --van-danger-color: var(--hhr-color-danger);
+  --van-warning-color: var(--hhr-color-accent-ink);
+  --van-text-color: var(--hhr-color-ink);
+  --van-text-color-2: var(--hhr-color-muted);
+  --van-text-color-3: var(--hhr-color-muted);
+  --van-background: var(--hhr-color-page);
+  --van-background-2: var(--hhr-color-surface);
+  --van-background-3: var(--hhr-color-surface);
+  --van-border-color: var(--hhr-color-line);
+  --van-active-color: var(--hhr-color-brand-soft);
+  --van-radius-md: var(--hhr-radius-badge);
+  --van-radius-lg: var(--hhr-radius-control);
+  --van-button-radius: var(--hhr-radius-control);
+  --van-button-default-height: 44px;
+  --van-button-normal-font-size: 13px;
+  --van-button-default-color: var(--hhr-color-brand);
+  --van-button-default-background: var(--hhr-color-surface);
+  --van-button-default-border-color: var(--hhr-color-line);
+  --van-tag-radius: var(--hhr-radius-badge);
+  --van-tag-default-color: var(--hhr-color-brand-soft);
+  --van-tag-text-color: var(--hhr-color-brand);
+  --van-tag-primary-color: var(--hhr-color-brand-soft);
+  --van-tag-success-color: var(--hhr-color-brand-soft);
+  --van-tag-danger-color: var(--hhr-color-danger-soft);
+  --van-tag-warning-color: var(--hhr-color-accent-soft);
+  --van-cell-text-color: var(--hhr-color-ink);
+  --van-cell-value-color: var(--hhr-color-muted);
+  --van-field-input-text-color: var(--hhr-color-ink);
+  --van-field-placeholder-text-color: var(--hhr-color-muted);
+  --van-popup-round-radius: var(--hhr-radius-panel);
+  --van-dialog-radius: var(--hhr-radius-panel);
+  --van-tabbar-item-text-color: var(--hhr-color-muted);
 }
-body {
-  margin: 0;
-  min-width: 320px;
+
+/* Tailwind 语义工具类，例如 bg-page、text-brand、rounded-panel。 */
+@theme inline {
+  --color-brand: var(--hhr-color-brand);
+  --color-brand-hover: var(--hhr-color-brand-hover);
+  --color-brand-soft: var(--hhr-color-brand-soft);
+  --color-ink: var(--hhr-color-ink);
+  --color-muted: var(--hhr-color-muted);
+  --color-page: var(--hhr-color-page);
+  --color-surface: var(--hhr-color-surface);
+  --color-line: var(--hhr-color-line);
+  --color-accent: var(--hhr-color-accent);
+  --color-accent-soft: var(--hhr-color-accent-soft);
+  --color-danger: var(--hhr-color-danger);
+  --color-danger-soft: var(--hhr-color-danger-soft);
+  --font-sans: var(--hhr-font-body);
+  --font-serif: var(--hhr-font-display);
+  --radius-control: var(--hhr-radius-control);
+  --radius-card: var(--hhr-radius-card);
+  --radius-panel: var(--hhr-radius-panel);
 }
+
+@layer base {
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--hhr-color-page);
+    color: var(--hhr-color-ink);
+    font-family: var(--hhr-font-body);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+}
+
+/* 为原生控件和 Vant 控件提供统一的键盘焦点提示。 */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--hhr-color-focus);
+  outline-offset: 3px;
+}
+
+@layer components {
+  .hhr-panel {
+    padding: 22px;
+    border: 1px solid var(--hhr-color-line);
+    border-radius: var(--hhr-radius-panel);
+    background: var(--hhr-color-surface);
+  }
+
+  .hhr-card {
+    overflow: hidden;
+    border: 1px solid var(--hhr-color-line);
+    border-radius: var(--hhr-radius-card);
+    background: var(--hhr-color-surface);
+  }
+
+  .hhr-eyebrow {
+    margin-bottom: 7px;
+    color: var(--hhr-color-brand);
+    font:
+      11px/1.5 Georgia,
+      serif;
+    letter-spacing: 2px;
+  }
+
+  .hhr-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 10px 18px;
+    border: 1px solid transparent;
+    border-radius: var(--hhr-radius-control);
+    background: var(--hhr-color-brand);
+    color: var(--hhr-color-surface);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background-color var(--hhr-duration),
+      transform var(--hhr-duration);
+  }
+
+  .hhr-button--secondary {
+    border-color: var(--hhr-color-line);
+    background: var(--hhr-color-surface);
+    color: var(--hhr-color-brand);
+  }
+
+  .hhr-button--soft {
+    background: var(--hhr-color-brand-soft);
+    color: var(--hhr-color-brand);
+  }
+
+  .hhr-button--danger {
+    background: var(--hhr-color-danger-soft);
+    color: var(--hhr-color-danger);
+  }
+
+  .hhr-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .hhr-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    border-radius: var(--hhr-radius-badge);
+    background: var(--hhr-color-brand-soft);
+    color: var(--hhr-color-brand);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .hhr-badge--warning {
+    background: var(--hhr-color-accent-soft);
+    color: var(--hhr-color-accent-ink);
+  }
+
+  .hhr-badge--muted {
+    background: var(--hhr-color-page);
+    color: var(--hhr-color-muted);
+  }
+
+  .hhr-badge--danger {
+    background: var(--hhr-color-danger-soft);
+    color: var(--hhr-color-danger);
+  }
+
+  .hhr-input {
+    width: 100%;
+    min-height: 44px;
+    padding: 11px 12px;
+    border: 1px solid var(--hhr-color-input-line);
+    border-radius: var(--hhr-radius-control);
+    background: var(--hhr-color-surface);
+    color: var(--hhr-color-ink);
+  }
+}
+
+@media (hover: hover) {
+  .hhr-button:not(:disabled):hover {
+    transform: translateY(-1px);
+  }
+
+  .hhr-button:not(:disabled):not(.hhr-button--secondary):not(
+      .hhr-button--soft
+    ):not(.hhr-button--danger):hover {
+    background: var(--hhr-color-brand-hover);
+  }
+
+  .hhr-button--secondary:not(:disabled):hover {
+    background: var(--hhr-color-brand-soft);
+  }
+}
+
+/* 危险和提醒标签使用各自的状态文字颜色。 */
+.van-tag--danger {
+  color: var(--hhr-color-danger);
+}
+
+.van-tag--warning {
+  color: var(--hhr-color-accent-ink);
+}
+
+.van-tag--default.van-tag--plain {
+  --van-tag-default-color: var(--hhr-color-brand);
+}
+
+.van-tag--primary.van-tag--plain {
+  --van-tag-primary-color: var(--hhr-color-brand);
+}
+
+.van-tag--success.van-tag--plain {
+  --van-tag-success-color: var(--hhr-color-brand);
+}
+
+.van-tag--danger.van-tag--plain {
+  --van-tag-danger-color: var(--hhr-color-danger);
+}
+
+.van-tag--warning.van-tag--plain {
+  --van-tag-warning-color: var(--hhr-color-accent-ink);
+}
+
 .request-id {
   padding-inline: 0;
 }
+
 .request-id .van-cell__value {
   overflow-wrap: anywhere;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hhr-button {
+    transition: none;
+  }
+
+  .hhr-button:not(:disabled):hover {
+    transform: none;
+  }
 }
