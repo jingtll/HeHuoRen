@@ -3,7 +3,8 @@ import HealthView from "../views/HealthView.vue";
 export const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: "/", component: HealthView },
-    { path: "/:pathMatch(.*)*", redirect: "/" },
+    { path: "/health", component: HealthView },
+    { path: "/", redirect: "/health" },
+    { path: "/:pathMatch(.*)*", redirect: "/health" },
   ],
 });

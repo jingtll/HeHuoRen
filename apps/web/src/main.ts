@@ -1,7 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import { Button, Cell, Loading, Tag } from "vant";
-import "vant/lib/index.css";
 import "./style.css";
 import App from "./App.vue";
 import { router } from "./router";
