@@ -126,9 +126,9 @@
   }
   .topbar-brand-name {
     font-family: var(--hhr-font-display);
-    font-size: 27px;
+    font-size: 21px;
     font-weight: 500;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     white-space: nowrap;
   }
   .topbar-actions {

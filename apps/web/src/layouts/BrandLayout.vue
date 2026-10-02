@@ -9,7 +9,7 @@ import ProjectLogo from "../components/ProjectLogo.vue";
     <RouterLink to="/home" class="brand-link self-start">
       <ProjectLogo />
       <span
-        ><strong class="font-serif text-2xl">禾伙人</strong
+        ><strong class="font-serif text-xl">禾伙人</strong
         ><small class="block text-xs text-muted"
           >校园比赛与项目组队平台</small
         ></span
