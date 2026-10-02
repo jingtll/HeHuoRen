@@ -1,6 +1,6 @@
 # 禾伙人
 
-四川农业大学校园比赛与项目组队平台。当前完成阶段一工程初始化：pnpm 工作区、Vue 健康页、NestJS/Fastify 健康接口、OpenAPI 类型生成与 CI 配置。
+四川农业大学校园比赛与项目组队平台。当前完成阶段一工程初始化，以及学生端共享导航、路由和待开发占位页；真实业务功能尚未开发。工程包含 pnpm 工作区、Vue 健康页、NestJS/Fastify 健康接口、OpenAPI 类型生成与 CI 配置。
 
 项目范围、阶段安排与当前进度见[项目开发计划书](docs/禾伙人-项目开发计划书.md)。
 
@@ -34,7 +34,8 @@ Copy-Item apps/api/.env.example apps/api/.env
 pnpm dev
 ```
 
-- Web 健康页：[http://localhost:5173/health](http://localhost:5173/health)，根路径和未匹配路径跳转到 `/health`，端口占用时以 Vite 输出为准。
+- Web 首页：[http://localhost:5173/home](http://localhost:5173/home)，根路径跳转到 `/home`，未知地址显示独立 404；端口占用时以 Vite 输出为准。
+- Web 健康页：[http://localhost:5173/health](http://localhost:5173/health)，保留独立健康检查与刷新/重试。
 - API：[http://127.0.0.1:3001/api/v1/health](http://127.0.0.1:3001/api/v1/health)。
 - Swagger：[http://127.0.0.1:3001/docs](http://127.0.0.1:3001/docs)。
 - OpenAPI JSON：[http://127.0.0.1:3001/docs-json](http://127.0.0.1:3001/docs-json)。
@@ -49,7 +50,23 @@ API 默认只监听本机。Web 的 `/api` 请求由 Vite 代理到 API；修改
 
 实现后续页面时遵循[学生端全局样式约定](docs/student-ui-style.md)。[Demo 说明](docs/demos/README.md)列出选定版本和三份备选静态风格，可直接用浏览器打开对应 HTML，无需启动服务。
 
-Demo 的比赛、队伍、人物、日期与浏览器交互均为示例；业务路由、认证、数据库和真实组队流程仍按计划书后续阶段实现。Demo 不代表已上线的业务功能。
+学生端已提供桌面侧栏与移动底部导航；所有业务页均直接开放，显示“待开发”，按钮仅用于页面跳转，无认证状态、业务数据或模拟业务操作。
+
+| 路由                                             | 当前页面                       |
+| ------------------------------------------------ | ------------------------------ |
+| `/`                                              | 跳转到 `/home`                 |
+| `/home`                                          | 首页                           |
+| `/home/competitions/:id`                         | 首页内部的比赛详情             |
+| `/teams`、`/teams/:id`、`/teams/new`             | 找队友、队伍详情、发布招募     |
+| `/my/teams`、`/my/applications`、`/my/favorites` | 我的队伍、申请与邀请、我的收藏 |
+| `/notifications`、`/profile`                     | 站内通知、个人资料             |
+| `/login`、`/register`                            | 登录、注册                     |
+| `/health`                                        | 独立服务状态页                 |
+| 未匹配路径                                       | 页面不存在，可返回首页         |
+
+详情的固定 `preview` 链接明确标注“占位预览”，不代表已有比赛或队伍记录。原计划的 `/competitions` 路径已由首页替代。收藏与通知在移动端通过“我的”进入。History 路由部署时需配置 SPA fallback；本次未扩展生产部署。
+
+Demo 的比赛、队伍、人物、日期与浏览器交互均为示例；认证、数据库和真实组队流程仍按计划书后续阶段实现。Demo 不代表已上线的业务功能。
 
 ## 目录与接口契约
 
@@ -84,7 +101,7 @@ pnpm test:integration
 pnpm test:e2e
 ```
 
-API 单元测试覆盖配置、异常过滤与验证管道；集成测试使用 Fastify 注入请求；e2e 测试在本机临时端口验证真实 HTTP 与 Swagger 契约。Web 单元测试覆盖 Pinia 健康状态。API 的 Jest ESM 模式使用 `--experimental-vm-modules`，Node 会输出对应实验功能提示。
+API 单元测试覆盖配置、异常过滤与验证管道；集成测试使用 Fastify 注入请求；e2e 测试在本机临时端口验证真实 HTTP 与 Swagger 契约。Web 单元测试覆盖 Pinia 健康状态、学生端路由、首页嵌套、导航归属、404 与健康页重试/刷新。API 的 Jest ESM 模式使用 `--experimental-vm-modules`，Node 会输出对应实验功能提示。
 
 ESLint 使用原生支持的 `eslint.config.mjs`；`eslint-config-prettier` 关闭与 Prettier 冲突的格式规则。生成文件与构建输出不参与格式检查。
 

@@ -106,6 +106,140 @@
   }
 }
 
+@layer components {
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-symbol {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 46px;
+    border-radius: var(--hhr-radius-card);
+    background: var(--hhr-color-brand-soft);
+    color: var(--hhr-color-brand);
+    font-family: var(--hhr-font-display);
+    font-size: 28px;
+  }
+  .student-sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    padding: 30px 20px;
+    border-right: 1px solid var(--hhr-color-line);
+    background: var(--hhr-color-surface);
+    overflow-y: auto;
+  }
+  .student-body {
+    margin-left: 240px;
+    min-width: 0;
+  }
+  .student-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 82px;
+    padding: 16px 40px;
+    border-bottom: 1px solid var(--hhr-color-line);
+  }
+  .student-content {
+    max-width: 1100px;
+    margin-inline: auto;
+    padding: 40px;
+    overflow-wrap: anywhere;
+  }
+  .student-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 46px;
+    padding: 10px 14px;
+    border-radius: var(--hhr-radius-control);
+    color: var(--hhr-color-muted);
+  }
+  .student-nav-link .van-icon {
+    font-size: 21px;
+  }
+  .student-nav-link:hover,
+  .student-nav-link.is-current {
+    background: var(--hhr-color-brand-soft);
+    color: var(--hhr-color-brand);
+  }
+  .student-nav-link.is-current {
+    font-weight: 600;
+  }
+  .student-bottom-nav {
+    display: none;
+  }
+  .placeholder-panel {
+    min-height: 340px;
+    padding: 40px;
+  }
+  .skip-link {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 50;
+    transform: translateY(-160%);
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+}
+@media (max-width: 767px) {
+  .student-sidebar {
+    display: none;
+  }
+  .student-body {
+    margin-left: 0;
+  }
+  .student-topbar {
+    min-height: 72px;
+    padding: 14px 20px;
+  }
+  .student-content {
+    padding: 24px 20px calc(100px + env(safe-area-inset-bottom, 0px));
+  }
+  .placeholder-panel {
+    min-height: 320px;
+    padding: 24px;
+  }
+  .student-bottom-nav {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--hhr-color-line);
+    background: var(--hhr-color-surface);
+  }
+  .student-bottom-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-height: 48px;
+    border-radius: var(--hhr-radius-control);
+    color: var(--hhr-color-muted);
+    font-size: 11px;
+  }
+  .student-bottom-nav .van-icon {
+    font-size: 22px;
+  }
+  .student-bottom-nav .is-current {
+    background: var(--hhr-color-brand-soft);
+    color: var(--hhr-color-brand);
+    font-weight: 600;
+  }
+}
+
 /* 为原生控件和 Vant 控件提供统一的键盘焦点提示。 */
 button:focus-visible,
 a:focus-visible,
