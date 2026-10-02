@@ -2,6 +2,8 @@
 
 四川农业大学校园比赛与项目组队平台。当前完成阶段一工程初始化：pnpm 工作区、Vue 健康页、NestJS/Fastify 健康接口、OpenAPI 类型生成与 CI 配置。
 
+项目范围、阶段安排与当前进度见[项目开发计划书](docs/禾伙人-项目开发计划书.md)。
+
 ## 环境
 
 - Node.js 24，最低 `24.15.0`，支持范围 `>=24.15.0 <25`；`.nvmrc` 使用 `24`，不固定补丁版本。
@@ -32,7 +34,7 @@ Copy-Item apps/api/.env.example apps/api/.env
 pnpm dev
 ```
 
-- Web：[http://localhost:5173](http://localhost:5173)，端口占用时以 Vite 输出为准。
+- Web 健康页：[http://localhost:5173/health](http://localhost:5173/health)，根路径和未匹配路径跳转到 `/health`，端口占用时以 Vite 输出为准。
 - API：[http://127.0.0.1:3001/api/v1/health](http://127.0.0.1:3001/api/v1/health)。
 - Swagger：[http://127.0.0.1:3001/docs](http://127.0.0.1:3001/docs)。
 - OpenAPI JSON：[http://127.0.0.1:3001/docs-json](http://127.0.0.1:3001/docs-json)。
@@ -40,6 +42,14 @@ pnpm dev
 API 默认只监听本机。Web 的 `/api` 请求由 Vite 代理到 API；修改 API 端口时需同步修改 `apps/web/vite.config.ts` 的代理配置。环境变量支持 `NODE_ENV` 与 `PORT`；端口必须是 1–65535 的整数。`.env` 不提交。
 
 健康接口返回 `{ status: "ok", requestId: string }`，请求 ID 来自 Fastify。异常响应包含稳定的 `code`、用户可读的 `message` 与 `requestId`，未知异常不暴露内部细节。当前接口不使用数据库。
+
+## 学生端样式与 Demo
+
+学生端视觉基准采用[第一版 Demo](docs/demos/hehuoren-student-demo.html#competitions)：禾苗绿、暖白背景、谷物黄点缀和轻量圆角卡片。该风格已提取到 `apps/web/src/style.css`，通过共享变量统一 Tailwind 与 Vant；现有 `/health` 页面已接入。
+
+实现后续页面时遵循[学生端全局样式约定](docs/student-ui-style.md)。[Demo 说明](docs/demos/README.md)列出选定版本和三份备选静态风格，可直接用浏览器打开对应 HTML，无需启动服务。
+
+Demo 的比赛、队伍、人物、日期与浏览器交互均为示例；业务路由、认证、数据库和真实组队流程仍按计划书后续阶段实现。Demo 不代表已上线的业务功能。
 
 ## 目录与接口契约
 
