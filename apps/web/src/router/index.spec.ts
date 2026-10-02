@@ -20,8 +20,6 @@ const pages = [
   ["/my/favorites", "我的收藏", "favorites"],
   ["/notifications", "站内通知", "notifications"],
   ["/profile", "个人资料", "profile"],
-  ["/login", "登录", "login"],
-  ["/register", "注册", "register"],
 ] as const;
 
 describe("学生端路由", () => {
@@ -93,6 +91,44 @@ describe("学生端路由", () => {
         .get('nav[aria-label="移动端主导航"] a[aria-current="page"]')
         .text(),
     ).toBe("找队友");
+  });
+
+  it.each([
+    ["/login", "登录", 2],
+    ["/register", "注册", 5],
+  ] as const)(
+    "直接访问 %s 显示表单并保留独立品牌布局",
+    async (path, title, count) => {
+      await visit(path);
+      expect(wrapper!.get("h1").text()).toBe(title);
+      expect(document.title).toBe(`${title} · 禾伙人`);
+      expect(wrapper!.findAll("input")).toHaveLength(count);
+      expect(wrapper!.find(".student-shell").exists()).toBe(false);
+      expect(wrapper!.text()).not.toContain("待开发");
+      expect(wrapper!.get('a.auth-home-link[href="/home"]').text()).toContain(
+        "返回首页",
+      );
+    },
+  );
+
+  it("认证页互切清空敏感输入，前进后退及返回首页正常", async () => {
+    const router = await visit("/login");
+    await wrapper!.get("#auth-password").setValue("private-password");
+    await wrapper!.get('a[href="/register"]').trigger("click");
+    await flushPromises();
+    expect(router.currentRoute.value.path).toBe("/register");
+    expect(
+      (wrapper!.get("#auth-password").element as HTMLInputElement).value,
+    ).toBe("");
+    router.back();
+    await flushPromises();
+    expect(router.currentRoute.value.path).toBe("/login");
+    router.forward();
+    await flushPromises();
+    expect(router.currentRoute.value.path).toBe("/register");
+    await wrapper!.get(".auth-home-link").trigger("click");
+    await flushPromises();
+    expect(router.currentRoute.value.path).toBe("/home");
   });
 
   it.each(["/my/favorites", "/notifications"])(

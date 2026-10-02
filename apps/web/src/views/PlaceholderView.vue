@@ -58,16 +58,6 @@ const route = useRoute();
           >注册</RouterLink
         >
       </template>
-      <template v-else-if="route.name === 'login' || route.name === 'register'">
-        <RouterLink
-          :to="route.name === 'login' ? '/register' : '/login'"
-          class="hhr-button hhr-button--soft"
-          >{{ route.name === "login" ? "前往注册" : "前往登录" }}</RouterLink
-        >
-        <RouterLink to="/home" class="hhr-button hhr-button--secondary"
-          >返回首页</RouterLink
-        >
-      </template>
       <RouterLink v-else to="/home" class="hhr-button hhr-button--secondary"
         >返回首页</RouterLink
       >
