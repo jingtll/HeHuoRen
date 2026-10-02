@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
+import ProjectLogo from "../components/ProjectLogo.vue";
 import { useHealthStore } from "../stores/health";
 const health = useHealthStore();
 const statusText = computed(
@@ -21,7 +22,12 @@ onMounted(() => {
   >
     <header class="mb-8">
       <p class="hhr-eyebrow">HEHUOREN</p>
-      <h1 class="font-serif text-4xl font-semibold tracking-tight">禾伙人</h1>
+      <div class="brand-link">
+        <ProjectLogo />
+        <h1 class="font-serif text-[28px] font-semibold tracking-tight">
+          禾伙人
+        </h1>
+      </div>
       <p class="mt-3 text-sm leading-7 text-muted">校园比赛与项目组队平台</p>
     </header>
     <section

@@ -1,10 +1,189 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HealthView from "../views/HealthView.vue";
-export const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    { path: "/health", component: HealthView },
-    { path: "/", redirect: "/health" },
-    { path: "/:pathMatch(.*)*", redirect: "/health" },
-  ],
-});
+import {
+  createRouter,
+  createWebHistory,
+  type RouterHistory,
+  type RouteRecordRaw,
+} from "vue-router";
+
+export type NavigationSection =
+  | "home"
+  | "teams"
+  | "my-teams"
+  | "applications"
+  | "favorites"
+  | "notifications"
+  | "profile";
+
+declare module "vue-router" {
+  interface RouteMeta {
+    title: string;
+    description?: string;
+    navigation?: NavigationSection;
+  }
+}
+
+const placeholder = () => import("../views/PlaceholderView.vue");
+export const routes: RouteRecordRaw[] = [
+  { path: "/", name: "entry", redirect: "/home" },
+  {
+    path: "/",
+    component: () => import("../layouts/StudentLayout.vue"),
+    children: [
+      {
+        path: "home",
+        component: () => import("../views/HomeView.vue"),
+        meta: { title: "首页", navigation: "home" },
+        children: [
+          {
+            path: "",
+            name: "home",
+            component: placeholder,
+            meta: {
+              title: "首页",
+              description: "在这里发现校园比赛与项目，找到一起成长的伙伴。",
+            },
+          },
+          {
+            path: "competitions/:id",
+            name: "competition-detail",
+            component: placeholder,
+            meta: {
+              title: "比赛详情",
+              description: "比赛规则、赛道与关联招募将在这里展示。",
+            },
+          },
+        ],
+      },
+      {
+        path: "teams",
+        name: "teams",
+        component: placeholder,
+        meta: {
+          title: "找队友",
+          navigation: "teams",
+          description: "按项目与角色发现招募，寻找志同道合的伙伴。",
+        },
+      },
+      {
+        path: "teams/new",
+        name: "team-new",
+        component: placeholder,
+        meta: {
+          title: "发布招募",
+          navigation: "teams",
+          description: "未来可在这里说明项目目标与角色需求，发起队伍招募。",
+        },
+      },
+      {
+        path: "teams/:id",
+        name: "team-detail",
+        component: placeholder,
+        meta: {
+          title: "队伍详情",
+          navigation: "teams",
+          description: "队伍介绍、成员与招募需求将在这里展示。",
+        },
+      },
+      {
+        path: "my/teams",
+        name: "my-teams",
+        component: placeholder,
+        meta: {
+          title: "我的队伍",
+          navigation: "my-teams",
+          description: "在这里查看自己加入与带领的队伍。",
+        },
+      },
+      {
+        path: "my/applications",
+        name: "applications",
+        component: placeholder,
+        meta: {
+          title: "申请与邀请",
+          navigation: "applications",
+          description: "在这里查看入队申请与邀请，跟进组队进展。",
+        },
+      },
+      {
+        path: "my/favorites",
+        name: "favorites",
+        component: placeholder,
+        meta: {
+          title: "我的收藏",
+          navigation: "favorites",
+          description: "在这里回看关注的比赛。",
+        },
+      },
+      {
+        path: "notifications",
+        name: "notifications",
+        component: placeholder,
+        meta: {
+          title: "站内通知",
+          navigation: "notifications",
+          description: "组队进展与平台提醒将在这里展示。",
+        },
+      },
+      {
+        path: "profile",
+        name: "profile",
+        component: placeholder,
+        meta: {
+          title: "个人资料",
+          navigation: "profile",
+          description: "个人介绍、技能与联系方式授权将在这里设置。",
+        },
+      },
+    ],
+  },
+  {
+    path: "/",
+    component: () => import("../layouts/BrandLayout.vue"),
+    children: [
+      {
+        path: "login",
+        name: "login",
+        component: placeholder,
+        meta: {
+          title: "登录",
+          description: "账号登录功能待开发，现在可直接浏览学生端各页面。",
+        },
+      },
+      {
+        path: "register",
+        name: "register",
+        component: placeholder,
+        meta: {
+          title: "注册",
+          description: "账号注册功能待开发，现在可直接浏览学生端各页面。",
+        },
+      },
+      {
+        path: ":pathMatch(.*)*",
+        name: "not-found",
+        component: () => import("../views/NotFoundView.vue"),
+        meta: { title: "页面不存在" },
+      },
+    ],
+  },
+  {
+    path: "/health",
+    name: "health",
+    component: () => import("../views/HealthView.vue"),
+    meta: { title: "服务状态" },
+  },
+];
+
+export function createAppRouter(history: RouterHistory = createWebHistory()) {
+  const instance = createRouter({
+    history,
+    routes,
+    scrollBehavior: () => ({ top: 0 }),
+  });
+  instance.afterEach((to) => {
+    document.title = `${to.meta.title} · 禾伙人`;
+  });
+  return instance;
+}
+
+export const router = createAppRouter();
