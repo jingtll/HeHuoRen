@@ -23,7 +23,7 @@ jobs:
     timeout-minutes: 5
     steps:
       # 不检出或执行 PR 代码；只通过 GitHub API 操作已通过 CI 的提交。
-      - name: Enable auto-merge for the verified PR commit
+      - name: Merge the verified PR commit and delete its branch
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -43,7 +43,44 @@ jobs:
             exit 0
           fi
 
+          default_branch=$(gh repo view "$GH_REPO" --json defaultBranchRef \
+            --jq '.defaultBranchRef.name')
+
           while IFS= read -r pr; do
             gh pr merge "$pr" --repo "$GH_REPO" --auto --merge \
               --match-head-commit "$HEAD_SHA"
+
+            # --auto 可能只启用等待合并；未实际合并时必须保留来源分支。
+            pr_info=$(gh pr view "$pr" --repo "$GH_REPO" \
+              --json state,headRefOid,headRefName,isCrossRepository \
+              --jq '[.state, .headRefOid, .headRefName, .isCrossRepository] | @tsv')
+            IFS=$'\t' read -r state merged_head branch cross_repository <<< "$pr_info"
+            if [[ "$state" != "MERGED" || "$merged_head" != "$HEAD_SHA" || \
+                  "$branch" != "$HEAD_BRANCH" || "$cross_repository" != "false" || \
+                  "$branch" == "$default_branch" ]]; then
+              echo "PR #$pr is pending or its branch is ineligible for deletion; keeping branch."
+              continue
+            fi
+
+            # 避免删除其他打开的 PR 使用的来源分支或目标分支。
+            open_prs=$(gh api --paginate "repos/$GH_REPO/pulls?state=open&per_page=100" \
+              | jq -r --arg branch "$branch" --arg repo "$GH_REPO" \
+                '.[] | select((.head.repo.full_name == $repo and .head.ref == $branch) or .base.ref == $branch) | .number')
+            if [[ -n "$open_prs" ]]; then
+              echo "Branch $branch is referenced by open PRs; keeping branch."
+              continue
+            fi
+
+            # 删除前核对远程最新 SHA；已删除、受保护或有新提交的分支不处理。
+            branch_info=$(gh api --paginate "repos/$GH_REPO/branches?per_page=100" \
+              | jq -r --arg branch "$branch" \
+                '.[] | select(.name == $branch) | [.commit.sha, .protected] | @tsv')
+            IFS=$'\t' read -r branch_sha protected <<< "$branch_info"
+            if [[ "$branch_sha" != "$HEAD_SHA" || "$protected" != "false" ]]; then
+              echo "Branch $branch is absent, protected, or has new commits; skipping deletion."
+              continue
+            fi
+
+            gh api --method DELETE "repos/$GH_REPO/git/refs/heads/$branch"
+            echo "Deleted merged remote branch $branch."
           done <<< "$prs"
