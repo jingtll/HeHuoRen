@@ -86,4 +86,8 @@ GitHub Actions 在面向 `main` 的 PR、`main` 推送及手动触发时运行�
 
 问题与方案记录在 GitHub Issues，PR 使用仓库模板。参见 [AGENTS.md](AGENTS.md)、[阶段一设计](docs/superpowers/specs/2026-10-01-phase-one-foundation-design.md)与[实施计划](docs/superpowers/plans/2026-10-01-phase-one-foundation.md)。
 
+新建 Issue 可选择[问题反馈](.github/ISSUE_TEMPLATE/bug_report.yml)、[功能建议](.github/ISSUE_TEMPLATE/feature_request.yml)或[开发任务](.github/ISSUE_TEMPLATE/task.yml)表单，默认进入 `needs-triage`；确认需求后按[分诊标签映射](docs/agents/triage-labels.md)更新状态。提交 PR 时使用 [PR 模板](.github/PULL_REQUEST_TEMPLATE.md)，填写关联 Issue、变更内容与实际验证结果。
+
+本机 Agent 配置、依赖、构建缓存、日志、浏览器测试产物及本地运行数据由 `.gitignore` 排除。环境变量示例、根锁文件、OpenAPI 文档与生成的接口类型随代码提交。
+
 本地检查不能证明远端 CI 已执行；分支保护、required checks 与 Auto-merge 需要在 GitHub 单独配置和核验。当前阶段不包含数据库、登录、比赛、招募、申请或生产部署。
