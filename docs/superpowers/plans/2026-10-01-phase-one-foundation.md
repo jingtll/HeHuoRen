@@ -1,6 +1,6 @@
 # 禾伙人阶段一工程骨架实施计划
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use `subagent-driven-development` or `executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> 本文件保留阶段一的历史实施步骤与验收记录。后续工作遵循根目录 `AGENTS.md` 与 `docs/agents/` 中的现行约定；步骤使用复选框记录完成状态。
 
 **Goal:** 建立 Node.js 24 + pnpm Monorepo，让 Vue 3 Web 通过 Pinia 和 Vite 代理读取 NestJS/Fastify API 的真实健康状态，并提供可重复生成的 OpenAPI 类型与 CI 质量门禁。
 
