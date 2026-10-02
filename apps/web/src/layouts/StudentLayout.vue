@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { Icon } from "vant";
+import ProjectLogo from "../components/ProjectLogo.vue";
 import type { NavigationSection } from "../router";
 
 const route = useRoute();
@@ -74,7 +75,7 @@ function current(section: NavigationSection, mobile = false) {
     <a href="#student-content" class="skip-link hhr-button">跳到正文</a>
     <aside class="student-sidebar">
       <RouterLink to="/home" class="brand-link">
-        <span class="brand-symbol" aria-hidden="true">禾</span>
+        <ProjectLogo />
         <span
           ><strong class="font-serif text-2xl">禾伙人</strong
           ><small class="block text-xs text-muted"
@@ -105,18 +106,53 @@ function current(section: NavigationSection, mobile = false) {
     </aside>
     <div class="student-body">
       <header class="student-topbar">
-        <RouterLink
-          to="/home"
-          class="font-serif text-xl font-semibold text-brand"
-          >禾伙人</RouterLink
-        >
-        <nav aria-label="账号入口" class="flex gap-3 text-sm text-brand">
-          <RouterLink to="/login" class="rounded-control px-2 py-2"
-            >登录</RouterLink
+        <RouterLink to="/home" class="brand-link topbar-brand">
+          <ProjectLogo />
+          <span class="topbar-brand-name">禾伙人</span>
+        </RouterLink>
+        <nav aria-label="顶栏快捷入口" class="topbar-actions">
+          <RouterLink
+            to="/notifications"
+            aria-label="站内通知"
+            title="站内通知"
+            class="topbar-icon-link"
           >
-          <RouterLink to="/register" class="hhr-button hhr-button--soft"
-            >注册</RouterLink
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 9h18c0-1-3-2-3-9Z" />
+              <path d="M10 21h4M12 2V1" />
+            </svg>
+          </RouterLink>
+          <RouterLink
+            to="/profile"
+            aria-label="个人资料"
+            title="个人资料"
+            class="topbar-icon-link"
           >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="7" r="4" />
+              <path d="M4.5 21v-2a7.5 7.5 0 0 1 15 0v2" />
+            </svg>
+          </RouterLink>
         </nav>
       </header>
       <main id="student-content" tabindex="-1" class="student-content">
