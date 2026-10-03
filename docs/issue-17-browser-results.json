@@ -1,0 +1,1959 @@
+{
+  "passed": true,
+  "reports": [
+    {
+      "width": 375,
+      "height": 812,
+      "initial": {
+        "viewport": 812,
+        "cardHeight": 324.8000183105469,
+        "scrollHeight": 549,
+        "scrollViewport": 210,
+        "overflow": false,
+        "entries": 27,
+        "loadedImages": 25,
+        "round": true,
+        "resources": [
+          {
+            "file": "agriculture-DFvkrN4K.webp",
+            "transferSize": 7394,
+            "encodedBodySize": 7094
+          },
+          {
+            "file": "animal-science-DbmBJOkG.webp",
+            "transferSize": 9446,
+            "encodedBodySize": 9146
+          },
+          {
+            "file": "veterinary-medicine-C2Y5fLQS.webp",
+            "transferSize": 9702,
+            "encodedBodySize": 9402
+          },
+          {
+            "file": "grassland-science-CnKFbj0O.webp",
+            "transferSize": 9974,
+            "encodedBodySize": 9674
+          },
+          {
+            "file": "fisheries-_qc5x3CI.webp",
+            "transferSize": 7766,
+            "encodedBodySize": 7466
+          },
+          {
+            "file": "forestry-DD_2oqMV.webp",
+            "transferSize": 13214,
+            "encodedBodySize": 12914
+          },
+          {
+            "file": "horticulture-BtjD_b4F.webp",
+            "transferSize": 3604,
+            "encodedBodySize": 3304
+          },
+          {
+            "file": "landscape-architecture-BtN43JNE.webp",
+            "transferSize": 7086,
+            "encodedBodySize": 6786
+          },
+          {
+            "file": "resources-BsqV1O1y.webp",
+            "transferSize": 6824,
+            "encodedBodySize": 6524
+          },
+          {
+            "file": "environment-bdh8DeU9.webp",
+            "transferSize": 11722,
+            "encodedBodySize": 11422
+          },
+          {
+            "file": "economics-Ccbi2-Wa.webp",
+            "transferSize": 8286,
+            "encodedBodySize": 7986
+          },
+          {
+            "file": "management-B6nDKbPa.webp",
+            "transferSize": 11776,
+            "encodedBodySize": 11476
+          },
+          {
+            "file": "food-science-BUBFoFHq.webp",
+            "transferSize": 3638,
+            "encodedBodySize": 3338
+          },
+          {
+            "file": "science-Dgl0WfbI.webp",
+            "transferSize": 7558,
+            "encodedBodySize": 7258
+          },
+          {
+            "file": "life-science-DF4ZZSkY.webp",
+            "transferSize": 2994,
+            "encodedBodySize": 2694
+          },
+          {
+            "file": "information-engineering-BzAJOt2Y.webp",
+            "transferSize": 5796,
+            "encodedBodySize": 5496
+          },
+          {
+            "file": "mechanical-electrical-WRv4KSav.webp",
+            "transferSize": 3344,
+            "encodedBodySize": 3044
+          },
+          {
+            "file": "water-conservancy-DJ1TSLrq.webp",
+            "transferSize": 12584,
+            "encodedBodySize": 12284
+          },
+          {
+            "file": "sports-C5prx6-I.webp",
+            "transferSize": 5462,
+            "encodedBodySize": 5162
+          },
+          {
+            "file": "humanities-C4f3fCdN.webp",
+            "transferSize": 10610,
+            "encodedBodySize": 10310
+          },
+          {
+            "file": "public-administration-Dw9qZVK5.webp",
+            "transferSize": 11842,
+            "encodedBodySize": 11542
+          },
+          {
+            "file": "law-BQ-ILwK4.webp",
+            "transferSize": 8532,
+            "encodedBodySize": 8232
+          },
+          {
+            "file": "architecture-planning-BeouoQNY.webp",
+            "transferSize": 952,
+            "encodedBodySize": 652
+          },
+          {
+            "file": "business-tourism-OgDqO_NO.webp",
+            "transferSize": 11842,
+            "encodedBodySize": 11542
+          },
+          {
+            "file": "arts-media-BoZjUFBu.webp",
+            "transferSize": 1980,
+            "encodedBodySize": 1680
+          }
+        ]
+      },
+      "final": {
+        "viewport": 812,
+        "cardHeight": 324.8000183105469,
+        "scrollHeight": 549,
+        "scrollViewport": 210,
+        "overflow": false,
+        "entries": 27,
+        "loadedImages": 25,
+        "round": true,
+        "resources": [
+          {
+            "file": "agriculture-DFvkrN4K.webp",
+            "transferSize": 7394,
+            "encodedBodySize": 7094
+          },
+          {
+            "file": "animal-science-DbmBJOkG.webp",
+            "transferSize": 9446,
+            "encodedBodySize": 9146
+          },
+          {
+            "file": "veterinary-medicine-C2Y5fLQS.webp",
+            "transferSize": 9702,
+            "encodedBodySize": 9402
+          },
+          {
+            "file": "grassland-science-CnKFbj0O.webp",
+            "transferSize": 9974,
+            "encodedBodySize": 9674
+          },
+          {
+            "file": "fisheries-_qc5x3CI.webp",
+            "transferSize": 7766,
+            "encodedBodySize": 7466
+          },
+          {
+            "file": "forestry-DD_2oqMV.webp",
+            "transferSize": 13214,
+            "encodedBodySize": 12914
+          },
+          {
+            "file": "horticulture-BtjD_b4F.webp",
+            "transferSize": 3604,
+            "encodedBodySize": 3304
+          },
+          {
+            "file": "landscape-architecture-BtN43JNE.webp",
+            "transferSize": 7086,
+            "encodedBodySize": 6786
+          },
+          {
+            "file": "resources-BsqV1O1y.webp",
+            "transferSize": 6824,
+            "encodedBodySize": 6524
+          },
+          {
+            "file": "environment-bdh8DeU9.webp",
+            "transferSize": 11722,
+            "encodedBodySize": 11422
+          },
+          {
+            "file": "economics-Ccbi2-Wa.webp",
+            "transferSize": 8286,
+            "encodedBodySize": 7986
+          },
+          {
+            "file": "management-B6nDKbPa.webp",
+            "transferSize": 11776,
+            "encodedBodySize": 11476
+          },
+          {
+            "file": "food-science-BUBFoFHq.webp",
+            "transferSize": 3638,
+            "encodedBodySize": 3338
+          },
+          {
+            "file": "science-Dgl0WfbI.webp",
+            "transferSize": 7558,
+            "encodedBodySize": 7258
+          },
+          {
+            "file": "life-science-DF4ZZSkY.webp",
+            "transferSize": 2994,
+            "encodedBodySize": 2694
+          },
+          {
+            "file": "information-engineering-BzAJOt2Y.webp",
+            "transferSize": 5796,
+            "encodedBodySize": 5496
+          },
+          {
+            "file": "mechanical-electrical-WRv4KSav.webp",
+            "transferSize": 3344,
+            "encodedBodySize": 3044
+          },
+          {
+            "file": "water-conservancy-DJ1TSLrq.webp",
+            "transferSize": 12584,
+            "encodedBodySize": 12284
+          },
+          {
+            "file": "sports-C5prx6-I.webp",
+            "transferSize": 5462,
+            "encodedBodySize": 5162
+          },
+          {
+            "file": "humanities-C4f3fCdN.webp",
+            "transferSize": 10610,
+            "encodedBodySize": 10310
+          },
+          {
+            "file": "public-administration-Dw9qZVK5.webp",
+            "transferSize": 11842,
+            "encodedBodySize": 11542
+          },
+          {
+            "file": "law-BQ-ILwK4.webp",
+            "transferSize": 8532,
+            "encodedBodySize": 8232
+          },
+          {
+            "file": "architecture-planning-BeouoQNY.webp",
+            "transferSize": 952,
+            "encodedBodySize": 652
+          },
+          {
+            "file": "business-tourism-OgDqO_NO.webp",
+            "transferSize": 11842,
+            "encodedBodySize": 11542
+          },
+          {
+            "file": "arts-media-BoZjUFBu.webp",
+            "transferSize": 1980,
+            "encodedBodySize": 1680
+          }
+        ]
+      },
+      "network": {
+        "cold": [
+          {
+            "file": "agriculture-DFvkrN4K.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "animal-science-DbmBJOkG.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "veterinary-medicine-C2Y5fLQS.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "grassland-science-CnKFbj0O.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "fisheries-_qc5x3CI.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "forestry-DD_2oqMV.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "horticulture-BtjD_b4F.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "landscape-architecture-BtN43JNE.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "resources-BsqV1O1y.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "environment-bdh8DeU9.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "economics-Ccbi2-Wa.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "management-B6nDKbPa.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "science-Dgl0WfbI.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "food-science-BUBFoFHq.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "life-science-DF4ZZSkY.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "water-conservancy-DJ1TSLrq.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "information-engineering-BzAJOt2Y.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "mechanical-electrical-WRv4KSav.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "architecture-planning-BeouoQNY.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "sports-C5prx6-I.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "business-tourism-OgDqO_NO.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "humanities-C4f3fCdN.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "public-administration-Dw9qZVK5.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "arts-media-BoZjUFBu.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "law-BQ-ILwK4.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          }
+        ],
+        "warm": [
+          {
+            "file": "agriculture-DFvkrN4K.webp",
+            "status": 304
+          },
+          {
+            "file": "animal-science-DbmBJOkG.webp",
+            "status": 304
+          },
+          {
+            "file": "veterinary-medicine-C2Y5fLQS.webp",
+            "status": 304
+          },
+          {
+            "file": "grassland-science-CnKFbj0O.webp",
+            "status": 304
+          },
+          {
+            "file": "fisheries-_qc5x3CI.webp",
+            "status": 304
+          },
+          {
+            "file": "forestry-DD_2oqMV.webp",
+            "status": 304
+          },
+          {
+            "file": "horticulture-BtjD_b4F.webp",
+            "status": 304
+          },
+          {
+            "file": "landscape-architecture-BtN43JNE.webp",
+            "status": 304
+          },
+          {
+            "file": "resources-BsqV1O1y.webp",
+            "status": 304
+          },
+          {
+            "file": "environment-bdh8DeU9.webp",
+            "status": 304
+          },
+          {
+            "file": "economics-Ccbi2-Wa.webp",
+            "status": 304
+          },
+          {
+            "file": "management-B6nDKbPa.webp",
+            "status": 304
+          },
+          {
+            "file": "food-science-BUBFoFHq.webp",
+            "status": 304
+          },
+          {
+            "file": "science-Dgl0WfbI.webp",
+            "status": 304
+          },
+          {
+            "file": "life-science-DF4ZZSkY.webp",
+            "status": 304
+          },
+          {
+            "file": "mechanical-electrical-WRv4KSav.webp",
+            "status": 304
+          },
+          {
+            "file": "information-engineering-BzAJOt2Y.webp",
+            "status": 304
+          },
+          {
+            "file": "water-conservancy-DJ1TSLrq.webp",
+            "status": 304
+          },
+          {
+            "file": "humanities-C4f3fCdN.webp",
+            "status": 304
+          },
+          {
+            "file": "public-administration-Dw9qZVK5.webp",
+            "status": 304
+          },
+          {
+            "file": "law-BQ-ILwK4.webp",
+            "status": 304
+          },
+          {
+            "file": "architecture-planning-BeouoQNY.webp",
+            "status": 304
+          },
+          {
+            "file": "sports-C5prx6-I.webp",
+            "status": 304
+          },
+          {
+            "file": "business-tourism-OgDqO_NO.webp",
+            "status": 304
+          },
+          {
+            "file": "arts-media-BoZjUFBu.webp",
+            "status": 304
+          }
+        ]
+      },
+      "warmResources": [
+        {
+          "file": "agriculture-DFvkrN4K.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "animal-science-DbmBJOkG.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "veterinary-medicine-C2Y5fLQS.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "grassland-science-CnKFbj0O.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "fisheries-_qc5x3CI.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "forestry-DD_2oqMV.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "horticulture-BtjD_b4F.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "landscape-architecture-BtN43JNE.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "resources-BsqV1O1y.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "environment-bdh8DeU9.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "economics-Ccbi2-Wa.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "management-B6nDKbPa.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "food-science-BUBFoFHq.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "science-Dgl0WfbI.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "life-science-DF4ZZSkY.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "mechanical-electrical-WRv4KSav.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "information-engineering-BzAJOt2Y.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "water-conservancy-DJ1TSLrq.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "humanities-C4f3fCdN.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "public-administration-Dw9qZVK5.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "law-BQ-ILwK4.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "sports-C5prx6-I.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "arts-media-BoZjUFBu.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "architecture-planning-BeouoQNY.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "business-tourism-OgDqO_NO.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        }
+      ],
+      "activeStyle": {
+        "background": "rgb(234, 242, 233)",
+        "border": "rgb(39, 100, 75)"
+      },
+      "keyboardScroll": 183.1999969482422,
+      "wheelScroll": 180,
+      "touchScroll": 84.80000305175781,
+      "navigationClear": true,
+      "focus": {
+        "style": "none",
+        "width": "2.4px"
+      },
+      "errors": [],
+      "buttonTransitions": true,
+      "all27RemainCustom": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "initial": {
+        "viewport": 844,
+        "cardHeight": 337.6000061035156,
+        "scrollHeight": 534,
+        "scrollViewport": 222,
+        "overflow": false,
+        "entries": 27,
+        "loadedImages": 25,
+        "round": true,
+        "resources": [
+          {
+            "file": "agriculture-DFvkrN4K.webp",
+            "transferSize": 7394,
+            "encodedBodySize": 7094
+          },
+          {
+            "file": "animal-science-DbmBJOkG.webp",
+            "transferSize": 9446,
+            "encodedBodySize": 9146
+          },
+          {
+            "file": "veterinary-medicine-C2Y5fLQS.webp",
+            "transferSize": 9702,
+            "encodedBodySize": 9402
+          },
+          {
+            "file": "fisheries-_qc5x3CI.webp",
+            "transferSize": 7766,
+            "encodedBodySize": 7466
+          },
+          {
+            "file": "grassland-science-CnKFbj0O.webp",
+            "transferSize": 9974,
+            "encodedBodySize": 9674
+          },
+          {
+            "file": "forestry-DD_2oqMV.webp",
+            "transferSize": 13214,
+            "encodedBodySize": 12914
+          },
+          {
+            "file": "horticulture-BtjD_b4F.webp",
+            "transferSize": 3604,
+            "encodedBodySize": 3304
+          },
+          {
+            "file": "resources-BsqV1O1y.webp",
+            "transferSize": 6824,
+            "encodedBodySize": 6524
+          },
+          {
+            "file": "landscape-architecture-BtN43JNE.webp",
+            "transferSize": 7086,
+            "encodedBodySize": 6786
+          },
+          {
+            "file": "environment-bdh8DeU9.webp",
+            "transferSize": 11722,
+            "encodedBodySize": 11422
+          },
+          {
+            "file": "economics-Ccbi2-Wa.webp",
+            "transferSize": 8286,
+            "encodedBodySize": 7986
+          },
+          {
+            "file": "management-B6nDKbPa.webp",
+            "transferSize": 11776,
+            "encodedBodySize": 11476
+          },
+          {
+            "file": "food-science-BUBFoFHq.webp",
+            "transferSize": 3638,
+            "encodedBodySize": 3338
+          },
+          {
+            "file": "life-science-DF4ZZSkY.webp",
+            "transferSize": 2994,
+            "encodedBodySize": 2694
+          },
+          {
+            "file": "science-Dgl0WfbI.webp",
+            "transferSize": 7558,
+            "encodedBodySize": 7258
+          },
+          {
+            "file": "mechanical-electrical-WRv4KSav.webp",
+            "transferSize": 3344,
+            "encodedBodySize": 3044
+          },
+          {
+            "file": "information-engineering-BzAJOt2Y.webp",
+            "transferSize": 5796,
+            "encodedBodySize": 5496
+          },
+          {
+            "file": "water-conservancy-DJ1TSLrq.webp",
+            "transferSize": 12584,
+            "encodedBodySize": 12284
+          },
+          {
+            "file": "humanities-C4f3fCdN.webp",
+            "transferSize": 10610,
+            "encodedBodySize": 10310
+          },
+          {
+            "file": "public-administration-Dw9qZVK5.webp",
+            "transferSize": 11842,
+            "encodedBodySize": 11542
+          },
+          {
+            "file": "law-BQ-ILwK4.webp",
+            "transferSize": 8532,
+            "encodedBodySize": 8232
+          },
+          {
+            "file": "sports-C5prx6-I.webp",
+            "transferSize": 5462,
+            "encodedBodySize": 5162
+          },
+          {
+            "file": "arts-media-BoZjUFBu.webp",
+            "transferSize": 1980,
+            "encodedBodySize": 1680
+          },
+          {
+            "file": "architecture-planning-BeouoQNY.webp",
+            "transferSize": 952,
+            "encodedBodySize": 652
+          },
+          {
+            "file": "business-tourism-OgDqO_NO.webp",
+            "transferSize": 11842,
+            "encodedBodySize": 11542
+          }
+        ]
+      },
+      "final": {
+        "viewport": 844,
+        "cardHeight": 337.6000061035156,
+        "scrollHeight": 534,
+        "scrollViewport": 222,
+        "overflow": false,
+        "entries": 27,
+        "loadedImages": 25,
+        "round": true,
+        "resources": [
+          {
+            "file": "agriculture-DFvkrN4K.webp",
+            "transferSize": 7394,
+            "encodedBodySize": 7094
+          },
+          {
+            "file": "animal-science-DbmBJOkG.webp",
+            "transferSize": 9446,
+            "encodedBodySize": 9146
+          },
+          {
+            "file": "veterinary-medicine-C2Y5fLQS.webp",
+            "transferSize": 9702,
+            "encodedBodySize": 9402
+          },
+          {
+            "file": "fisheries-_qc5x3CI.webp",
+            "transferSize": 7766,
+            "encodedBodySize": 7466
+          },
+          {
+            "file": "grassland-science-CnKFbj0O.webp",
+            "transferSize": 9974,
+            "encodedBodySize": 9674
+          },
+          {
+            "file": "forestry-DD_2oqMV.webp",
+            "transferSize": 13214,
+            "encodedBodySize": 12914
+          },
+          {
+            "file": "horticulture-BtjD_b4F.webp",
+            "transferSize": 3604,
+            "encodedBodySize": 3304
+          },
+          {
+            "file": "resources-BsqV1O1y.webp",
+            "transferSize": 6824,
+            "encodedBodySize": 6524
+          },
+          {
+            "file": "landscape-architecture-BtN43JNE.webp",
+            "transferSize": 7086,
+            "encodedBodySize": 6786
+          },
+          {
+            "file": "environment-bdh8DeU9.webp",
+            "transferSize": 11722,
+            "encodedBodySize": 11422
+          },
+          {
+            "file": "economics-Ccbi2-Wa.webp",
+            "transferSize": 8286,
+            "encodedBodySize": 7986
+          },
+          {
+            "file": "management-B6nDKbPa.webp",
+            "transferSize": 11776,
+            "encodedBodySize": 11476
+          },
+          {
+            "file": "food-science-BUBFoFHq.webp",
+            "transferSize": 3638,
+            "encodedBodySize": 3338
+          },
+          {
+            "file": "life-science-DF4ZZSkY.webp",
+            "transferSize": 2994,
+            "encodedBodySize": 2694
+          },
+          {
+            "file": "science-Dgl0WfbI.webp",
+            "transferSize": 7558,
+            "encodedBodySize": 7258
+          },
+          {
+            "file": "mechanical-electrical-WRv4KSav.webp",
+            "transferSize": 3344,
+            "encodedBodySize": 3044
+          },
+          {
+            "file": "information-engineering-BzAJOt2Y.webp",
+            "transferSize": 5796,
+            "encodedBodySize": 5496
+          },
+          {
+            "file": "water-conservancy-DJ1TSLrq.webp",
+            "transferSize": 12584,
+            "encodedBodySize": 12284
+          },
+          {
+            "file": "humanities-C4f3fCdN.webp",
+            "transferSize": 10610,
+            "encodedBodySize": 10310
+          },
+          {
+            "file": "public-administration-Dw9qZVK5.webp",
+            "transferSize": 11842,
+            "encodedBodySize": 11542
+          },
+          {
+            "file": "law-BQ-ILwK4.webp",
+            "transferSize": 8532,
+            "encodedBodySize": 8232
+          },
+          {
+            "file": "sports-C5prx6-I.webp",
+            "transferSize": 5462,
+            "encodedBodySize": 5162
+          },
+          {
+            "file": "arts-media-BoZjUFBu.webp",
+            "transferSize": 1980,
+            "encodedBodySize": 1680
+          },
+          {
+            "file": "architecture-planning-BeouoQNY.webp",
+            "transferSize": 952,
+            "encodedBodySize": 652
+          },
+          {
+            "file": "business-tourism-OgDqO_NO.webp",
+            "transferSize": 11842,
+            "encodedBodySize": 11542
+          }
+        ]
+      },
+      "network": {
+        "cold": [
+          {
+            "file": "agriculture-DFvkrN4K.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "animal-science-DbmBJOkG.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "veterinary-medicine-C2Y5fLQS.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "fisheries-_qc5x3CI.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "grassland-science-CnKFbj0O.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "forestry-DD_2oqMV.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "horticulture-BtjD_b4F.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "resources-BsqV1O1y.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "landscape-architecture-BtN43JNE.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "environment-bdh8DeU9.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "economics-Ccbi2-Wa.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "management-B6nDKbPa.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "food-science-BUBFoFHq.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "life-science-DF4ZZSkY.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "science-Dgl0WfbI.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "mechanical-electrical-WRv4KSav.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "information-engineering-BzAJOt2Y.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "water-conservancy-DJ1TSLrq.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "humanities-C4f3fCdN.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "public-administration-Dw9qZVK5.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "law-BQ-ILwK4.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "sports-C5prx6-I.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "arts-media-BoZjUFBu.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "architecture-planning-BeouoQNY.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "business-tourism-OgDqO_NO.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          }
+        ],
+        "warm": [
+          {
+            "file": "agriculture-DFvkrN4K.webp",
+            "status": 304
+          },
+          {
+            "file": "animal-science-DbmBJOkG.webp",
+            "status": 304
+          },
+          {
+            "file": "veterinary-medicine-C2Y5fLQS.webp",
+            "status": 304
+          },
+          {
+            "file": "grassland-science-CnKFbj0O.webp",
+            "status": 304
+          },
+          {
+            "file": "fisheries-_qc5x3CI.webp",
+            "status": 304
+          },
+          {
+            "file": "forestry-DD_2oqMV.webp",
+            "status": 304
+          },
+          {
+            "file": "horticulture-BtjD_b4F.webp",
+            "status": 304
+          },
+          {
+            "file": "landscape-architecture-BtN43JNE.webp",
+            "status": 304
+          },
+          {
+            "file": "resources-BsqV1O1y.webp",
+            "status": 304
+          },
+          {
+            "file": "environment-bdh8DeU9.webp",
+            "status": 304
+          },
+          {
+            "file": "economics-Ccbi2-Wa.webp",
+            "status": 304
+          },
+          {
+            "file": "management-B6nDKbPa.webp",
+            "status": 304
+          },
+          {
+            "file": "food-science-BUBFoFHq.webp",
+            "status": 304
+          },
+          {
+            "file": "science-Dgl0WfbI.webp",
+            "status": 304
+          },
+          {
+            "file": "life-science-DF4ZZSkY.webp",
+            "status": 304
+          },
+          {
+            "file": "mechanical-electrical-WRv4KSav.webp",
+            "status": 304
+          },
+          {
+            "file": "information-engineering-BzAJOt2Y.webp",
+            "status": 304
+          },
+          {
+            "file": "water-conservancy-DJ1TSLrq.webp",
+            "status": 304
+          },
+          {
+            "file": "humanities-C4f3fCdN.webp",
+            "status": 304
+          },
+          {
+            "file": "public-administration-Dw9qZVK5.webp",
+            "status": 304
+          },
+          {
+            "file": "law-BQ-ILwK4.webp",
+            "status": 304
+          },
+          {
+            "file": "sports-C5prx6-I.webp",
+            "status": 304
+          },
+          {
+            "file": "arts-media-BoZjUFBu.webp",
+            "status": 304
+          },
+          {
+            "file": "architecture-planning-BeouoQNY.webp",
+            "status": 304
+          },
+          {
+            "file": "business-tourism-OgDqO_NO.webp",
+            "status": 304
+          }
+        ]
+      },
+      "warmResources": [
+        {
+          "file": "agriculture-DFvkrN4K.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "animal-science-DbmBJOkG.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "veterinary-medicine-C2Y5fLQS.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "grassland-science-CnKFbj0O.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "fisheries-_qc5x3CI.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "forestry-DD_2oqMV.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "horticulture-BtjD_b4F.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "landscape-architecture-BtN43JNE.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "resources-BsqV1O1y.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "environment-bdh8DeU9.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "economics-Ccbi2-Wa.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "management-B6nDKbPa.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "food-science-BUBFoFHq.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "science-Dgl0WfbI.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "life-science-DF4ZZSkY.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "mechanical-electrical-WRv4KSav.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "information-engineering-BzAJOt2Y.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "water-conservancy-DJ1TSLrq.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "humanities-C4f3fCdN.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "public-administration-Dw9qZVK5.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "law-BQ-ILwK4.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "sports-C5prx6-I.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "arts-media-BoZjUFBu.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "architecture-planning-BeouoQNY.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "business-tourism-OgDqO_NO.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        }
+      ],
+      "activeStyle": {
+        "background": "rgb(234, 242, 233)",
+        "border": "rgb(39, 100, 75)"
+      },
+      "keyboardScroll": 194.39999389648438,
+      "wheelScroll": 180,
+      "touchScroll": 84.80000305175781,
+      "navigationClear": true,
+      "focus": {
+        "style": "none",
+        "width": "2.4px"
+      },
+      "errors": [],
+      "buttonTransitions": true,
+      "all27RemainCustom": true
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "initial": {
+        "viewport": 1000,
+        "cardHeight": 369.57501220703125,
+        "scrollHeight": 581,
+        "scrollViewport": 246,
+        "overflow": false,
+        "entries": 27,
+        "loadedImages": 25,
+        "round": true,
+        "resources": [
+          {
+            "file": "agriculture-DFvkrN4K.webp",
+            "transferSize": 7394,
+            "encodedBodySize": 7094
+          },
+          {
+            "file": "veterinary-medicine-C2Y5fLQS.webp",
+            "transferSize": 9702,
+            "encodedBodySize": 9402
+          },
+          {
+            "file": "animal-science-DbmBJOkG.webp",
+            "transferSize": 9446,
+            "encodedBodySize": 9146
+          },
+          {
+            "file": "grassland-science-CnKFbj0O.webp",
+            "transferSize": 9974,
+            "encodedBodySize": 9674
+          },
+          {
+            "file": "fisheries-_qc5x3CI.webp",
+            "transferSize": 7766,
+            "encodedBodySize": 7466
+          },
+          {
+            "file": "forestry-DD_2oqMV.webp",
+            "transferSize": 13214,
+            "encodedBodySize": 12914
+          },
+          {
+            "file": "horticulture-BtjD_b4F.webp",
+            "transferSize": 3604,
+            "encodedBodySize": 3304
+          },
+          {
+            "file": "landscape-architecture-BtN43JNE.webp",
+            "transferSize": 7086,
+            "encodedBodySize": 6786
+          },
+          {
+            "file": "resources-BsqV1O1y.webp",
+            "transferSize": 6824,
+            "encodedBodySize": 6524
+          },
+          {
+            "file": "environment-bdh8DeU9.webp",
+            "transferSize": 11722,
+            "encodedBodySize": 11422
+          },
+          {
+            "file": "economics-Ccbi2-Wa.webp",
+            "transferSize": 8286,
+            "encodedBodySize": 7986
+          },
+          {
+            "file": "management-B6nDKbPa.webp",
+            "transferSize": 11776,
+            "encodedBodySize": 11476
+          },
+          {
+            "file": "food-science-BUBFoFHq.webp",
+            "transferSize": 3638,
+            "encodedBodySize": 3338
+          },
+          {
+            "file": "mechanical-electrical-WRv4KSav.webp",
+            "transferSize": 3344,
+            "encodedBodySize": 3044
+          },
+          {
+            "file": "life-science-DF4ZZSkY.webp",
+            "transferSize": 2994,
+            "encodedBodySize": 2694
+          },
+          {
+            "file": "science-Dgl0WfbI.webp",
+            "transferSize": 7558,
+            "encodedBodySize": 7258
+          },
+          {
+            "file": "information-engineering-BzAJOt2Y.webp",
+            "transferSize": 5796,
+            "encodedBodySize": 5496
+          },
+          {
+            "file": "water-conservancy-DJ1TSLrq.webp",
+            "transferSize": 12584,
+            "encodedBodySize": 12284
+          },
+          {
+            "file": "public-administration-Dw9qZVK5.webp",
+            "transferSize": 11842,
+            "encodedBodySize": 11542
+          },
+          {
+            "file": "law-BQ-ILwK4.webp",
+            "transferSize": 8532,
+            "encodedBodySize": 8232
+          },
+          {
+            "file": "humanities-C4f3fCdN.webp",
+            "transferSize": 10610,
+            "encodedBodySize": 10310
+          },
+          {
+            "file": "sports-C5prx6-I.webp",
+            "transferSize": 5462,
+            "encodedBodySize": 5162
+          },
+          {
+            "file": "arts-media-BoZjUFBu.webp",
+            "transferSize": 1980,
+            "encodedBodySize": 1680
+          },
+          {
+            "file": "architecture-planning-BeouoQNY.webp",
+            "transferSize": 952,
+            "encodedBodySize": 652
+          },
+          {
+            "file": "business-tourism-OgDqO_NO.webp",
+            "transferSize": 11842,
+            "encodedBodySize": 11542
+          }
+        ]
+      },
+      "final": {
+        "viewport": 1000,
+        "cardHeight": 369.57501220703125,
+        "scrollHeight": 581,
+        "scrollViewport": 246,
+        "overflow": false,
+        "entries": 27,
+        "loadedImages": 25,
+        "round": true,
+        "resources": [
+          {
+            "file": "agriculture-DFvkrN4K.webp",
+            "transferSize": 7394,
+            "encodedBodySize": 7094
+          },
+          {
+            "file": "veterinary-medicine-C2Y5fLQS.webp",
+            "transferSize": 9702,
+            "encodedBodySize": 9402
+          },
+          {
+            "file": "animal-science-DbmBJOkG.webp",
+            "transferSize": 9446,
+            "encodedBodySize": 9146
+          },
+          {
+            "file": "grassland-science-CnKFbj0O.webp",
+            "transferSize": 9974,
+            "encodedBodySize": 9674
+          },
+          {
+            "file": "fisheries-_qc5x3CI.webp",
+            "transferSize": 7766,
+            "encodedBodySize": 7466
+          },
+          {
+            "file": "forestry-DD_2oqMV.webp",
+            "transferSize": 13214,
+            "encodedBodySize": 12914
+          },
+          {
+            "file": "horticulture-BtjD_b4F.webp",
+            "transferSize": 3604,
+            "encodedBodySize": 3304
+          },
+          {
+            "file": "landscape-architecture-BtN43JNE.webp",
+            "transferSize": 7086,
+            "encodedBodySize": 6786
+          },
+          {
+            "file": "resources-BsqV1O1y.webp",
+            "transferSize": 6824,
+            "encodedBodySize": 6524
+          },
+          {
+            "file": "environment-bdh8DeU9.webp",
+            "transferSize": 11722,
+            "encodedBodySize": 11422
+          },
+          {
+            "file": "economics-Ccbi2-Wa.webp",
+            "transferSize": 8286,
+            "encodedBodySize": 7986
+          },
+          {
+            "file": "management-B6nDKbPa.webp",
+            "transferSize": 11776,
+            "encodedBodySize": 11476
+          },
+          {
+            "file": "food-science-BUBFoFHq.webp",
+            "transferSize": 3638,
+            "encodedBodySize": 3338
+          },
+          {
+            "file": "mechanical-electrical-WRv4KSav.webp",
+            "transferSize": 3344,
+            "encodedBodySize": 3044
+          },
+          {
+            "file": "life-science-DF4ZZSkY.webp",
+            "transferSize": 2994,
+            "encodedBodySize": 2694
+          },
+          {
+            "file": "science-Dgl0WfbI.webp",
+            "transferSize": 7558,
+            "encodedBodySize": 7258
+          },
+          {
+            "file": "information-engineering-BzAJOt2Y.webp",
+            "transferSize": 5796,
+            "encodedBodySize": 5496
+          },
+          {
+            "file": "water-conservancy-DJ1TSLrq.webp",
+            "transferSize": 12584,
+            "encodedBodySize": 12284
+          },
+          {
+            "file": "public-administration-Dw9qZVK5.webp",
+            "transferSize": 11842,
+            "encodedBodySize": 11542
+          },
+          {
+            "file": "law-BQ-ILwK4.webp",
+            "transferSize": 8532,
+            "encodedBodySize": 8232
+          },
+          {
+            "file": "humanities-C4f3fCdN.webp",
+            "transferSize": 10610,
+            "encodedBodySize": 10310
+          },
+          {
+            "file": "sports-C5prx6-I.webp",
+            "transferSize": 5462,
+            "encodedBodySize": 5162
+          },
+          {
+            "file": "arts-media-BoZjUFBu.webp",
+            "transferSize": 1980,
+            "encodedBodySize": 1680
+          },
+          {
+            "file": "architecture-planning-BeouoQNY.webp",
+            "transferSize": 952,
+            "encodedBodySize": 652
+          },
+          {
+            "file": "business-tourism-OgDqO_NO.webp",
+            "transferSize": 11842,
+            "encodedBodySize": 11542
+          }
+        ]
+      },
+      "network": {
+        "cold": [
+          {
+            "file": "agriculture-DFvkrN4K.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "veterinary-medicine-C2Y5fLQS.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "animal-science-DbmBJOkG.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "grassland-science-CnKFbj0O.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "fisheries-_qc5x3CI.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "forestry-DD_2oqMV.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "horticulture-BtjD_b4F.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "landscape-architecture-BtN43JNE.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "resources-BsqV1O1y.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "environment-bdh8DeU9.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "economics-Ccbi2-Wa.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "management-B6nDKbPa.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "food-science-BUBFoFHq.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "mechanical-electrical-WRv4KSav.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "life-science-DF4ZZSkY.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "science-Dgl0WfbI.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "information-engineering-BzAJOt2Y.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "water-conservancy-DJ1TSLrq.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "arts-media-BoZjUFBu.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "sports-C5prx6-I.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "architecture-planning-BeouoQNY.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "public-administration-Dw9qZVK5.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "law-BQ-ILwK4.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "humanities-C4f3fCdN.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          },
+          {
+            "file": "business-tourism-OgDqO_NO.webp",
+            "status": 200,
+            "cacheControl": "no-cache"
+          }
+        ],
+        "warm": [
+          {
+            "file": "agriculture-DFvkrN4K.webp",
+            "status": 304
+          },
+          {
+            "file": "animal-science-DbmBJOkG.webp",
+            "status": 304
+          },
+          {
+            "file": "veterinary-medicine-C2Y5fLQS.webp",
+            "status": 304
+          },
+          {
+            "file": "grassland-science-CnKFbj0O.webp",
+            "status": 304
+          },
+          {
+            "file": "fisheries-_qc5x3CI.webp",
+            "status": 304
+          },
+          {
+            "file": "forestry-DD_2oqMV.webp",
+            "status": 304
+          },
+          {
+            "file": "horticulture-BtjD_b4F.webp",
+            "status": 304
+          },
+          {
+            "file": "landscape-architecture-BtN43JNE.webp",
+            "status": 304
+          },
+          {
+            "file": "resources-BsqV1O1y.webp",
+            "status": 304
+          },
+          {
+            "file": "environment-bdh8DeU9.webp",
+            "status": 304
+          },
+          {
+            "file": "economics-Ccbi2-Wa.webp",
+            "status": 304
+          },
+          {
+            "file": "management-B6nDKbPa.webp",
+            "status": 304
+          },
+          {
+            "file": "food-science-BUBFoFHq.webp",
+            "status": 304
+          },
+          {
+            "file": "science-Dgl0WfbI.webp",
+            "status": 304
+          },
+          {
+            "file": "life-science-DF4ZZSkY.webp",
+            "status": 304
+          },
+          {
+            "file": "mechanical-electrical-WRv4KSav.webp",
+            "status": 304
+          },
+          {
+            "file": "information-engineering-BzAJOt2Y.webp",
+            "status": 304
+          },
+          {
+            "file": "water-conservancy-DJ1TSLrq.webp",
+            "status": 304
+          },
+          {
+            "file": "humanities-C4f3fCdN.webp",
+            "status": 304
+          },
+          {
+            "file": "public-administration-Dw9qZVK5.webp",
+            "status": 304
+          },
+          {
+            "file": "law-BQ-ILwK4.webp",
+            "status": 304
+          },
+          {
+            "file": "sports-C5prx6-I.webp",
+            "status": 304
+          },
+          {
+            "file": "arts-media-BoZjUFBu.webp",
+            "status": 304
+          },
+          {
+            "file": "architecture-planning-BeouoQNY.webp",
+            "status": 304
+          },
+          {
+            "file": "business-tourism-OgDqO_NO.webp",
+            "status": 304
+          }
+        ]
+      },
+      "warmResources": [
+        {
+          "file": "agriculture-DFvkrN4K.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "animal-science-DbmBJOkG.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "veterinary-medicine-C2Y5fLQS.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "grassland-science-CnKFbj0O.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "fisheries-_qc5x3CI.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "forestry-DD_2oqMV.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "horticulture-BtjD_b4F.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "landscape-architecture-BtN43JNE.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "resources-BsqV1O1y.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "environment-bdh8DeU9.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "economics-Ccbi2-Wa.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "management-B6nDKbPa.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "food-science-BUBFoFHq.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "science-Dgl0WfbI.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "life-science-DF4ZZSkY.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "mechanical-electrical-WRv4KSav.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "information-engineering-BzAJOt2Y.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "water-conservancy-DJ1TSLrq.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "humanities-C4f3fCdN.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "public-administration-Dw9qZVK5.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "law-BQ-ILwK4.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "sports-C5prx6-I.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "arts-media-BoZjUFBu.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "architecture-planning-BeouoQNY.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        },
+        {
+          "file": "business-tourism-OgDqO_NO.webp",
+          "transferSize": 300,
+          "encodedBodySize": 0
+        }
+      ],
+      "activeStyle": {
+        "background": "rgb(234, 242, 233)",
+        "border": "rgb(39, 100, 75)"
+      },
+      "keyboardScroll": 215.1999969482422,
+      "wheelScroll": 180,
+      "touchScroll": null,
+      "navigationClear": true,
+      "focus": {
+        "style": "none",
+        "width": "2.4px"
+      },
+      "errors": [],
+      "buttonTransitions": true,
+      "all27RemainCustom": true
+    }
+  ],
+  "imageFailureFallback": true
+}

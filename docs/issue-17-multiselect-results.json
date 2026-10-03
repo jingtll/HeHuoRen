@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "initial": {
+    "count": 0,
+    "all": "false",
+    "text": "全部学院",
+    "status": "当前选择：未选择学院",
+    "height": 337.6000061035156
+  },
+  "multi": {
+    "count": 2,
+    "all": "false",
+    "text": "全部学院",
+    "status": "当前选择：已选择 2 个学院",
+    "height": 337.6000061035156
+  },
+  "allState": {
+    "count": 0,
+    "all": "true",
+    "text": "✓\n全部学院",
+    "status": "当前选择：全部学院",
+    "height": 337.6000061035156
+  },
+  "cleared": {
+    "count": 0,
+    "all": "false",
+    "text": "全部学院",
+    "status": "当前选择：未选择学院",
+    "height": 337.6000061035156
+  },
+  "partial": {
+    "count": 1,
+    "all": "false",
+    "text": "全部学院",
+    "status": "当前选择：动物科技学院",
+    "height": 337.6000061035156
+  },
+  "empty": {
+    "count": 0,
+    "all": "false",
+    "text": "全部学院",
+    "status": "当前选择：未选择学院",
+    "height": 337.6000061035156
+  }
+}
