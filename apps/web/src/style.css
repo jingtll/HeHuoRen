@@ -1,7 +1,7 @@
 @layer theme, base, components, utilities;
 @import "tailwindcss";
 
-/* 视觉基准：docs/demos/hehuoren-student-demo.html（第一版学生端 Demo）。 */
+/* 视觉基准：暖白背景、禾苗绿主色、谷物黄点缀。 */
 :root {
   --hhr-color-brand: #27644b;
   --hhr-color-brand-hover: #183e30;

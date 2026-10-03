@@ -70,3 +70,13 @@ test-results/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Local development references and acceptance artifacts
+/docs/screenshots/
+/docs/demos/
+/docs/research/
+/docs/superpowers/
+/docs/issue-*-validation.md
+/docs/issue-*-*-results.json
+/docs/issue-*-browser-check.*
+/docs/issue-*-build-*.json

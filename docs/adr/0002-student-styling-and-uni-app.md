@@ -20,4 +20,4 @@
 - AppIcon 当前为 Web SVG，不能直接证明微信小程序兼容；迁移时保留业务名称入口，替换为目标平台支持的 image 资源或适配组件并实测。
 - Tailwind Web CSS 不等于小程序可直接使用：主题变量、选择器、工具类生成及布局须在迁移时核对。
 - 本决策部分替代 [ADR 0001](0001-phase-one-technology-foundation.md) 的 Vant 组件与样式选型，其他工程基础不变。
-- 本次不预开发 Popup/Dialog/Picker 等控件，不搭建 uni-app 工程；浏览器验收与构建对比见[Issue #19](../issue-19-validation.md)。
+- 本次不预开发 Popup/Dialog/Picker 等控件，不搭建 uni-app 工程；浏览器验收与构建对比记录在 Issue #19 对应 PR，验收产物仅保留本地。

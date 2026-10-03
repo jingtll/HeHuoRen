@@ -1,4 +1,4 @@
-import source from "../../../../docs/research/sicau-colleges-2026-10-02/colleges.json";
+import source from "./__fixtures__/college-catalog.json";
 import { mount } from "@vue/test-utils";
 import { afterEach, describe, expect, it } from "vitest";
 import CollegePicker from "./CollegePicker.vue";
@@ -19,7 +19,7 @@ describe("首页学院入口", () => {
     return wrapper;
   }
 
-  it("27个学院顺序、名称与研究记录一致，ID唯一且25个院徽对应各自ID", () => {
+  it("27个学院顺序、名称与固定目录快照一致，ID唯一且25个院徽对应各自ID", () => {
     expect(colleges).toHaveLength(27);
     expect(new Set(colleges.map((college) => college.id)).size).toBe(27);
     expect(colleges.map((college) => college.name)).toEqual(

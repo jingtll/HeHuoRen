@@ -44,11 +44,11 @@ API 默认只监听本机。Web 的 `/api` 请求由 Vite 代理到 API；修改
 
 健康接口返回 `{ status: "ok", requestId: string }`，请求 ID 来自 Fastify。异常响应包含稳定的 `code`、用户可读的 `message` 与 `requestId`，未知异常不暴露内部细节。当前接口不使用数据库。
 
-## 学生端样式与 Demo
+## 学生端样式
 
-学生端视觉基准采用[第一版 Demo](docs/demos/hehuoren-student-demo.html#competitions)：禾苗绿、暖白背景、谷物黄点缀和轻量圆角卡片。该风格已提取到 `apps/web/src/style.css`，通过共享变量统一 Tailwind 与原生控件；现有 `/health` 页面已接入。
+学生端采用禾苗绿主色、暖白背景、谷物黄点缀和轻量圆角卡片。该风格已提取到 `apps/web/src/style.css`，通过共享变量统一 Tailwind 与原生控件；现有 `/health` 页面已接入。
 
-实现后续页面时遵循[学生端全局样式约定](docs/student-ui-style.md)。[Demo 说明](docs/demos/README.md)列出选定版本和三份备选静态风格，可直接用浏览器打开对应 HTML，无需启动服务。
+实现后续页面时遵循[学生端全局样式约定](docs/student-ui-style.md)。设计预览、截图和验收产物仅保留本地，不进入 Git。
 
 学生端已提供桌面侧栏与移动底部导航；业务页面直接开放，尚无认证状态与业务数据。登录、注册采用独立品牌布局和实际表单，其余业务页显示“待开发”。
 
@@ -68,19 +68,17 @@ API 默认只监听本机。Web 的 `/api` 请求由 Vite 代理到 API；修改
 
 登录校验邮箱及非空密码；注册包含昵称、邮箱、密码、确认密码与邮箱验证码，密码至少 8 位，不裁剪密码或限制字符组合。密码支持显示/隐藏，验证码发送前校验邮箱。当前 OpenAPI 只有健康接口，提交反馈“认证服务暂未开放”，发送反馈“验证码服务暂未开放”；不创建登录状态、不模拟发送成功或倒计时。密码与验证码不写入浏览器存储、日志或 URL，切换认证页面时清空输入。
 
-邮箱验证码是 Issue #9 新增要求，真实发送、校验、有效期与重发规则依赖后续邮件接口，本次未联调。账号服务尚未开放，当前不能注册或登录。界面与验证记录见[Issue #9 验收记录](docs/issue-9-validation.md)。
-
-Demo 的比赛、队伍、人物、日期与浏览器交互均为示例；数据库、真实认证和组队流程仍按计划书后续阶段实现。Demo 不代表已上线的业务功能。
+邮箱验证码是 Issue #9 新增要求，真实发送、校验、有效期与重发规则依赖后续邮件接口，本次未联调。账号服务尚未开放，当前不能注册或登录。认证表单与尚未开放的服务边界以当前源码及 Issue #9 为准。
 
 ## 目录与接口契约
 
-| 目录                 | 用途                                             |
-| -------------------- | ------------------------------------------------ |
-| `apps/web`           | Vue 3、Vue Router、Pinia、Vant、Tailwind、Axios  |
-| `apps/api`           | NestJS、Fastify、配置验证、Swagger、安全错误响应 |
-| `packages/api-types` | 从 OpenAPI 生成的接口类型，无运行时代码          |
-| `docs/adr`           | 架构决策                                         |
-| `CONTEXT.md`         | 业务领域词汇表                                   |
+| 目录                 | 用途                                              |
+| -------------------- | ------------------------------------------------- |
+| `apps/web`           | Vue 3、Vue Router、Pinia、Tailwind、Lucide、Axios |
+| `apps/api`           | NestJS、Fastify、配置验证、Swagger、安全错误响应  |
+| `packages/api-types` | 从 OpenAPI 生成的接口类型，无运行时代码           |
+| `docs/adr`           | 架构决策                                          |
+| `CONTEXT.md`         | 业务领域词汇表                                    |
 
 修改 API DTO 或路由后运行：
 
@@ -117,7 +115,7 @@ GitHub Actions 在面向 `main` 的 PR、`main` 推送及手动触发时运行�
 
 合并命令执行后，工作流重新确认 PR 已合并，再显式删除来源远程分支。仅删除 SHA 仍等于通过 CI 的提交、未受保护、不是默认分支且没有其他打开的 PR 引用的本仓库分支；已删除或新增提交的分支会跳过。如果 `--auto` 只启用了等待合并，本次运行保留分支，后续延迟合并仍依赖仓库自动删除设置或人工清理。
 
-问题与方案记录在 GitHub Issues，PR 使用仓库模板。参见 [AGENTS.md](AGENTS.md)、[阶段一设计](docs/superpowers/specs/2026-10-01-phase-one-foundation-design.md)与[实施计划](docs/superpowers/plans/2026-10-01-phase-one-foundation.md)。
+问题与方案记录在 GitHub Issues，PR 使用仓库模板。参见 [AGENTS.md](AGENTS.md)，现行决策见 [ADR](docs/adr/0001-phase-one-technology-foundation.md)。
 
 新建 Issue 可选择[问题反馈](.github/ISSUE_TEMPLATE/bug_report.yml)、[功能建议](.github/ISSUE_TEMPLATE/feature_request.yml)或[开发任务](.github/ISSUE_TEMPLATE/task.yml)表单，默认进入 `needs-triage`；确认需求后按[分诊标签映射](docs/agents/triage-labels.md)更新状态。提交 PR 时使用 [PR 模板](.github/PULL_REQUEST_TEMPLATE.md)，填写关联 Issue、变更内容与实际验证结果。
 
@@ -129,6 +127,6 @@ GitHub Actions 在面向 `main` 的 PR、`main` 推送及手动触发时运行�
 
 Issue #19 完整移除 Vant；现采用 Tailwind 为主、少量普通 CSS、按复用与行为需要封装组件。图标使用 `@lucide/vue` 1.51.0，经 `AppIcon.vue` 统一入口静态按需导入，许可证与渲染适配见[图标来源](third-party-notices/lucide-LICENSE.txt)和[样式约定](docs/student-ui-style.md)。认证、健康状态与导航保持既有行为。
 
-项目完成后统一迁移到普通 uni-app，目标 H5、微信小程序。当前继续交付 Web，未搭建跨端工程；开发时持续识别、解释并记录影响，参见[迁移提醒与待办](docs/agents/uni-app-migration.md)。新验收与构建体积对比见[Issue #19 验收](docs/issue-19-validation.md)，历史截图不作为本次验收证据。
+项目完成后统一迁移到普通 uni-app，目标 H5、微信小程序。当前继续交付 Web，未搭建跨端工程；开发时持续识别、解释并记录影响，参见[迁移提醒与待办](docs/agents/uni-app-migration.md)。验证结果与构建体积对比记录在 PR；验收文档和截图仅保留本地。
 
 图标与加载组件位于 `apps/web/src/components/`，分别为 `AppIcon.vue`、`app-icons.ts` 和 `LoadingIndicator.vue`，复用既有认证与学院组件。
