@@ -1,6 +1,6 @@
 # 禾伙人
 
-四川农业大学校园比赛与项目组队平台。当前完成阶段一工程初始化、学生端共享导航与路由，以及登录注册前端表单；其他业务页为待开发占位，真实认证和业务接口尚未开发。工程包含 pnpm 工作区、Vue 健康页、NestJS/Fastify 健康接口、OpenAPI 类型生成与 CI 配置。
+四川农业大学校园比赛与项目组队平台。当前完成阶段一工程初始化、学生端共享导航与路由，登录注册前端表单及首页学院选择；比赛内容与其他业务页为待开发占位，真实认证和业务接口尚未开发。工程包含 pnpm 工作区、Vue 健康页、NestJS/Fastify 健康接口、OpenAPI 类型生成与 CI 配置。
 
 项目范围、阶段安排与当前进度见[项目开发计划书](docs/禾伙人-项目开发计划书.md)。
 
@@ -46,7 +46,7 @@ API 默认只监听本机。Web 的 `/api` 请求由 Vite 代理到 API；修改
 
 ## 学生端样式与 Demo
 
-学生端视觉基准采用[第一版 Demo](docs/demos/hehuoren-student-demo.html#competitions)：禾苗绿、暖白背景、谷物黄点缀和轻量圆角卡片。该风格已提取到 `apps/web/src/style.css`，通过共享变量统一 Tailwind 与 Vant；现有 `/health` 页面已接入。
+学生端视觉基准采用[第一版 Demo](docs/demos/hehuoren-student-demo.html#competitions)：禾苗绿、暖白背景、谷物黄点缀和轻量圆角卡片。该风格已提取到 `apps/web/src/style.css`，通过共享变量统一 Tailwind 与原生控件；现有 `/health` 页面已接入。
 
 实现后续页面时遵循[学生端全局样式约定](docs/student-ui-style.md)。[Demo 说明](docs/demos/README.md)列出选定版本和三份备选静态风格，可直接用浏览器打开对应 HTML，无需启动服务。
 
@@ -124,3 +124,11 @@ GitHub Actions 在面向 `main` 的 PR、`main` 推送及手动触发时运行�
 本机 Agent 配置、依赖、构建缓存、日志、浏览器测试产物及本地运行数据由 `.gitignore` 排除。环境变量示例、根锁文件、OpenAPI 文档与生成的接口类型随代码提交。
 
 本地检查不能证明远端 CI 已执行；分支保护、required checks 与 Auto-merge 需要在 GitHub 单独配置和核验。当前阶段不包含数据库、登录、比赛、招募、申请或生产部署。
+
+## 学生端样式与跨端规划
+
+Issue #19 完整移除 Vant；现采用 Tailwind 为主、少量普通 CSS、按复用与行为需要封装组件。图标使用 `@lucide/vue` 1.51.0，经 `AppIcon.vue` 统一入口静态按需导入，许可证与渲染适配见[图标来源](third-party-notices/lucide-LICENSE.txt)和[样式约定](docs/student-ui-style.md)。认证、健康状态与导航保持既有行为。
+
+项目完成后统一迁移到普通 uni-app，目标 H5、微信小程序。当前继续交付 Web，未搭建跨端工程；开发时持续识别、解释并记录影响，参见[迁移提醒与待办](docs/agents/uni-app-migration.md)。新验收与构建体积对比见[Issue #19 验收](docs/issue-19-validation.md)，历史截图不作为本次验收证据。
+
+图标与加载组件位于 `apps/web/src/components/`，分别为 `AppIcon.vue`、`app-icons.ts` 和 `LoadingIndicator.vue`，复用既有认证与学院组件。

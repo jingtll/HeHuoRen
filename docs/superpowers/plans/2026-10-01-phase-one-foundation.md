@@ -1,5 +1,7 @@
 # 禾伙人阶段一工程骨架实施计划
 
+> 历史材料：本文件与关联截图记录移除 Vant 前的阶段事实，不作为迁移后验收结果。现行样式方案见 [ADR 0002](../../adr/0002-student-styling-and-uni-app.md)，新验收见 [Issue #19](../../issue-19-validation.md)。
+
 > 本文件保留阶段一的历史实施步骤与验收记录。后续工作遵循根目录 `AGENTS.md` 与 `docs/agents/` 中的现行约定；步骤使用复选框记录完成状态。
 
 **Goal:** 建立 Node.js 24 + pnpm Monorepo，让 Vue 3 Web 通过 Pinia 和 Vite 代理读取 NestJS/Fastify API 的真实健康状态，并提供可重复生成的 OpenAPI 类型与 CI 质量门禁。

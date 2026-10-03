@@ -1,5 +1,7 @@
 # Issue #9：登录注册前端验收
 
+> 历史材料：本文件与关联截图记录移除 Vant 前的阶段事实，不作为迁移后验收结果。现行样式方案见 [ADR 0002](adr/0002-student-styling-and-uni-app.md)，新验收见 [Issue #19](issue-19-validation.md)。
+
 日期：2026-10-02。需求来源：[Issue #9](https://github.com/jingtll/HeHuoRen/issues/9)。
 
 ## 交付与接口现状

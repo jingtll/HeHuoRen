@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted } from "vue";
+import LoadingIndicator from "../components/LoadingIndicator.vue";
 import ProjectLogo from "../components/ProjectLogo.vue";
 import { useHealthStore } from "../stores/health";
 const health = useHealthStore();
@@ -36,16 +37,14 @@ onMounted(() => {
     >
       <div class="mb-6 flex items-center justify-between gap-4">
         <h2 id="health-heading" class="text-lg font-semibold">服务状态</h2>
-        <van-tag
-          :type="
-            health.state === 'online'
-              ? 'success'
-              : health.state === 'offline'
-                ? 'danger'
-                : 'default'
-          "
-          size="large"
-          >{{ statusText }}</van-tag
+        <span
+          class="hhr-badge px-3 py-1 text-sm"
+          :class="{
+            'hhr-badge--danger': health.state === 'offline',
+            'hhr-badge--muted':
+              health.state === 'idle' || health.state === 'loading',
+          }"
+          >{{ statusText }}</span
         >
       </div>
       <div
@@ -53,9 +52,12 @@ onMounted(() => {
         aria-live="polite"
         :aria-busy="health.state === 'loading'"
       >
-        <van-loading v-if="health.state === 'loading'" size="20px" class="mb-5"
-          >正在检查服务…</van-loading
+        <p
+          v-if="health.state === 'loading'"
+          class="mb-5 flex items-center gap-2 text-sm text-muted"
         >
+          <LoadingIndicator />正在检查服务…
+        </p>
         <p v-else-if="health.errorMessage" class="mb-5 text-sm text-danger">
           {{ health.errorMessage }}
         </p>
@@ -65,21 +67,25 @@ onMounted(() => {
         >
           连接正常，可以访问服务。
         </p>
-        <van-cell
-          title="请求 ID"
-          :value="health.requestId ?? '—'"
-          class="request-id"
-        />
+        <dl
+          class="flex min-w-0 flex-wrap gap-x-4 gap-y-1 border-t border-line py-3 text-sm"
+        >
+          <dt class="shrink-0">请求 ID</dt>
+          <dd class="min-w-0 flex-1 wrap-anywhere text-right text-muted">
+            {{ health.requestId ?? "—" }}
+          </dd>
+        </dl>
       </div>
-      <van-button
-        type="primary"
-        block
-        class="mt-6"
-        :loading="health.state === 'loading'"
+      <button
+        type="button"
+        class="hhr-button mt-6 w-full"
+        :aria-busy="health.state === 'loading'"
         :disabled="health.state === 'loading'"
         @click="health.refresh()"
-        >{{ health.state === "offline" ? "重试连接" : "刷新状态" }}</van-button
       >
+        <LoadingIndicator v-if="health.state === 'loading'" />
+        {{ health.state === "offline" ? "重试连接" : "刷新状态" }}
+      </button>
     </section>
     <p class="mt-5 text-xs leading-6 text-muted">
       工程初始化阶段 · 比赛、招募与申请功能将在后续阶段开放。

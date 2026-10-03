@@ -13,9 +13,9 @@
   },
   "dependencies": {
     "@hehuoren/api-types": "workspace:*",
+    "@lucide/vue": "1.51.0",
     "axios": "1.20.0",
     "pinia": "4.0.3",
-    "vant": "4.10.2",
     "vue": "^3.5.42",
     "vue-router": "5.3.1"
   },

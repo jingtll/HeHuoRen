@@ -1,5 +1,7 @@
 # Issue #17：首页学院入口最终验收记录
 
+> 历史材料：本文件与关联截图记录移除 Vant 前的阶段事实，不作为迁移后验收结果。现行样式方案见 [ADR 0002](adr/0002-student-styling-and-uni-app.md)，新验收见 [Issue #19](issue-19-validation.md)。
+
 验收日期：2026-10-03。按 [Issue #17](https://github.com/jingtll/HeHuoRen/issues/17) 和用户随后确认的交互变更核验，**前端交付已完成，当前具备验收条件**。GitHub Issue 仍为 open，正文的“单选”尚未同步为本次用户确认的多选；本次仅检查及完善本地交付，没有发布、更新或关闭 Issue。
 
 ## 最终需求与按钮逻辑

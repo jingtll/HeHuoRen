@@ -23,3 +23,7 @@
 ### Domain docs
 
 项目采用单一上下文：根目录 `CONTEXT.md` 与 `docs/adr/`。参见 `docs/agents/domain.md`。
+
+### uni-app 迁移提醒
+
+项目完成后统一迁移到普通 uni-app，目标 H5、微信小程序。当前继续交付 Web；开发选型及实现时须持续识别、解释和提醒跨端影响，说明具体 API/组件/样式、两个目标端的限制与待验证事项、替代方案或适配工作，并在方案、Issue 或 PR 记录采用方案和迁移成本。重要待办集中维护于 [docs/agents/uni-app-migration.md](docs/agents/uni-app-migration.md)，按官方依据和实测判断，不以 Web 成功推断小程序兼容。

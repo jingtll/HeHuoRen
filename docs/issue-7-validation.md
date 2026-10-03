@@ -1,5 +1,7 @@
 # Issue #7 验收记录
 
+> 历史材料：本文件与关联截图记录移除 Vant 前的阶段事实，不作为迁移后验收结果。现行样式方案见 [ADR 0002](adr/0002-student-styling-and-uni-app.md)，新验收见 [Issue #19](issue-19-validation.md)。
+
 验收日期：2026 年 10 月 2 日。范围：[学生端路由与待开发占位页](https://github.com/jingtll/HeHuoRen/issues/7)。
 
 ## 实现与边界

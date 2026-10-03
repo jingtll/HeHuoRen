@@ -1,6 +1,8 @@
 # ADR 0001：阶段一工程基础
 
-状态：Accepted · 2026-10-01
+状态：Accepted · 2026-10-01；Web 组件与样式决策于 2026-10-03 被 [ADR 0002](0002-student-styling-and-uni-app.md) 部分替代。
+
+下文保留阶段一采用 Vant 的历史背景；当前 Web 已移除 Vant，其他工程基础决策继续有效。
 
 ## 背景与决策
 
