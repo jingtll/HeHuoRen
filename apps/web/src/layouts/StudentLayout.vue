@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { Icon } from "vant";
+import AppIcon from "../components/AppIcon.vue";
+import type { AppIconName } from "../components/app-icons";
 import ProjectLogo from "../components/ProjectLogo.vue";
 import type { NavigationSection } from "../router";
 
@@ -10,41 +11,41 @@ const navigation: {
   label: string;
   mobile?: string;
   to: string;
-  icon: string;
+  icon: AppIconName;
 }[] = [
   {
     section: "home",
     label: "首页",
     mobile: "首页",
     to: "/home",
-    icon: "wap-home-o",
+    icon: "home",
   },
   {
     section: "teams",
     label: "找队友",
     mobile: "找队友",
     to: "/teams",
-    icon: "friends-o",
+    icon: "users",
   },
   {
     section: "my-teams",
     label: "我的队伍",
     mobile: "队伍",
     to: "/my/teams",
-    icon: "cluster-o",
+    icon: "network",
   },
   {
     section: "applications",
     label: "申请与邀请",
     mobile: "申请",
     to: "/my/applications",
-    icon: "envelop-o",
+    icon: "mail",
   },
   {
     section: "favorites",
     label: "我的收藏",
     to: "/my/favorites",
-    icon: "star-o",
+    icon: "star",
   },
   {
     section: "notifications",
@@ -57,7 +58,7 @@ const navigation: {
     label: "个人资料",
     mobile: "我的",
     to: "/profile",
-    icon: "user-o",
+    icon: "user",
   },
 ];
 function current(section: NavigationSection, mobile = false) {
@@ -95,7 +96,7 @@ function current(section: NavigationSection, mobile = false) {
           :class="{ 'is-current': current(item.section) }"
           :aria-current="current(item.section) ? 'page' : undefined"
         >
-          <Icon :name="item.icon" aria-hidden="true" /><span>{{
+          <AppIcon :name="item.icon" class="size-[22px]" /><span>{{
             item.label
           }}</span>
         </RouterLink>
@@ -117,20 +118,7 @@ function current(section: NavigationSection, mobile = false) {
             title="站内通知"
             class="topbar-icon-link"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 9h18c0-1-3-2-3-9Z" />
-              <path d="M10 21h4M12 2V1" />
-            </svg>
+            <AppIcon name="bell" class="size-6" />
           </RouterLink>
           <RouterLink
             to="/profile"
@@ -138,20 +126,7 @@ function current(section: NavigationSection, mobile = false) {
             title="个人资料"
             class="topbar-icon-link"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="7" r="4" />
-              <path d="M4.5 21v-2a7.5 7.5 0 0 1 15 0v2" />
-            </svg>
+            <AppIcon name="user" class="size-6" />
           </RouterLink>
         </nav>
       </header>
@@ -167,7 +142,7 @@ function current(section: NavigationSection, mobile = false) {
           :class="{ 'is-current': current(item.section, true) }"
           :aria-current="current(item.section, true) ? 'page' : undefined"
         >
-          <Icon :name="item.icon" aria-hidden="true" /><span>{{
+          <AppIcon :name="item.icon" class="size-[22px]" /><span>{{
             item.mobile
           }}</span>
         </RouterLink>

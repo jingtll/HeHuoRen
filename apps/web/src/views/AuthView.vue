@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, nextTick, reactive, ref, watch } from "vue";
-import { Button } from "vant";
 import AuthInput from "../components/AuthInput.vue";
 
 const props = defineProps<{ mode: "login" | "register" }>();
@@ -155,9 +154,13 @@ watch(values, () => {
         :error="errors.code"
         @blur="validate('code')"
       >
-        <Button native-type="button" class="auth-send" @click="sendCode"
-          >发送验证码</Button
+        <button
+          type="button"
+          class="hhr-button hhr-button--soft auth-send"
+          @click="sendCode"
         >
+          发送验证码
+        </button>
       </AuthInput>
       <p class="auth-service-note">
         账号服务暂未开放，当前可先浏览首页与找队友。
@@ -165,9 +168,9 @@ watch(values, () => {
       <p v-if="feedback" class="auth-feedback" role="status" aria-live="polite">
         {{ feedback }}
       </p>
-      <Button native-type="submit" type="primary" block class="auth-submit">
+      <button type="submit" class="hhr-button auth-submit w-full">
         {{ registering ? "注册" : "登录" }}
-      </Button>
+      </button>
     </form>
     <p class="auth-switch">
       {{ registering ? "已经有账号？" : "还没有账号？" }}

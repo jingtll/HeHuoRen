@@ -2,7 +2,6 @@ import { flushPromises, mount } from "@vue/test-utils";
 import { createPinia } from "pinia";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createMemoryHistory } from "vue-router";
-import { Button, Cell, Loading, Tag } from "vant";
 import App from "../App.vue";
 import { healthApi } from "../api/health";
 import { createAppRouter } from "./index";
@@ -43,7 +42,7 @@ describe("学生端路由", () => {
     await router.push(path);
     await router.isReady();
     wrapper = mount(App, {
-      global: { plugins: [router, createPinia(), Button, Cell, Loading, Tag] },
+      global: { plugins: [router, createPinia()] },
     });
     await flushPromises();
     return router;
@@ -182,6 +181,33 @@ describe("学生端路由", () => {
       expect(healthApi.getHealth).not.toHaveBeenCalled();
     },
   );
+
+  it("健康页加载期间禁止重复操作并保留状态与请求 ID", async () => {
+    let complete!: (value: { status: "ok"; requestId: string }) => void;
+    vi.mocked(healthApi.getHealth).mockReturnValueOnce(
+      new Promise((resolve) => {
+        complete = resolve;
+      }),
+    );
+    await visit("/health");
+    const button = wrapper!.get("button");
+    expect(button.attributes("type")).toBe("button");
+    expect(button.attributes("disabled")).toBeDefined();
+    expect(button.attributes("aria-busy")).toBe("true");
+    expect(wrapper!.get('[role="status"]').attributes("aria-busy")).toBe(
+      "true",
+    );
+    expect(wrapper!.text()).toContain("正在连接");
+    expect(wrapper!.text()).toContain("正在检查服务");
+    await button.trigger("click");
+    expect(healthApi.getHealth).toHaveBeenCalledTimes(1);
+    complete({ status: "ok", requestId: "long-request-" + "x".repeat(200) });
+    await flushPromises();
+    expect(wrapper!.text()).toContain("服务在线");
+    expect(button.attributes("disabled")).toBeUndefined();
+    expect(wrapper!.get("dd").text()).toBe("long-request-" + "x".repeat(200));
+    expect(wrapper!.findAll("svg")).toHaveLength(0);
+  });
 
   it("健康页独立保留，首次失败后重试和刷新仍能正常请求", async () => {
     vi.mocked(healthApi.getHealth)

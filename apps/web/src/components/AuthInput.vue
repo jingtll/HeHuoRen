@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { Button } from "vant";
 
 defineProps<{
   id: string;
@@ -39,16 +38,16 @@ const visible = ref(false);
         class="hhr-input"
         @blur="$emit('blur')"
       />
-      <Button
+      <button
         v-if="secret"
-        native-type="button"
+        type="button"
         class="auth-reveal"
         :aria-label="`${visible ? '隐藏' : '显示'}${label}`"
         :aria-pressed="visible"
         @click="visible = !visible"
       >
         {{ visible ? "隐藏" : "显示" }}
-      </Button>
+      </button>
       <slot />
     </div>
     <p v-if="error" :id="`${id}-error`" class="auth-error">{{ error }}</p>
