@@ -53,9 +53,18 @@ describe("学生端路由", () => {
     const router = await visit("/");
     expect(router.currentRoute.value.path).toBe("/home");
     expect(wrapper!.get("h1").text()).toBe("首页");
+    expect(wrapper!.findAll("[data-college-id]")).toHaveLength(27);
+    expect(wrapper!.get(".college-reset").attributes("aria-pressed")).toBe(
+      "false",
+    );
+    expect(wrapper!.get('[role="status"]').text()).toContain("未选择学院");
+    await wrapper!.get('[data-college-id="law"]').trigger("click");
+    expect(wrapper!.get('[role="status"]').text()).toContain("法学院");
+    expect(wrapper!.text()).toContain("比赛筛选即将上线");
     await wrapper!.get('a[href="/home/competitions/preview"]').trigger("click");
     await flushPromises();
     expect(wrapper!.get("[data-home-content] h1").text()).toBe("比赛详情");
+    expect(wrapper!.find(".college-picker").exists()).toBe(false);
     expect(router.currentRoute.value.meta.navigation).toBe("home");
     expect(
       wrapper!
@@ -65,6 +74,9 @@ describe("学生端路由", () => {
     await wrapper!.get('[aria-label="页面相关入口"] a').trigger("click");
     await flushPromises();
     expect(router.currentRoute.value.path).toBe("/home");
+    expect(
+      wrapper!.get('[data-college-id="law"]').attributes("aria-pressed"),
+    ).toBe("true");
   });
 
   it.each(pages)(
