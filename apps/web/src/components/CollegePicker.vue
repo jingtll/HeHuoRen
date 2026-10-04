@@ -205,7 +205,6 @@ function reset() {
   scrollbar-width: thin;
   scrollbar-color: var(--hhr-color-brand) var(--hhr-color-brand-soft);
 }
-.college-entry:hover,
 .college-entry.is-selected {
   background: var(--hhr-color-brand-soft);
 }
