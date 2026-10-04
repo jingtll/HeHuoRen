@@ -41,11 +41,11 @@
 
 ## Issue #12 新增适配点
 
-| 位置 / 能力                                                                        | H5 影响                                                          | 微信小程序影响与适配路径                                                           | 成本 |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---- |
-| competition-discovery.ts 与 router/index.ts 的 query、replace、History 和赛段 hash | 回归 URL 规范化、刷新、前进后退、详情返回和锚点；保留无关参数    | 转换为平台路由参数、页面状态与返回恢复；以赛段 ID 定位平台节点                     | 中   |
-| CompetitionListView 的 search、select、form 和 live region                         | 当前浏览器原生控件；迁移后重新检查键盘、标签、焦点及选项         | 改用 input、picker、button 等平台组件；独立验证筛选交互与可访问反馈                | 中   |
-| CompetitionDetailView 的外链和 navigator.clipboard                                 | 官网页面可新窗口打开；剪贴板受浏览器权限影响，已提供手动复制回退 | 使用 uni.setClipboardData；web-view 需配置业务域名，不能假设各学院官网均可直接打开 | 中   |
-| competition-discovery.ts 的 Intl.DateTimeFormat / Asia/Shanghai                    | 当前浏览器按北京时间格式化，跨 UTC 边界测试覆盖                  | 核对目标运行时 Intl 与时区支持，必要时改成统一北京时间格式函数                     | 低   |
+| 位置 / 能力                                                                        | H5 影响                                                          | 微信小程序影响与适配路径                                                                                                   | 成本 |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---- |
+| competition-discovery.ts 与 router/index.ts 的 query、replace、History 和赛段 hash | 回归 URL 规范化、刷新、前进后退、详情返回和锚点；保留无关参数    | 转换为平台路由参数、页面状态与返回恢复；以赛段 ID 定位平台节点                                                             | 中   |
+| CompetitionListView 的 search、select、form 和 live region                         | 当前浏览器原生控件；迁移后重新检查键盘、标签、焦点及选项         | 改用 input、picker、button 等平台组件；独立验证筛选交互与可访问反馈                                                        | 中   |
+| CompetitionDetailView 的外链和 navigator.clipboard                                 | 官网页面可新窗口打开；剪贴板受浏览器权限影响，已提供手动复制回退 | 使用 uni.setClipboardData，并按官方要求核对小程序隐私保护指引配置；web-view 需配置业务域名，不能假设各学院官网均可直接打开 | 中   |
+| competition-discovery.ts 的 Intl.DateTimeFormat / Asia/Shanghai                    | 当前浏览器按北京时间格式化，跨 UTC 边界测试覆盖                  | 核对目标运行时 Intl 与时区支持，必要时改成统一北京时间格式函数                                                             | 低   |
 
-后续比赛数据请求以 [uni.request](https://uniapp.dcloud.net.cn/api/request/request.html) 适配，微信小程序需配置 request 合法服务器域名；本期没有比赛 API 请求。官网原文适配依据 [web-view](https://uniapp.dcloud.net.cn/component/web-view.html)，复制候选依据 [uni.setClipboardData](https://uniapp.dcloud.net.cn/api/system/clipboard.html)。上述均为迁移登记，尚未建立 uni-app 工程，Web 验收不证明小程序兼容。
+后续比赛数据请求以 [uni.request](https://zh.uniapp.dcloud.io/api/request/request) 适配，微信小程序需配置 request 合法服务器域名；本期没有比赛 API 请求。官网原文适配依据 [web-view](https://uniapp.dcloud.io/component/web-view.html)，复制候选依据 [uni.setClipboardData](https://uniapp.dcloud.io/api/system/clipboard)。上述均为迁移登记，尚未建立 uni-app 工程，Web 验收不证明小程序兼容。

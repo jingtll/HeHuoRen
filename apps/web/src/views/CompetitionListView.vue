@@ -9,6 +9,7 @@ import {
   collegeNames,
   filterEntries,
   formatTime,
+  materialDeadlineLabel,
   PAGE_SIZE,
   parseFilters,
   scopeLabel,
@@ -110,7 +111,9 @@ function reset() {
           <select
             class="hhr-input"
             :value="filters.category"
-            @change="update({ category: choice($event) })"
+            @change="
+              update({ category: choice($event) as Filters['category'] })
+            "
           >
             <option value="">全部类别</option>
             <option v-for="category in categories" :key="category">
@@ -123,7 +126,7 @@ function reset() {
           <select
             class="hhr-input"
             :value="filters.status"
-            @change="update({ status: choice($event) })"
+            @change="update({ status: choice($event) as Filters['status'] })"
           >
             <option value="">全部状态</option>
             <option
@@ -246,7 +249,7 @@ function reset() {
               }}
             </p>
             <p v-if="stage.materialsAt">
-              材料截止：{{ formatTime(stage.materialsAt) }}
+              材料截止：{{ materialDeadlineLabel(stage.materialsAt) }}
             </p>
           </div>
         </article>

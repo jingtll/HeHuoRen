@@ -21,8 +21,8 @@ export const categories = ["编程", "学科技能", "科技创新", "数据建�
 export type Filters = {
   hosts: CollegeSelection;
   q: string;
-  category: string;
-  status: string;
+  category: Competition["category"] | "";
+  status: Status | "";
   eligible: "" | "all" | "uncertain" | CollegeId;
   page: number;
 };
@@ -44,10 +44,10 @@ export function parseFilters(query: LocationQuery): Filters {
     hosts: ids.length ? ids : hostTokens.includes("all") ? "all" : [],
     q: first(query.q).trim().slice(0, 100),
     category: categories.some((c) => c === first(query.category))
-      ? first(query.category)
+      ? (first(query.category) as Competition["category"])
       : "",
     status: Object.hasOwn(statuses, first(query.status))
-      ? first(query.status)
+      ? (first(query.status) as Status)
       : "",
     eligible:
       eligible === "all" ||
@@ -82,12 +82,6 @@ export function stageStatus(stage: Stage, now = DEMO_NOW): Status {
   const instant = Date.parse(now);
   if (!Number.isFinite(instant)) return "unknown";
   if (stage.deadline && instant >= Date.parse(stage.deadline)) return "closed";
-  if (
-    !stage.deadline &&
-    stage.materialsAt &&
-    instant >= Date.parse(stage.materialsAt)
-  )
-    return "closed";
   if (!stage.deadline || !stage.startsAt) return "unknown";
   return instant < Date.parse(stage.startsAt) ? "upcoming" : "open";
 }
@@ -161,6 +155,12 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
   minute: "2-digit",
   hourCycle: "h23",
 });
+export function materialDeadlineLabel(value?: string, now = DEMO_NOW) {
+  return (
+    formatTime(value) +
+    (value && Date.parse(value) <= Date.parse(now) ? "（材料已截止）" : "")
+  );
+}
 export function formatTime(value?: string) {
   return value ? dateFormatter.format(new Date(value)) : "待公布";
 }

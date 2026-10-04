@@ -5,6 +5,7 @@ import { competitions, DEMO_NOW, originLabels } from "../data/competitions";
 import {
   collegeNames,
   formatTime,
+  materialDeadlineLabel,
   scopeLabel,
   stageStatus,
   statuses,
@@ -114,7 +115,7 @@ async function copy(url: string) {
               {{ stage.conflict ? "时间待核对" : formatTime(stage.deadline) }}
             </dd>
             <dt class="text-muted">材料提交</dt>
-            <dd>{{ formatTime(stage.materialsAt) }}</dd>
+            <dd>{{ materialDeadlineLabel(stage.materialsAt) }}</dd>
             <dt class="text-muted">比赛时间</dt>
             <dd>
               {{

@@ -5,6 +5,7 @@ import {
   canonicalQuery,
   filterEntries,
   formatTime,
+  materialDeadlineLabel,
   PAGE_SIZE,
   parseFilters,
   stageStatus,
@@ -168,7 +169,11 @@ describe("北京时间与报名边界", () => {
         deadline: undefined,
         materialsAt: "2026-05-01T12:00:00+08:00",
       }),
-    ).toBe("closed");
+    ).toBe("unknown");
+    expect(materialDeadlineLabel("2026-05-01T12:00:00+08:00")).toContain(
+      "材料已截止",
+    );
+    expect(materialDeadlineLabel()).toBe("待公布");
     expect(formatTime("2026-10-13T10:00:00Z")).toContain("18:00");
     expect(formatTime()).toBe("待公布");
   });
