@@ -3,6 +3,8 @@ import { computed, ref } from "vue";
 import { colleges, type CollegeId } from "../data/colleges";
 import type { CollegeSelection } from "../data/college-selection";
 
+defineProps<{ compact?: boolean }>();
+
 const selected = defineModel<CollegeSelection>({ required: true });
 const emit = defineEmits<{
   select: [ids: CollegeId[]];
@@ -44,7 +46,11 @@ function reset() {
 
 <template>
   <section
-    class="hhr-panel college-picker flex flex-col p-4 max-[767px]:h-[40svh] max-[767px]:p-3"
+    class="hhr-panel college-picker flex flex-col p-4 max-[767px]:p-3"
+    :class="{
+      'max-[767px]:h-[40svh]': !compact,
+      'college-picker--compact': compact,
+    }"
     aria-labelledby="college-heading"
   >
     <header class="flex shrink-0 items-center justify-between gap-3">
@@ -68,24 +74,29 @@ function reset() {
       </button>
     </header>
     <p id="college-scroll-hint" class="my-1 shrink-0 text-xs text-muted">
-      27 个本科教学学院 · 上下滚动查看更多
+      {{
+        compact
+          ? "承办学院 · 可多选 · 上下滚动查看更多"
+          : "27 个本科教学学院 · 上下滚动查看更多"
+      }}
     </p>
     <div
-      class="college-scroll h-[248px] min-h-0 overflow-y-auto border-y border-line max-[767px]:flex-1"
+      class="college-scroll min-h-0 overflow-y-auto border-y border-line"
+      :class="compact ? 'h-[186px] shrink-0' : 'h-[248px] max-[767px]:flex-1'"
       role="group"
       aria-label="学院入口，可多选"
       aria-describedby="college-scroll-hint"
       tabindex="0"
     >
-      <div
-        class="college-grid grid grid-cols-4 gap-1 px-[5px] py-1 max-[359px]:grid-cols-3"
-      >
+      <div class="college-grid grid grid-cols-4 gap-1 px-[5px] py-1">
         <button
           v-for="(college, index) in colleges"
           :key="college.id"
           type="button"
           class="college-entry flex min-h-[78px] min-w-0 cursor-pointer flex-col items-center gap-1 rounded-control border border-transparent px-0.5 py-1 max-[767px]:min-h-[68px] max-[767px]:gap-0.5 max-[767px]:py-0.5"
-          :class="{ 'is-selected': selectedIds.includes(college.id) }"
+          :class="{
+            'is-selected': selectedIds.includes(college.id),
+          }"
           :aria-label="college.name"
           :aria-pressed="selectedIds.includes(college.id)"
           :data-college-id="college.id"
@@ -136,10 +147,59 @@ function reset() {
     >
       当前选择：<strong>{{ selectionLabel }}</strong>
     </p>
+    <div
+      v-if="$slots.footer"
+      class="college-footer mt-2 shrink-0 border-t border-line pt-2"
+    >
+      <slot name="footer" />
+    </div>
   </section>
 </template>
 
 <style scoped>
+.college-picker--compact {
+  padding: 7px;
+}
+.college-picker--compact h2 {
+  font-size: 16px;
+  line-height: 24px;
+}
+.college-picker--compact .college-reset {
+  min-height: 28px;
+  padding: 0 8px;
+  font-size: 12px;
+}
+.college-picker--compact #college-scroll-hint,
+.college-picker--compact > [role="status"] {
+  margin: 2px 0;
+  font-size: 11px;
+  line-height: 12px;
+}
+.college-picker--compact > [role="status"] strong {
+  color: var(--hhr-color-muted);
+}
+.college-picker--compact .college-entry {
+  height: 56px;
+  min-height: 56px;
+  gap: 0;
+  padding: 0 2px;
+}
+.college-picker--compact .college-emblem {
+  width: 32px;
+  height: 32px;
+}
+.college-picker--compact .college-emblem img {
+  width: 26px;
+  height: 26px;
+}
+.college-picker--compact .college-name {
+  font-size: 11px;
+  line-height: 11px;
+}
+.college-picker--compact .college-footer {
+  margin-top: 2px;
+  padding-top: 2px;
+}
 .college-scroll {
   scrollbar-gutter: stable;
   scrollbar-width: thin;
