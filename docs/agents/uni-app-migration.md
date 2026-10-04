@@ -48,4 +48,8 @@
 | CompetitionDetailView 的外链和 navigator.clipboard                                 | 官网页面可新窗口打开；剪贴板受浏览器权限影响，已提供手动复制回退 | 使用 uni.setClipboardData，并按官方要求核对小程序隐私保护指引配置；web-view 需配置业务域名，不能假设各学院官网均可直接打开 | 中   |
 | competition-discovery.ts 的 Intl.DateTimeFormat / Asia/Shanghai                    | 当前浏览器按北京时间格式化，跨 UTC 边界测试覆盖                  | 核对目标运行时 Intl 与时区支持，必要时改成统一北京时间格式函数                                                             | 低   |
 
-后续比赛数据请求以 [uni.request](https://zh.uniapp.dcloud.io/api/request/request) 适配，微信小程序需配置 request 合法服务器域名；本期没有比赛 API 请求。官网原文适配依据 [web-view](https://uniapp.dcloud.io/component/web-view.html)，复制候选依据 [uni.setClipboardData](https://uniapp.dcloud.io/api/system/clipboard)。上述均为迁移登记，尚未建立 uni-app 工程，Web 验收不证明小程序兼容。
+后续比赛数据请求以 [uni.request](https://zh.uniapp.dcloud.io/api/request/request) 适配，微信小程序需配置 request 合法服务器域名；Issue #22 已通过 JSON GET 接入比赛 API；迁移时需要适配请求入口。官网原文适配依据 [web-view](https://uniapp.dcloud.io/component/web-view.html)，复制候选依据 [uni.setClipboardData](https://uniapp.dcloud.io/api/system/clipboard)。上述均为迁移登记，尚未建立 uni-app 工程，Web 验收不证明小程序兼容。
+
+## Issue #22 新增适配点
+
+当前采用 Axios + AbortController 取消请求，并用 watch 清理回调忽略迟到响应。H5 核对同源代理/CORS与绝对API地址；微信小程序改用 uni.request 的 RequestTask.abort 并保留请求有效性检查，配置 request 合法服务器域名，成本中。新契约的时间精度与 evaluatedAt 可复用；日期格式化继续独立验证目标运行时。页码响应纠正采用 Vue Router replace，详情数据到达后用 DOM 节点定位赛段；小程序需改为平台导航与 SelectorQuery/pageScrollTo，成本中。官方外链和复制遵循已有适配项，不能假设学校各子域均可通过 web-view 打开。依据已有 uni.request/web-view 官方链接，尚未进行 H5 或微信小程序编译/运行验证。
