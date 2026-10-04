@@ -1,16 +1,13 @@
 import type { PoolClient } from "pg";
 import type {
-  CollegeDto,
-  CompetitionDetailDto,
-  StageDto,
-} from "./competition.dto.js";
-export type Publication = "draft" | "published" | "hidden";
-export type RecordData = Omit<CompetitionDetailDto, "evaluatedAt"> & {
-  publication: Publication;
-};
+  CollegeRecord,
+  EditionRecord,
+  StageRecord,
+} from "./competition.model.js";
+export type RecordData = EditionRecord;
 export async function readCatalog(
   client: PoolClient,
-): Promise<{ colleges: CollegeDto[]; competitions: RecordData[] }> {
+): Promise<{ colleges: CollegeRecord[]; competitions: RecordData[] }> {
   const directory = await client.query(
     'SELECT id,name,display_order AS "order" FROM colleges ORDER BY display_order',
   );
@@ -58,8 +55,7 @@ export async function readCatalog(
               sourceIds: sources.rows
                 .filter((h) => h.parent === r.data.id)
                 .map((h) => h.id),
-              status: "unknown",
-            }) as StageDto,
+            }) as StageRecord,
         ),
       tracks: tracks.rows
         .filter((r) => r.parent === edition.id)

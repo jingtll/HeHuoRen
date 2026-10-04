@@ -10,11 +10,11 @@ import {
   foreignKey,
 } from "drizzle-orm/pg-core";
 import type {
-  CompetitionSummaryDto,
-  StageDto,
-  TrackDto,
-  NoticeDto,
-} from "../competitions/competition.dto.js";
+  EditionSummary,
+  StageRecord,
+  TrackRecord,
+  NoticeRecord,
+} from "../competitions/competition.model.js";
 export const colleges = pgTable("colleges", {
   id: text().primaryKey(),
   name: text().notNull(),
@@ -22,7 +22,7 @@ export const colleges = pgTable("colleges", {
 });
 export const competitions = pgTable("competitions", {
   id: text().primaryKey(),
-  data: jsonb().$type<CompetitionSummaryDto>().notNull(),
+  data: jsonb().$type<EditionSummary>().notNull(),
   publication: text().notNull().default("draft"),
 });
 export const stages = pgTable(
@@ -32,9 +32,7 @@ export const stages = pgTable(
     competitionId: text("competition_id")
       .notNull()
       .references(() => competitions.id),
-    data: jsonb()
-      .$type<Omit<StageDto, "hosts" | "sourceIds" | "status">>()
-      .notNull(),
+    data: jsonb().$type<Omit<StageRecord, "hosts" | "sourceIds">>().notNull(),
     order: integer("display_order").notNull(),
     registrationStart: timestamp("registration_start", { withTimezone: true }),
     registrationEnd: timestamp("registration_end", { withTimezone: true }),
@@ -48,7 +46,7 @@ export const tracks = pgTable("tracks", {
   competitionId: text("competition_id")
     .notNull()
     .references(() => competitions.id),
-  data: jsonb().$type<TrackDto>().notNull(),
+  data: jsonb().$type<TrackRecord>().notNull(),
 });
 export const notices = pgTable(
   "notices",
@@ -57,7 +55,7 @@ export const notices = pgTable(
     competitionId: text("competition_id")
       .notNull()
       .references(() => competitions.id),
-    data: jsonb().$type<NoticeDto>().notNull(),
+    data: jsonb().$type<NoticeRecord>().notNull(),
     publishedAt: date("published_at"),
     checkedAt: date("checked_at"),
   },

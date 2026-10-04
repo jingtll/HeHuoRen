@@ -1,12 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-export const statusValues = [
-  "upcoming",
-  "open",
-  "closed",
-  "unknown",
-  "conflict",
-] as const;
-export type Status = (typeof statusValues)[number];
+import { statusValues, type Status } from "./competition.model.js";
+export { statusValues };
+export type { Status };
 export class TimeDto {
   @ApiProperty({ enum: ["instant", "date", "unknown"] }) precision:
     "instant" | "date" | "unknown";

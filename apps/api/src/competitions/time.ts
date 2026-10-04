@@ -1,10 +1,10 @@
-import type { StageDto, Status, TimeDto } from "./competition.dto.js";
-export const unknownTime = (): TimeDto => ({
+import type { StageRecord, TimeValue, Status } from "./competition.model.js";
+export const unknownTime = (): TimeValue => ({
   precision: "unknown",
   value: null,
 });
 export function registrationStatus(
-  stage: Pick<StageDto, "startsAt" | "deadline" | "conflict">,
+  stage: Pick<StageRecord, "startsAt" | "deadline" | "conflict">,
   now: Date,
 ): Status {
   if (stage.conflict) return "conflict";

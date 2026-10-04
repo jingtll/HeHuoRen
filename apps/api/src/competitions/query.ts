@@ -1,5 +1,5 @@
 import { BadRequestException } from "@nestjs/common";
-import { statusValues, type Status } from "./competition.dto.js";
+import { statusValues, type Status } from "./competition.model.js";
 export interface ListQuery {
   hosts: string[] | "all";
   q: string;

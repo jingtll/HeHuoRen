@@ -4,11 +4,11 @@ import { isDeepStrictEqual } from "node:util";
 import { readCatalog, type RecordData } from "./catalog.js";
 import { unknownTime } from "./time.js";
 import type {
-  CollegeDto,
-  StageDto,
-  NoticeDto,
-  TrackDto,
-} from "./competition.dto.js";
+  CollegeRecord,
+  StageRecord,
+  NoticeRecord,
+  TrackRecord,
+} from "./competition.model.js";
 
 const id = Joi.string()
   .pattern(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
@@ -112,20 +112,20 @@ const batchSchema = Joi.object({
   competitions: Joi.array().items(competition).unique("id"),
 }).required();
 
-export type ImportStage = Partial<Omit<StageDto, "status" | "scope">> & {
+export type ImportStage = Partial<Omit<StageRecord, "scope">> & {
   id: string;
-  scope?: Partial<StageDto["scope"]>;
+  scope?: Partial<StageRecord["scope"]>;
 };
 export type ImportCompetition = Partial<
   Omit<RecordData, "stages" | "tracks" | "notices">
 > & {
   id: string;
   stages?: ImportStage[];
-  tracks?: (Partial<TrackDto> & { id: string })[];
-  notices?: (Partial<NoticeDto> & { id: string })[];
+  tracks?: (Partial<TrackRecord> & { id: string })[];
+  notices?: (Partial<NoticeRecord> & { id: string })[];
 };
 export interface ImportBatch {
-  colleges?: CollegeDto[];
+  colleges?: CollegeRecord[];
   competitions?: ImportCompetition[];
 }
 export interface ImportOptions {
@@ -175,17 +175,17 @@ function mergeEdition(
     tracks: mergeById(
       base.tracks,
       patch.tracks ?? [],
-      (a, b) => ({ ...a, ...b }) as TrackDto,
+      (a, b) => ({ ...a, ...b }) as TrackRecord,
     ),
     notices: mergeById(
       base.notices,
       patch.notices ?? [],
       (a, b) =>
-        ({ publishedAt: null, checkedAt: null, ...a, ...b }) as NoticeDto,
+        ({ publishedAt: null, checkedAt: null, ...a, ...b }) as NoticeRecord,
     ),
-    stages: mergeById<StageDto>(
+    stages: mergeById<StageRecord>(
       base.stages,
-      (patch.stages as (Partial<StageDto> & { id: string })[]) ?? [],
+      (patch.stages as (Partial<StageRecord> & { id: string })[]) ?? [],
       (a, b) =>
         ({
           startsAt: unknownTime(),
@@ -199,7 +199,6 @@ function mergeEdition(
           order: 0,
           ...a,
           ...b,
-          status: "unknown",
           scope: {
             kind: "unknown",
             note: "参赛范围待核对",
@@ -207,7 +206,7 @@ function mergeEdition(
             ...b.scope,
             colleges: b.scope?.colleges ?? a?.scope.colleges ?? [],
           },
-        }) as StageDto,
+        }) as StageRecord,
     ),
   };
 }
@@ -273,6 +272,24 @@ function validateEdition(
       throw new Error(s.id + " 指定学院范围不能为空");
     if (s.scope.kind === "all" && s.scope.colleges.length)
       throw new Error(s.id + " 全校范围不能附指定学院");
+    if (
+      record.publication === "published" &&
+      record.origin !== "demo" &&
+      s.startsAt.precision === "instant" &&
+      s.deadline.precision === "instant" &&
+      !s.sourceIds.some((id) =>
+        record.notices.some(
+          (n) =>
+            n.id === id &&
+            (n.kind === "registration" || n.kind === "supplement"),
+        ),
+      )
+    ) {
+      throw new Error(
+        s.id +
+          " 精确报名窗口必须有报名或补充通知来源，新闻与获奖不能单独证明报名开放",
+      );
+    }
     if (s.conflict && (!s.timeNote.trim() || !s.sourceIds.length))
       throw new Error(s.id + " 时间冲突须保留说明与来源");
     if (s.startsAt.value && s.deadline.value) {
@@ -436,8 +453,7 @@ export async function importBatch(
           [t.id, r.id, t],
         );
       for (const s of stages) {
-        const { hosts, sourceIds, status, ...data } = s;
-        void status;
+        const { hosts, sourceIds, ...data } = s;
         data.scope = { ...data.scope, colleges: [] };
         await client.query(
           "INSERT INTO stages(id,competition_id,data,display_order,registration_start,registration_end,registration_start_date,registration_end_date) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT(id) DO UPDATE SET data=EXCLUDED.data,display_order=EXCLUDED.display_order,registration_start=EXCLUDED.registration_start,registration_end=EXCLUDED.registration_end,registration_start_date=EXCLUDED.registration_start_date,registration_end_date=EXCLUDED.registration_end_date",

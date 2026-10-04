@@ -1,5 +1,6 @@
 import { jest } from "@jest/globals";
 import { ConfigService } from "@nestjs/config";
+import { CompetitionRepository } from "../src/competitions/competition.repository.js";
 import { DatabaseService } from "../src/database/database.service.js";
 import {
   CompetitionClock,
@@ -19,7 +20,10 @@ describe("PostgreSQL 导入与查询", () => {
     database = new DatabaseService(
       new ConfigService({ DATABASE_URL: isolated.url }),
     );
-    service = new CompetitionService(database, clock);
+    service = new CompetitionService(
+      new CompetitionRepository(database),
+      clock,
+    );
     jest
       .spyOn(clock, "now")
       .mockReturnValue(new Date("2026-10-10T12:00:00+08:00"));
@@ -72,7 +76,12 @@ describe("PostgreSQL 导入与查询", () => {
       new ConfigService({ DATABASE_URL: isolated.url }),
     );
     expect(
-      (await new CompetitionService(reopened, clock).detail("alpha")).id,
+      (
+        await new CompetitionService(
+          new CompetitionRepository(reopened),
+          clock,
+        ).detail("alpha")
+      ).id,
     ).toBe("alpha");
     await reopened.onApplicationShutdown();
   });
@@ -346,6 +355,106 @@ describe("PostgreSQL 导入与查询", () => {
       "alpha-stage-b",
       "beta-stage",
     ]);
+  });
+  it("三个关系集合均完整替换，移除不删除来源实体", async () => {
+    const r = edition();
+    r.notices!.push({
+      ...r.notices![0],
+      id: "alpha-other",
+      kind: "supplement",
+    });
+    r.stages![0].scope = {
+      kind: "colleges",
+      colleges: ["law"],
+      note: "仅指定学院",
+    };
+    await importBatch(isolated.pool, {
+      colleges: directory,
+      competitions: [r],
+    });
+    await importBatch(
+      isolated.pool,
+      {
+        competitions: [
+          { id: "alpha", stages: [{ id: "alpha-stage", name: "更名" }] },
+        ],
+      },
+      { confirmPublished: true },
+    );
+    expect((await record()).stages[0].scope.colleges).toEqual(["law"]);
+    expect((await record()).stages[0].sourceIds).toEqual(["alpha-notice"]);
+    const patch = {
+      competitions: [
+        {
+          id: "alpha",
+          stages: [
+            {
+              id: "alpha-stage",
+              hosts: ["science"],
+              scope: { colleges: ["science"] },
+              sourceIds: ["alpha-other"],
+            },
+          ],
+        },
+      ],
+    };
+    const preview = await importBatch(isolated.pool, patch, { preview: true });
+    expect(preview.changes[0].removed).toEqual(
+      expect.arrayContaining([
+        "alpha-stage.eligibility:law",
+        "alpha-stage.sources:alpha-notice",
+      ]),
+    );
+    await importBatch(isolated.pool, patch, { confirmPublished: true });
+    expect((await record()).stages[0]).toMatchObject({
+      hosts: ["science"],
+      scope: { colleges: ["science"] },
+      sourceIds: ["alpha-other"],
+    });
+    await importBatch(
+      isolated.pool,
+      {
+        competitions: [
+          {
+            id: "alpha",
+            publication: "hidden",
+            stages: [
+              {
+                id: "alpha-stage",
+                scope: { kind: "unknown", colleges: [] },
+                hosts: [],
+                sourceIds: [],
+              },
+            ],
+          },
+        ],
+      },
+      { confirmPublished: true },
+    );
+    expect((await record()).stages[0].scope.colleges).toEqual([]);
+    expect((await record()).notices).toHaveLength(2);
+  });
+  it("新闻与获奖不能单独证明精确报名窗口", async () => {
+    for (const kind of ["news", "award"] as const) {
+      const r = edition();
+      r.notices![0].kind = kind;
+      await expect(
+        importBatch(isolated.pool, { colleges: directory, competitions: [r] }),
+      ).rejects.toThrow("报名窗口");
+    }
+  });
+  it("不同精度按北京时间判断已知的倒置，不按原始字符串日期误判", async () => {
+    const r = edition();
+    r.stages![0].startsAt = { precision: "date", value: "2026-10-14" };
+    r.stages![0].deadline = {
+      precision: "instant",
+      value: "2026-10-13T18:00:00Z",
+    };
+    await importBatch(isolated.pool, {
+      colleges: directory,
+      competitions: [r],
+    });
+    expect((await service.detail("alpha")).stages[0].status).toBe("unknown");
   });
   it("SQL与详情状态一致；日期精度次日北京时间、材料不代替报名", async () => {
     const r = edition();

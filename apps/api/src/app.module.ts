@@ -1,4 +1,5 @@
 import { DatabaseModule } from "./database/database.module.js";
+import { CompetitionRepository } from "./competitions/competition.repository.js";
 import { CompetitionController } from "./competitions/competition.controller.js";
 import {
   CompetitionClock,
@@ -19,6 +20,11 @@ import { HealthService } from "./health/health.service.js";
     }),
   ],
   controllers: [HealthController, CompetitionController],
-  providers: [HealthService, CompetitionClock, CompetitionService],
+  providers: [
+    HealthService,
+    CompetitionClock,
+    CompetitionService,
+    CompetitionRepository,
+  ],
 })
 export class AppModule {}
