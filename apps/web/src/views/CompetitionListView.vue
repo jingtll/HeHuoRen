@@ -64,183 +64,192 @@ function reset() {
       从一场比赛开始，让想法生根，让各有所长的伙伴相遇。
     </p>
   </header>
-  <CollegePicker
-    compact
-    :model-value="filters.hosts"
-    @update:model-value="update({ hosts: $event })"
+  <div
+    class="grid items-start gap-5 min-[1100px]:grid-cols-[340px_minmax(0,1fr)]"
   >
-    <template #footer>
-      <form
-        aria-label="比赛筛选"
-        class="grid grid-cols-2 gap-2 min-[768px]:grid-cols-[minmax(0,1fr)_140px_170px]"
-        @submit.prevent="update({ q: search.trim().slice(0, 100) })"
-      >
-        <div class="col-span-2 flex min-w-0 gap-2 min-[768px]:col-span-1">
-          <input
-            v-model="search"
-            type="search"
-            class="hhr-input min-h-9 min-w-0 px-3 py-1.5 text-sm max-[767px]:text-base"
-            placeholder="搜索比赛名称、届次"
-            maxlength="100"
-            aria-label="搜索比赛"
-          />
-          <button type="submit" class="hhr-button min-h-9 shrink-0 px-3 py-1.5">
-            搜索
-          </button>
-        </div>
-        <select
-          class="hhr-input min-h-9 min-w-0 px-2 py-1.5 text-xs"
-          aria-label="比赛类别"
-          :value="filters.category"
-          @change="update({ category: choice($event) as Filters['category'] })"
+    <CollegePicker
+      compact
+      :model-value="filters.hosts"
+      @update:model-value="update({ hosts: $event })"
+    >
+      <template #footer>
+        <form
+          aria-label="比赛筛选"
+          class="grid grid-cols-2 gap-1.5"
+          @submit.prevent="update({ q: search.trim().slice(0, 100) })"
         >
-          <option value="">全部类别</option>
-          <option v-for="category in categories" :key="category">
-            {{ category }}
-          </option>
-        </select>
-        <select
-          class="hhr-input min-h-9 min-w-0 px-2 py-1.5 text-xs"
-          aria-label="报名状态"
-          :value="filters.status"
-          @change="update({ status: choice($event) as Filters['status'] })"
-        >
-          <option value="">全部状态</option>
-          <option
-            v-for="(label, status) in statuses"
-            :key="status"
-            :value="status"
-          >
-            {{ label }}
-          </option>
-        </select>
-        <div
-          class="col-span-2 flex flex-wrap items-center justify-between gap-x-3 text-xs min-[768px]:col-span-3"
-        >
-          <span class="text-muted">院徽筛选承办学院 · 可多选</span>
-          <div class="flex gap-3">
+          <div class="col-span-2 flex min-w-0 gap-1.5">
+            <input
+              v-model="search"
+              type="search"
+              class="hhr-input h-8 min-h-0 min-w-0 px-2 py-0 text-sm max-[767px]:text-base"
+              placeholder="搜索比赛名称、届次"
+              maxlength="100"
+              aria-label="搜索比赛"
+            />
             <button
-              type="button"
-              class="min-h-8 text-brand"
-              @click="update({ hosts: [] })"
+              type="submit"
+              class="hhr-button h-8 min-h-0 shrink-0 px-3 py-0 text-xs"
             >
-              清除学院条件
-            </button>
-            <button type="button" class="min-h-8 text-brand" @click="reset">
-              重置所有筛选
+              搜索
             </button>
           </div>
-        </div>
-      </form>
-    </template>
-  </CollegePicker>
-  <section class="mt-5 min-w-0" aria-label="比赛发现">
-    <p class="my-4 text-xs leading-6 text-muted">
-      样例时间基准：{{
-        formatTime(DEMO_NOW)
-      }}（北京时间）。状态为演示，名额及最新安排以官方通知为准。
-    </p>
-    <div class="mb-3 flex items-center justify-between gap-3">
-      <h2 class="font-serif text-xl font-semibold">比赛一览</h2>
-      <p
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-        class="text-xs text-brand"
-      >
-        {{ competitionCount }} 项比赛 · {{ entries.length }} 个赛段
-      </p>
-    </div>
-    <div v-if="!entries.length" class="hhr-panel py-10 text-center">
-      <h3 class="font-semibold">暂时没有匹配的比赛</h3>
-      <p class="mt-2 text-sm text-muted">
-        试试其他学院或放宽筛选，学院入口仍可继续选择。
-      </p>
-      <button
-        type="button"
-        class="hhr-button hhr-button--soft mt-4"
-        @click="reset"
-      >
-        重置所有筛选
-      </button>
-    </div>
-    <div v-else class="grid gap-3 min-[900px]:grid-cols-2">
-      <article
-        v-for="{ competition, stage } in visible"
-        :key="stage.id"
-        class="hhr-card p-5"
-        data-competition-card
-      >
-        <div class="mb-2 flex flex-wrap items-center gap-2 text-xs">
-          <span class="hhr-badge">{{ competition.category }}</span
-          ><span class="text-muted">{{ competition.edition }}</span>
-          <span class="hhr-badge hhr-badge--muted">{{
-            originLabels[competition.origin]
-          }}</span>
-        </div>
-        <h3 class="font-serif text-lg font-semibold">
-          <RouterLink
-            :to="{
-              name: 'competition-detail',
-              params: { id: competition.id },
-              query: route.query,
-              hash: '#' + stage.id,
-            }"
-            class="inline-block py-1 text-brand hover:underline"
-            >{{ competition.name }}</RouterLink
+          <select
+            class="hhr-input h-8 min-h-0 min-w-0 px-2 py-0 text-xs"
+            aria-label="比赛类别"
+            :value="filters.category"
+            @change="
+              update({ category: choice($event) as Filters['category'] })
+            "
           >
-        </h3>
-        <p class="mt-1 text-sm">{{ stage.name }}</p>
-        <dl
-          class="mt-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 text-xs leading-6"
+            <option value="">全部类别</option>
+            <option v-for="category in categories" :key="category">
+              {{ category }}
+            </option>
+          </select>
+          <select
+            class="hhr-input h-8 min-h-0 min-w-0 px-2 py-0 text-xs"
+            aria-label="报名状态"
+            :value="filters.status"
+            @change="update({ status: choice($event) as Filters['status'] })"
+          >
+            <option value="">全部状态</option>
+            <option
+              v-for="(label, status) in statuses"
+              :key="status"
+              :value="status"
+            >
+              {{ label }}
+            </option>
+          </select>
+          <div
+            class="col-span-2 flex flex-wrap items-center justify-between gap-x-2 text-[11px]"
+          >
+            <span class="text-muted">院徽筛选承办学院 · 可多选</span>
+            <div class="flex gap-3">
+              <button
+                type="button"
+                class="min-h-8 text-brand"
+                @click="update({ hosts: [] })"
+              >
+                清除学院条件
+              </button>
+              <button type="button" class="min-h-8 text-brand" @click="reset">
+                重置所有筛选
+              </button>
+            </div>
+          </div>
+        </form>
+      </template>
+    </CollegePicker>
+    <section class="min-w-0" aria-label="比赛发现">
+      <p class="my-4 text-xs leading-6 text-muted">
+        样例时间基准：{{
+          formatTime(DEMO_NOW)
+        }}（北京时间）。状态为演示，名额及最新安排以官方通知为准。
+      </p>
+      <div class="mb-3 flex items-center justify-between gap-3">
+        <h2 class="font-serif text-xl font-semibold">比赛一览</h2>
+        <p
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          class="text-xs text-brand"
         >
-          <dt class="text-muted">承办学院</dt>
-          <dd>{{ collegeNames(stage.hosts) }}</dd>
-          <dt class="text-muted">参赛范围</dt>
-          <dd>{{ scopeLabel(stage.scope) }}</dd>
-        </dl>
-        <p class="mt-2 text-xs leading-6 text-muted">
-          {{ stage.scope.note }}
+          {{ competitionCount }} 项比赛 · {{ entries.length }} 个赛段
         </p>
-        <div class="mt-3 border-t border-line pt-3 text-xs">
-          <span class="font-semibold text-brand">{{
-            statuses[stageStatus(stage)]
-          }}</span>
-          <p class="mt-1">
-            报名截止：{{
-              stage.conflict ? "时间待核对" : formatTime(stage.deadline)
-            }}
+      </div>
+      <div v-if="!entries.length" class="hhr-panel py-10 text-center">
+        <h3 class="font-semibold">暂时没有匹配的比赛</h3>
+        <p class="mt-2 text-sm text-muted">
+          试试其他学院或放宽筛选，学院入口仍可继续选择。
+        </p>
+        <button
+          type="button"
+          class="hhr-button hhr-button--soft mt-4"
+          @click="reset"
+        >
+          重置所有筛选
+        </button>
+      </div>
+      <div v-else class="grid gap-3">
+        <article
+          v-for="{ competition, stage } in visible"
+          :key="stage.id"
+          class="hhr-card p-5"
+          data-competition-card
+        >
+          <div class="mb-2 flex flex-wrap items-center gap-2 text-xs">
+            <span class="hhr-badge">{{ competition.category }}</span
+            ><span class="text-muted">{{ competition.edition }}</span>
+            <span class="hhr-badge hhr-badge--muted">{{
+              originLabels[competition.origin]
+            }}</span>
+          </div>
+          <h3 class="font-serif text-lg font-semibold">
+            <RouterLink
+              :to="{
+                name: 'competition-detail',
+                params: { id: competition.id },
+                query: route.query,
+                hash: '#' + stage.id,
+              }"
+              class="inline-block py-1 text-brand hover:underline"
+              >{{ competition.name }}</RouterLink
+            >
+          </h3>
+          <p class="mt-1 text-sm">{{ stage.name }}</p>
+          <dl
+            class="mt-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 text-xs leading-6"
+          >
+            <dt class="text-muted">承办学院</dt>
+            <dd>{{ collegeNames(stage.hosts) }}</dd>
+            <dt class="text-muted">参赛范围</dt>
+            <dd>{{ scopeLabel(stage.scope) }}</dd>
+          </dl>
+          <p class="mt-2 text-xs leading-6 text-muted">
+            {{ stage.scope.note }}
           </p>
-          <p v-if="stage.materialsAt">
-            材料截止：{{ materialDeadlineLabel(stage.materialsAt) }}
-          </p>
-        </div>
-      </article>
-    </div>
-    <nav
-      v-if="entries.length"
-      aria-label="比赛分页"
-      class="mt-5 flex flex-wrap items-center justify-between gap-2"
-    >
-      <button
-        type="button"
-        class="hhr-button hhr-button--secondary"
-        :disabled="filters.page <= 1"
-        @click="update({}, filters.page - 1)"
+          <div class="mt-3 border-t border-line pt-3 text-xs">
+            <span class="font-semibold text-brand">{{
+              statuses[stageStatus(stage)]
+            }}</span>
+            <p class="mt-1">
+              报名截止：{{
+                stage.conflict ? "时间待核对" : formatTime(stage.deadline)
+              }}
+            </p>
+            <p v-if="stage.materialsAt">
+              材料截止：{{ materialDeadlineLabel(stage.materialsAt) }}
+            </p>
+          </div>
+        </article>
+      </div>
+      <nav
+        v-if="entries.length"
+        aria-label="比赛分页"
+        class="mt-5 flex flex-wrap items-center justify-between gap-2"
       >
-        上一页
-      </button>
-      <span class="text-xs text-muted"
-        >第 {{ filters.page }} / {{ pages }} 页</span
-      >
-      <button
-        type="button"
-        class="hhr-button hhr-button--secondary"
-        :disabled="filters.page >= pages"
-        @click="update({}, filters.page + 1)"
-      >
-        下一页
-      </button>
-    </nav>
-  </section>
+        <button
+          type="button"
+          class="hhr-button hhr-button--secondary"
+          :disabled="filters.page <= 1"
+          @click="update({}, filters.page - 1)"
+        >
+          上一页
+        </button>
+        <span class="text-xs text-muted"
+          >第 {{ filters.page }} / {{ pages }} 页</span
+        >
+        <button
+          type="button"
+          class="hhr-button hhr-button--secondary"
+          :disabled="filters.page >= pages"
+          @click="update({}, filters.page + 1)"
+        >
+          下一页
+        </button>
+      </nav>
+    </section>
+  </div>
 </template>

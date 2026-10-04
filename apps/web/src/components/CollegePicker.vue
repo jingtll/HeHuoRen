@@ -46,8 +46,8 @@ function reset() {
 
 <template>
   <section
-    class="hhr-panel college-picker flex flex-col p-4 max-[767px]:h-[40svh] max-[767px]:p-3"
-    :class="{ 'max-[767px]:min-h-[330px]': compact }"
+    class="hhr-panel college-picker flex flex-col p-4 max-[767px]:p-3"
+    :class="{ 'max-[767px]:h-[40svh]': !compact }"
     aria-labelledby="college-heading"
   >
     <header class="flex shrink-0 items-center justify-between gap-3">
@@ -74,23 +74,27 @@ function reset() {
       27 个本科教学学院 · 上下滚动查看更多
     </p>
     <div
-      class="college-scroll min-h-0 overflow-y-auto border-y border-line max-[767px]:flex-1"
-      :class="compact ? 'h-[144px]' : 'h-[248px]'"
+      class="college-scroll min-h-0 overflow-y-auto border-y border-line"
+      :class="
+        compact
+          ? 'h-[306px] shrink-0 max-[767px]:h-[240px]'
+          : 'h-[248px] max-[767px]:flex-1'
+      "
       role="group"
       aria-label="学院入口，可多选"
       aria-describedby="college-scroll-hint"
       tabindex="0"
     >
-      <div
-        class="college-grid grid grid-cols-4 gap-1 px-[5px] py-1 max-[359px]:grid-cols-3"
-        :class="{ 'min-[768px]:grid-cols-8 min-[1200px]:grid-cols-9': compact }"
-      >
+      <div class="college-grid grid grid-cols-4 gap-1 px-[5px] py-1">
         <button
           v-for="(college, index) in colleges"
           :key="college.id"
           type="button"
           class="college-entry flex min-h-[78px] min-w-0 cursor-pointer flex-col items-center gap-1 rounded-control border border-transparent px-0.5 py-1 max-[767px]:min-h-[68px] max-[767px]:gap-0.5 max-[767px]:py-0.5"
-          :class="{ 'is-selected': selectedIds.includes(college.id) }"
+          :class="{
+            'is-selected': selectedIds.includes(college.id),
+            'min-h-24 max-[767px]:min-h-[74px]': compact,
+          }"
           :aria-label="college.name"
           :aria-pressed="selectedIds.includes(college.id)"
           :data-college-id="college.id"
