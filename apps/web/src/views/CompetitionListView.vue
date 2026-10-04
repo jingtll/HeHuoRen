@@ -94,7 +94,7 @@ function reset() {
             </button>
           </div>
           <select
-            class="hhr-input discovery-filter-control h-8 min-h-0 min-w-0 px-2 py-0 text-xs"
+            class="hhr-input discovery-filter-control discovery-status-select h-8 min-h-0 min-w-0 px-2 py-0 text-xs"
             aria-label="报名状态"
             :value="filters.status"
             @change="update({ status: choice($event) as Filters['status'] })"
@@ -241,5 +241,12 @@ function reset() {
 .discovery-filter-control:focus-visible {
   outline-width: 2px;
   outline-offset: -2px;
+}
+.discovery-filter-control::placeholder {
+  color: var(--hhr-color-muted);
+  opacity: 1;
+}
+.discovery-status-select {
+  color: var(--hhr-color-muted);
 }
 </style>

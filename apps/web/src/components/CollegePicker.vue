@@ -175,6 +175,9 @@ function reset() {
   font-size: 11px;
   line-height: 12px;
 }
+.college-picker--compact > [role="status"] strong {
+  color: var(--hhr-color-muted);
+}
 .college-picker--compact .college-entry {
   height: 56px;
   min-height: 56px;
