@@ -45,7 +45,7 @@ describe("比赛筛选与 URL 契约", () => {
     expect(canonical).toEqual({ hosts: "law", q: "比赛", from: ["a", "b"] });
     expect(canonicalQuery(parseQuery(canonical))).toEqual(canonical);
   });
-  it("承办任一匹配，与搜索类别状态取交集", () => {
+  it("承办任一匹配，与搜索状态取交集", () => {
     const filters = parseFilters({
       hosts: "information-engineering,life-science",
       eligible: "law",
@@ -58,9 +58,10 @@ describe("比赛筛选与 URL 契约", () => {
     expect(filterEntries({ ...filters, hosts: ["law"] })).toEqual([]);
     expect(filterEntries({ ...filters, status: "closed" })).toEqual([]);
   });
-  it("只按承办学院筛选，旧参赛范围参数清除且不改变结果", () => {
+  it("只按承办学院筛选，旧类别及参赛范围参数清除且不改变结果", () => {
     const query = {
       hosts: "information-engineering",
+      category: "学科技能",
       eligible: "law",
       from: "review",
     };

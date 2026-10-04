@@ -4,7 +4,6 @@ import { useRoute, useRouter } from "vue-router";
 import CollegePicker from "../components/CollegePicker.vue";
 import { DEMO_NOW, originLabels } from "../data/competitions";
 import {
-  categories,
   collegeNames,
   filterEntries,
   formatTime,
@@ -75,7 +74,7 @@ function reset() {
       <template #footer>
         <form
           aria-label="比赛筛选"
-          class="grid grid-cols-2 gap-1.5"
+          class="grid grid-cols-[minmax(0,1fr)_auto] gap-0.5"
           @submit.prevent="update({ q: search.trim().slice(0, 100) })"
         >
           <div class="col-span-2 flex min-w-0 gap-1.5">
@@ -96,19 +95,6 @@ function reset() {
           </div>
           <select
             class="hhr-input h-8 min-h-0 min-w-0 px-2 py-0 text-xs"
-            aria-label="比赛类别"
-            :value="filters.category"
-            @change="
-              update({ category: choice($event) as Filters['category'] })
-            "
-          >
-            <option value="">全部类别</option>
-            <option v-for="category in categories" :key="category">
-              {{ category }}
-            </option>
-          </select>
-          <select
-            class="hhr-input h-8 min-h-0 min-w-0 px-2 py-0 text-xs"
             aria-label="报名状态"
             :value="filters.status"
             @change="update({ status: choice($event) as Filters['status'] })"
@@ -122,11 +108,8 @@ function reset() {
               {{ label }}
             </option>
           </select>
-          <div
-            class="col-span-2 flex flex-wrap items-center justify-between gap-x-2 text-[11px]"
-          >
-            <span class="text-muted">院徽筛选承办学院 · 可多选</span>
-            <div class="flex gap-3">
+          <div class="flex items-center justify-end text-[11px]">
+            <div class="flex gap-2">
               <button
                 type="button"
                 class="min-h-8 text-brand"

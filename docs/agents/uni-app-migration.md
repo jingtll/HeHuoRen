@@ -19,19 +19,19 @@
 
 所有下列适配均留待统一迁移，负责人为后续迁移实施者；当前状态为“已登记，目标端待实测”。
 
-| 位置/能力                                                                                                        | H5 影响                                      | 微信小程序影响与适配路径                                                                                     | 成本 |
-| ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ---- |
-| AuthView 的 HTMLFormElement、querySelector、focus                                                                | 浏览器焦点与原生 Enter 提交可用，迁移后回归  | 没有同等浏览器 DOM；改用输入组件 focus 属性和平台表单事件，保留首个错误定位                                  | 中   |
-| router/index.ts 的 document.title、History、window.scrollTo、锚点                                                | 核对部署回退、标题、刷新、历史和滚动         | 使用 pages.json、uni.navigateTo/redirectTo、导航栏标题与页面滚动 API，重新设计筛选参数恢复                   | 中   |
-| AppIcon / @lucide/vue 动态组件与 SVG                                                                             | Vue/Web SVG 当前已验收；uni-app 编译仍需验证 | 不能直接移植 Web SVG 与动态 component；统一入口按平台换 image/模板，优先本地 PNG，颜色需资源或其他受支持方案 | 中   |
-| CollegePicker 内联 SVG 勾选                                                                                      | 保留按压与选中语义                           | 勾选改为受支持资源/样式，同时验证可访问反馈                                                                  | 低   |
-| style.css / BrandLayout / CollegePicker 的 svh、40svh；首页合并卡片采用四列三行滚动区（移动 240px / 桌面 306px） | 依浏览器动态视口验证                         | 小程序视口单位能力待实测，可按窗口高度计算卡片固定尺寸，保留内部滚动                                         | 中   |
-| Grid、gap、复杂选择器、Tailwind 与 CSS 变量                                                                      | 当前响应式布局已使用，按目标浏览器回归       | 按基础库与实际编译输出验证，必要时 Flex/平台模板/静态主题；不能笼统认定 Grid 全部不可用                      | 中   |
-| CollegePicker overflow、滚动条伪元素                                                                             | 可定制浏览器滚动条                           | 核对 scroll-view 内部滚动及可滚动提示，滚动条装饰可降级                                                      | 低   |
-| student-bottom-nav / student-content 的 env(safe-area-inset-bottom)                                              | 当前浏览器安全区域；真实 iOS 仍待测          | 使用平台安全区域信息或平台导航，重测正文底部空间与点击区域                                                   | 中   |
-| AuthInput 原生 input、button、form 与 aria-*                                                                     | 当前原生键盘、名称、错误关联                 | 迁移到平台表单控件；键盘、焦点、显隐、辅助技术支持需独立验收                                                 | 中   |
-| ProjectLogo 与学院 WebP、mix-blend-mode                                                                          | 当前资源构建加载正常                         | 使用 image 的 aspectFit；核对基础库/系统 WebP 支持和混合效果，可用 PNG 及底色兜底                            | 低   |
-| api/http.ts 的 Axios 浏览器请求                                                                                  | 同源代理与超时当前可用                       | 改为 uni.request 或请求适配器，处理域名白名单、错误与响应映射                                                | 中   |
+| 位置/能力                                                                                                     | H5 影响                                      | 微信小程序影响与适配路径                                                                                     | 成本 |
+| ------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ---- |
+| AuthView 的 HTMLFormElement、querySelector、focus                                                             | 浏览器焦点与原生 Enter 提交可用，迁移后回归  | 没有同等浏览器 DOM；改用输入组件 focus 属性和平台表单事件，保留首个错误定位                                  | 中   |
+| router/index.ts 的 document.title、History、window.scrollTo、锚点                                             | 核对部署回退、标题、刷新、历史和滚动         | 使用 pages.json、uni.navigateTo/redirectTo、导航栏标题与页面滚动 API，重新设计筛选参数恢复                   | 中   |
+| AppIcon / @lucide/vue 动态组件与 SVG                                                                          | Vue/Web SVG 当前已验收；uni-app 编译仍需验证 | 不能直接移植 Web SVG 与动态 component；统一入口按平台换 image/模板，优先本地 PNG，颜色需资源或其他受支持方案 | 中   |
+| CollegePicker 内联 SVG 勾选                                                                                   | 保留按压与选中语义                           | 勾选改为受支持资源/样式，同时验证可访问反馈                                                                  | 低   |
+| style.css / BrandLayout / CollegePicker 的 svh、40svh；首页合并卡片采用四列三行滚动区（186px），紧凑控件 32px | 依浏览器动态视口验证                         | 小程序视口单位能力待实测，可按窗口高度计算卡片固定尺寸，保留内部滚动                                         | 中   |
+| Grid、gap、复杂选择器、Tailwind 与 CSS 变量                                                                   | 当前响应式布局已使用，按目标浏览器回归       | 按基础库与实际编译输出验证，必要时 Flex/平台模板/静态主题；不能笼统认定 Grid 全部不可用                      | 中   |
+| CollegePicker overflow、滚动条伪元素                                                                          | 可定制浏览器滚动条                           | 核对 scroll-view 内部滚动及可滚动提示，滚动条装饰可降级                                                      | 低   |
+| student-bottom-nav / student-content 的 env(safe-area-inset-bottom)                                           | 当前浏览器安全区域；真实 iOS 仍待测          | 使用平台安全区域信息或平台导航，重测正文底部空间与点击区域                                                   | 中   |
+| AuthInput 原生 input、button、form 与 aria-*                                                                  | 当前原生键盘、名称、错误关联                 | 迁移到平台表单控件；键盘、焦点、显隐、辅助技术支持需独立验收                                                 | 中   |
+| ProjectLogo 与学院 WebP、mix-blend-mode                                                                       | 当前资源构建加载正常                         | 使用 image 的 aspectFit；核对基础库/系统 WebP 支持和混合效果，可用 PNG 及底色兜底                            | 低   |
+| api/http.ts 的 Axios 浏览器请求                                                                               | 同源代理与超时当前可用                       | 改为 uni.request 或请求适配器，处理域名白名单、错误与响应映射                                                | 中   |
 
 ## 官方依据与验证原则
 

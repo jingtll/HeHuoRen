@@ -30,7 +30,8 @@ describe("比赛列表与详情恢复", () => {
     );
     expect(wrapper.findAll("[data-competition-card]")).toHaveLength(1);
     expect(router.currentRoute.value.query.eligible).toBeUndefined();
-    expect(wrapper.findAll("select")).toHaveLength(2);
+    expect(router.currentRoute.value.query.category).toBeUndefined();
+    expect(wrapper.findAll("select")).toHaveLength(1);
     expect(
       wrapper
         .get('form[aria-label="比赛筛选"]')
@@ -51,7 +52,6 @@ describe("比赛列表与详情恢复", () => {
     await flushPromises();
     expect(router.currentRoute.value.query).toMatchObject({
       hosts: "information-engineering",
-      category: "编程",
       q: "程序",
       from: "review",
     });
@@ -64,7 +64,7 @@ describe("比赛列表与详情恢复", () => {
     expect(router.currentRoute.value.query.from).toBe("review");
   });
   it("学院状态切换、单独清除及全局重置", async () => {
-    await visit("/home?category=编程&from=review");
+    await visit("/home?status=unknown&from=review");
     const all = () => wrapper.get(".college-reset");
     await all().trigger("click");
     await flushPromises();
@@ -83,7 +83,7 @@ describe("比赛列表与详情恢复", () => {
       .find((b) => b.text() === "清除学院条件")!;
     await clear.trigger("click");
     await flushPromises();
-    expect(router.currentRoute.value.query.category).toBe("编程");
+    expect(router.currentRoute.value.query.status).toBe("unknown");
     await wrapper
       .findAll("button")
       .find((b) => b.text() === "重置所有筛选")!

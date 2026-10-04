@@ -17,17 +17,15 @@ export const statuses = {
   conflict: "时间待核对",
 };
 export type Status = keyof typeof statuses;
-export const categories = ["编程", "学科技能", "科技创新", "数据建模"] as const;
 export type Filters = {
   hosts: CollegeSelection;
   q: string;
-  category: Competition["category"] | "";
   status: Status | "";
   page: number;
 };
 export type Entry = { competition: Competition; stage: Stage };
 export const PAGE_SIZE = 4;
-// eligible 是已移除的参赛范围筛选参数；规范化旧链接时一并清理。
+// category、eligible 是已移除的筛选参数；规范化旧链接时一并清理。
 const owned = ["hosts", "q", "category", "status", "eligible", "page"];
 const first = (value: LocationQuery[string]) =>
   (Array.isArray(value) ? value[0] : value) ?? "";
@@ -42,9 +40,6 @@ export function parseFilters(query: LocationQuery): Filters {
   return {
     hosts: ids.length ? ids : hostTokens.includes("all") ? "all" : [],
     q: first(query.q).trim().slice(0, 100),
-    category: categories.some((c) => c === first(query.category))
-      ? (first(query.category) as Competition["category"])
-      : "",
     status: Object.hasOwn(statuses, first(query.status))
       ? (first(query.status) as Status)
       : "",
@@ -64,7 +59,6 @@ export function writeFilters(
       .map((c) => c.id)
       .join(",");
   if (filters.q) result.q = filters.q;
-  if (filters.category) result.category = filters.category;
   if (filters.status) result.status = filters.status;
   if (filters.page > 1) result.page = String(filters.page);
   return result;
@@ -102,7 +96,6 @@ export function filterEntries(
             .join(" ")
             .toLocaleLowerCase()
             .includes(q)) &&
-        (!filters.category || filters.category === competition.category) &&
         (!filters.status || filters.status === stageStatus(stage, now)),
     );
 }
