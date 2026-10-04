@@ -3,7 +3,10 @@ import {
   createWebHistory,
   type RouterHistory,
   type RouteRecordRaw,
+  stringifyQuery,
 } from "vue-router";
+
+import { canonicalQuery } from "../data/competition-discovery";
 
 export type NavigationSection =
   | "home"
@@ -37,7 +40,7 @@ export const routes: RouteRecordRaw[] = [
           {
             path: "",
             name: "home",
-            component: placeholder,
+            component: () => import("../views/CompetitionListView.vue"),
             meta: {
               title: "首页",
               description: "在这里发现校园比赛与项目，找到一起成长的伙伴。",
@@ -46,7 +49,7 @@ export const routes: RouteRecordRaw[] = [
           {
             path: "competitions/:id",
             name: "competition-detail",
-            component: placeholder,
+            component: () => import("../views/CompetitionDetailView.vue"),
             meta: {
               title: "比赛详情",
               description: "比赛规则、赛道与关联招募将在这里展示。",
@@ -178,7 +181,14 @@ export function createAppRouter(history: RouterHistory = createWebHistory()) {
   const instance = createRouter({
     history,
     routes,
-    scrollBehavior: () => ({ top: 0 }),
+    scrollBehavior: (to, _from, saved) =>
+      saved ?? (to.hash ? { el: to.hash, top: 24 } : { top: 0 }),
+  });
+  instance.beforeEach((to) => {
+    if (to.name !== "home" && to.name !== "competition-detail") return;
+    const query = canonicalQuery(to.query);
+    if (stringifyQuery(query) !== stringifyQuery(to.query))
+      return { path: to.path, query, hash: to.hash, replace: true };
   });
   instance.afterEach((to) => {
     document.title = `${to.meta.title} · 禾伙人`;

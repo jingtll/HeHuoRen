@@ -1,0 +1,226 @@
+<script setup lang="ts">
+import { computed, ref, watch } from "vue";
+import { useRoute } from "vue-router";
+import { competitions, DEMO_NOW, originLabels } from "../data/competitions";
+import {
+  collegeNames,
+  formatTime,
+  scopeLabel,
+  stageStatus,
+  statuses,
+} from "../data/competition-discovery";
+
+const route = useRoute();
+const competition = computed(() =>
+  competitions.find((item) => item.id === route.params.id),
+);
+const copyFeedback = ref("");
+watch(
+  () => route.params.id,
+  () => {
+    copyFeedback.value = "";
+  },
+);
+async function copy(url: string) {
+  try {
+    await navigator.clipboard.writeText(url);
+    copyFeedback.value = "官方链接已复制。";
+  } catch {
+    copyFeedback.value = "暂时无法复制，请选中下方网址手动复制。";
+  }
+}
+</script>
+
+<template>
+  <nav aria-label="页面相关入口" class="mb-5">
+    <RouterLink
+      :to="{ name: 'home', query: route.query }"
+      class="inline-flex min-h-11 items-center text-sm text-brand"
+      >← 返回比赛列表</RouterLink
+    >
+  </nav>
+  <section v-if="!competition" class="hhr-panel">
+    <h1 class="font-serif text-2xl font-semibold">比赛不存在</h1>
+    <p class="mt-3 text-muted">
+      未找到这项比赛，链接可能已失效。请返回列表重新选择。
+    </p>
+  </section>
+  <template v-else>
+    <header class="mb-7">
+      <div class="mb-3 flex flex-wrap gap-2">
+        <span class="hhr-badge">{{ competition.category }}</span
+        ><span class="hhr-badge hhr-badge--muted">{{
+          originLabels[competition.origin]
+        }}</span>
+      </div>
+      <p class="mb-2 text-sm text-muted">{{ competition.edition }}</p>
+      <h1 class="font-serif text-2xl font-semibold leading-relaxed">
+        {{ competition.name }}
+      </h1>
+      <p class="mt-3 text-sm">主办 / 组织单位：{{ competition.organizer }}</p>
+      <p class="mt-3 text-xs leading-6 text-muted">
+        样例时间基准：{{
+          formatTime(DEMO_NOW)
+        }}（北京时间），不代表实时报名状态；名额与最新安排请核对官方通知。
+      </p>
+    </header>
+    <div class="grid gap-5">
+      <section class="hhr-panel" aria-labelledby="tracks-heading">
+        <h2 id="tracks-heading" class="font-serif text-xl font-semibold">
+          赛道与人数要求
+        </h2>
+        <article
+          v-for="track in competition.tracks"
+          :key="track.id"
+          class="mt-4 border-t border-line pt-4"
+        >
+          <h3 class="font-semibold">{{ track.name }}</h3>
+          <p class="mt-1 text-sm text-brand">{{ track.members }}</p>
+          <p class="mt-2 text-sm leading-7 text-muted">{{ track.rules }}</p>
+          <p v-if="track.mode === 'individual'" class="mt-2 text-xs">
+            个人赛，无需组队。
+          </p>
+        </article>
+      </section>
+      <section aria-labelledby="stages-heading" class="grid gap-3">
+        <h2 id="stages-heading" class="font-serif text-xl font-semibold">
+          赛段与报名说明
+        </h2>
+        <article
+          v-for="stage in competition.stages"
+          :id="stage.id"
+          :key="stage.id"
+          class="hhr-panel scroll-mt-6"
+        >
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="font-semibold">{{ stage.name }}</h3>
+            <span class="hhr-badge">{{ statuses[stageStatus(stage)] }}</span>
+          </div>
+          <p class="mt-3 text-sm">组织单位：{{ stage.organizer }}</p>
+          <p class="mt-1 text-sm">承办学院：{{ collegeNames(stage.hosts) }}</p>
+          <p class="mt-1 text-sm">参赛范围：{{ scopeLabel(stage.scope) }}</p>
+          <p class="mt-2 text-sm leading-7 text-muted">
+            {{ stage.scope.note }}
+          </p>
+          <dl
+            class="my-4 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-2 border-y border-line py-4 text-sm"
+          >
+            <dt class="text-muted">报名开始</dt>
+            <dd>
+              {{ stage.conflict ? "时间待核对" : formatTime(stage.startsAt) }}
+            </dd>
+            <dt class="text-muted">报名截止</dt>
+            <dd>
+              {{ stage.conflict ? "时间待核对" : formatTime(stage.deadline) }}
+            </dd>
+            <dt class="text-muted">材料提交</dt>
+            <dd>{{ formatTime(stage.materialsAt) }}</dd>
+            <dt class="text-muted">比赛时间</dt>
+            <dd>
+              {{
+                stage.eventAt?.endsWith("T00:00:00+08:00")
+                  ? stage.eventAt.slice(0, 10) + "（具体时刻待公布）"
+                  : formatTime(stage.eventAt)
+              }}
+            </dd>
+          </dl>
+          <p v-if="stage.timeNote" class="mb-3 text-xs leading-6 text-muted">
+            {{ stage.timeNote }}
+          </p>
+          <h4 class="text-sm font-semibold">如何报名</h4>
+          <p class="mt-2 text-sm leading-7">{{ stage.registration }}</p>
+          <p class="mt-3 text-xs text-brand">
+            平台组队不等于官方报名；学院范围匹配不表示已通过全部资格审核。
+          </p>
+          <div class="mt-3 flex flex-wrap gap-x-4 gap-y-2">
+            <template
+              v-for="source in competition.notices.filter((n) =>
+                stage.sourceIds.includes(n.id),
+              )"
+              :key="source.id"
+            >
+              <a
+                :href="source.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex min-h-11 items-center text-xs text-brand underline"
+                >{{ source.publisher }}原文（新窗口）</a
+              >
+            </template>
+          </div>
+        </article>
+      </section>
+      <section class="hhr-panel" aria-labelledby="sources-heading">
+        <h2 id="sources-heading" class="font-serif text-xl font-semibold">
+          来源与信息核对
+        </h2>
+        <p v-if="!competition.notices.length" class="mt-3 text-sm text-muted">
+          此记录为虚构交互样例，没有官方来源或真实报名入口。
+        </p>
+        <article
+          v-for="notice in competition.notices"
+          :key="notice.id"
+          class="mt-4 border-t border-line pt-4"
+        >
+          <h3 class="text-sm font-semibold">{{ notice.title }}</h3>
+          <p class="mt-2 text-xs text-muted">
+            {{ notice.publisher }} ·
+            {{
+              {
+                registration: "报名通知",
+                supplement: "补充通知",
+                award: "获奖公示",
+                news: "新闻回顾",
+              }[notice.kind]
+            }}
+          </p>
+          <p class="mt-1 text-xs text-muted">
+            发布：{{ notice.publishedAt }} · 核对：{{ notice.checkedAt }}
+          </p>
+          <a
+            :href="notice.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-2 block py-2 text-xs text-brand underline wrap-anywhere"
+            >{{ notice.url }}（新窗口）</a
+          >
+          <button
+            type="button"
+            class="hhr-button hhr-button--secondary mt-1"
+            @click="copy(notice.url)"
+          >
+            复制官方链接
+          </button>
+        </article>
+        <p role="status" aria-live="polite" class="mt-3 text-xs text-brand">
+          {{ copyFeedback }}
+        </p>
+      </section>
+      <section class="hhr-panel" aria-labelledby="followup-heading">
+        <h2 id="followup-heading" class="font-serif text-xl font-semibold">
+          后续入口
+        </h2>
+        <p class="mt-3 text-sm text-muted">
+          收藏记录与关联招募将在后续接入，当前入口尚未开放。
+        </p>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <button
+            type="button"
+            disabled
+            class="hhr-button hhr-button--secondary"
+          >
+            收藏 · 待接入
+          </button>
+          <button
+            v-if="competition.tracks.some((t) => t.mode !== 'individual')"
+            type="button"
+            disabled
+            class="hhr-button hhr-button--secondary"
+          >
+            关联招募 · 待接入
+          </button>
+        </div>
+      </section>
+    </div>
+  </template>
+</template>
