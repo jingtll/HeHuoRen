@@ -45,7 +45,7 @@ describe("比赛筛选与 URL 契约", () => {
     expect(canonical).toEqual({ hosts: "law", q: "比赛", from: ["a", "b"] });
     expect(canonicalQuery(parseQuery(canonical))).toEqual(canonical);
   });
-  it("承办任一匹配，范围独立且其他条件取交集", () => {
+  it("承办任一匹配，与搜索类别状态取交集", () => {
     const filters = parseFilters({
       hosts: "information-engineering,life-science",
       eligible: "law",
@@ -58,25 +58,22 @@ describe("比赛筛选与 URL 契约", () => {
     expect(filterEntries({ ...filters, hosts: ["law"] })).toEqual([]);
     expect(filterEntries({ ...filters, status: "closed" })).toEqual([]);
   });
-  it("学院资格只纳入明确全校或指定学院，复杂和未知可独立查看", () => {
-    const eligible = filterEntries(parseFilters({ eligible: "resources" }));
-    expect(eligible.some((e) => e.stage.id === "challenge-20-resources")).toBe(
-      true,
+  it("只按承办学院筛选，旧参赛范围参数清除且不改变结果", () => {
+    const query = {
+      hosts: "information-engineering",
+      eligible: "law",
+      from: "review",
+    };
+    expect(canonicalQuery(query)).toEqual({
+      hosts: "information-engineering",
+      from: "review",
+    });
+    const entries = filterEntries(parseFilters(query));
+    expect(entries).toEqual(
+      filterEntries(parseFilters({ hosts: "information-engineering" })),
     );
-    expect(eligible.some((e) => e.stage.id === "challenge-20-civil")).toBe(
-      false,
-    );
-    expect(
-      eligible.every(
-        (e) =>
-          e.stage.scope.kind !== "complex" && e.stage.scope.kind !== "unknown",
-      ),
-    ).toBe(true);
-    expect(
-      filterEntries(parseFilters({ eligible: "uncertain" })).every((e) =>
-        ["complex", "unknown"].includes(e.stage.scope.kind),
-      ),
-    ).toBe(true);
+    expect(entries.some((e) => e.stage.scope.kind === "unknown")).toBe(true);
+    expect(filterEntries(parseFilters({ hosts: "law" }))).toEqual([]);
   });
   it("先筛全量再分页，超出页数归位；同届院赛各自保留截止", () => {
     expect(filterEntries(parseFilters({})).length).toBeGreaterThan(PAGE_SIZE);

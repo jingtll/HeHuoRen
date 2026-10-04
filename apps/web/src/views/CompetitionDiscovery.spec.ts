@@ -29,6 +29,13 @@ describe("比赛列表与详情恢复", () => {
       "information-engineering",
     );
     expect(wrapper.findAll("[data-competition-card]")).toHaveLength(1);
+    expect(router.currentRoute.value.query.eligible).toBeUndefined();
+    expect(wrapper.findAll("select")).toHaveLength(2);
+    expect(
+      wrapper
+        .get('form[aria-label="比赛筛选"]')
+        .element.closest(".college-picker"),
+    ).not.toBeNull();
     expect(wrapper.get('input[type="search"]').element).toHaveProperty(
       "value",
       "程序",
@@ -45,7 +52,6 @@ describe("比赛列表与详情恢复", () => {
     expect(router.currentRoute.value.query).toMatchObject({
       hosts: "information-engineering",
       category: "编程",
-      eligible: "law",
       q: "程序",
       from: "review",
     });

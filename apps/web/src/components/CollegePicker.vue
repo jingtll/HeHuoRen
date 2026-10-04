@@ -3,6 +3,8 @@ import { computed, ref } from "vue";
 import { colleges, type CollegeId } from "../data/colleges";
 import type { CollegeSelection } from "../data/college-selection";
 
+defineProps<{ compact?: boolean }>();
+
 const selected = defineModel<CollegeSelection>({ required: true });
 const emit = defineEmits<{
   select: [ids: CollegeId[]];
@@ -45,6 +47,7 @@ function reset() {
 <template>
   <section
     class="hhr-panel college-picker flex flex-col p-4 max-[767px]:h-[40svh] max-[767px]:p-3"
+    :class="{ 'max-[767px]:min-h-[330px]': compact }"
     aria-labelledby="college-heading"
   >
     <header class="flex shrink-0 items-center justify-between gap-3">
@@ -71,7 +74,8 @@ function reset() {
       27 个本科教学学院 · 上下滚动查看更多
     </p>
     <div
-      class="college-scroll h-[248px] min-h-0 overflow-y-auto border-y border-line max-[767px]:flex-1"
+      class="college-scroll min-h-0 overflow-y-auto border-y border-line max-[767px]:flex-1"
+      :class="compact ? 'h-[144px]' : 'h-[248px]'"
       role="group"
       aria-label="学院入口，可多选"
       aria-describedby="college-scroll-hint"
@@ -79,6 +83,7 @@ function reset() {
     >
       <div
         class="college-grid grid grid-cols-4 gap-1 px-[5px] py-1 max-[359px]:grid-cols-3"
+        :class="{ 'min-[768px]:grid-cols-8 min-[1200px]:grid-cols-9': compact }"
       >
         <button
           v-for="(college, index) in colleges"
@@ -136,6 +141,9 @@ function reset() {
     >
       当前选择：<strong>{{ selectionLabel }}</strong>
     </p>
+    <div v-if="$slots.footer" class="mt-2 shrink-0 border-t border-line pt-2">
+      <slot name="footer" />
+    </div>
   </section>
 </template>
 

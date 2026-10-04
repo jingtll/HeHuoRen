@@ -23,11 +23,11 @@ export type Filters = {
   q: string;
   category: Competition["category"] | "";
   status: Status | "";
-  eligible: "" | "all" | "uncertain" | CollegeId;
   page: number;
 };
 export type Entry = { competition: Competition; stage: Stage };
 export const PAGE_SIZE = 4;
+// eligible 是已移除的参赛范围筛选参数；规范化旧链接时一并清理。
 const owned = ["hosts", "q", "category", "status", "eligible", "page"];
 const first = (value: LocationQuery[string]) =>
   (Array.isArray(value) ? value[0] : value) ?? "";
@@ -38,7 +38,6 @@ export function parseFilters(query: LocationQuery): Filters {
   const ids = colleges
     .filter((c) => hostTokens.includes(c.id))
     .map((c) => c.id);
-  const eligible = first(query.eligible);
   const page = Number(first(query.page));
   return {
     hosts: ids.length ? ids : hostTokens.includes("all") ? "all" : [],
@@ -49,12 +48,6 @@ export function parseFilters(query: LocationQuery): Filters {
     status: Object.hasOwn(statuses, first(query.status))
       ? (first(query.status) as Status)
       : "",
-    eligible:
-      eligible === "all" ||
-      eligible === "uncertain" ||
-      colleges.some((c) => c.id === eligible)
-        ? (eligible as Filters["eligible"])
-        : "",
     page: Number.isSafeInteger(page) && page > 0 ? page : 1,
   };
 }
@@ -73,7 +66,6 @@ export function writeFilters(
   if (filters.q) result.q = filters.q;
   if (filters.category) result.category = filters.category;
   if (filters.status) result.status = filters.status;
-  if (filters.eligible) result.eligible = filters.eligible;
   if (filters.page > 1) result.page = String(filters.page);
   return result;
 }
@@ -84,16 +76,6 @@ export function stageStatus(stage: Stage, now = DEMO_NOW): Status {
   if (stage.deadline && instant >= Date.parse(stage.deadline)) return "closed";
   if (!stage.deadline || !stage.startsAt) return "unknown";
   return instant < Date.parse(stage.startsAt) ? "upcoming" : "open";
-}
-export function matchesScope(scope: Scope, eligible: Filters["eligible"]) {
-  if (!eligible) return true;
-  if (eligible === "uncertain")
-    return scope.kind === "unknown" || scope.kind === "complex";
-  if (eligible === "all") return scope.kind === "all";
-  return (
-    scope.kind === "all" ||
-    (scope.kind === "colleges" && scope.colleges.includes(eligible))
-  );
 }
 export function filterEntries(
   filters: Filters,
@@ -121,8 +103,7 @@ export function filterEntries(
             .toLocaleLowerCase()
             .includes(q)) &&
         (!filters.category || filters.category === competition.category) &&
-        (!filters.status || filters.status === stageStatus(stage, now)) &&
-        matchesScope(stage.scope, filters.eligible),
+        (!filters.status || filters.status === stageStatus(stage, now)),
     );
 }
 export function canonicalQuery(query: LocationQuery): LocationQueryRaw {
