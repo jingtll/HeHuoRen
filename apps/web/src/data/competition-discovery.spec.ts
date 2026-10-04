@@ -2,13 +2,15 @@ import { describe, expect, it } from "vitest";
 import { colleges } from "./colleges";
 import { competitions, type Stage } from "./competitions";
 import {
-  canonicalQuery,
   filterEntries,
   formatTime,
   materialDeadlineLabel,
   PAGE_SIZE,
-  parseFilters,
   stageStatus,
+} from "./competition-demo";
+import {
+  canonicalQuery,
+  parseFilters,
   writeFilters,
 } from "./competition-discovery";
 
@@ -83,11 +85,9 @@ describe("比赛筛选与 URL 契约", () => {
     expect(entries.some((e) => e.stage.scope.kind === "unknown")).toBe(true);
     expect(filterEntries(parseFilters({ hosts: "law" }))).toEqual([]);
   });
-  it("先筛全量再分页，超出页数归位；同届院赛各自保留截止", () => {
+  it("同步规范化保留页码上限给 API；同届院赛各自保留截止", () => {
     expect(filterEntries(parseFilters({})).length).toBeGreaterThan(PAGE_SIZE);
-    expect(
-      canonicalQuery({ hosts: "economics", page: "3" }).page,
-    ).toBeUndefined();
+    expect(canonicalQuery({ hosts: "economics", page: "3" }).page).toBe("3");
     const challenge = competitions.find((c) => c.id === "challenge-2027-20")!;
     expect(challenge.stages[0]!.materialsAt).not.toBe(
       challenge.stages[1]!.materialsAt,

@@ -1,0 +1,528 @@
+{
+  "colleges": [
+    {
+      "id": "agriculture",
+      "name": "农学院",
+      "order": 0
+    },
+    {
+      "id": "animal-science",
+      "name": "动物科技学院",
+      "order": 1
+    },
+    {
+      "id": "veterinary-medicine",
+      "name": "动物医学院",
+      "order": 2
+    },
+    {
+      "id": "grassland-science",
+      "name": "草业科技学院",
+      "order": 3
+    },
+    {
+      "id": "fisheries",
+      "name": "水产学院",
+      "order": 4
+    },
+    {
+      "id": "forestry",
+      "name": "林学院",
+      "order": 5
+    },
+    {
+      "id": "horticulture",
+      "name": "园艺学院",
+      "order": 6
+    },
+    {
+      "id": "landscape-architecture",
+      "name": "风景园林学院",
+      "order": 7
+    },
+    {
+      "id": "resources",
+      "name": "资源学院",
+      "order": 8
+    },
+    {
+      "id": "environment",
+      "name": "环境学院",
+      "order": 9
+    },
+    {
+      "id": "economics",
+      "name": "经济学院",
+      "order": 10
+    },
+    {
+      "id": "management",
+      "name": "管理学院",
+      "order": 11
+    },
+    {
+      "id": "agricultural-engineering",
+      "name": "农业工程学院",
+      "order": 12
+    },
+    {
+      "id": "food-science",
+      "name": "食品学院",
+      "order": 13
+    },
+    {
+      "id": "science",
+      "name": "理学院",
+      "order": 14
+    },
+    {
+      "id": "life-science",
+      "name": "生命科学学院",
+      "order": 15
+    },
+    {
+      "id": "mechanical-electrical",
+      "name": "机电学院",
+      "order": 16
+    },
+    {
+      "id": "information-engineering",
+      "name": "信息工程学院",
+      "order": 17
+    },
+    {
+      "id": "water-conservancy",
+      "name": "水利水电学院",
+      "order": 18
+    },
+    {
+      "id": "humanities",
+      "name": "人文学院",
+      "order": 19
+    },
+    {
+      "id": "public-administration",
+      "name": "公共管理学院",
+      "order": 20
+    },
+    {
+      "id": "law",
+      "name": "法学院",
+      "order": 21
+    },
+    {
+      "id": "sports",
+      "name": "体育学院",
+      "order": 22
+    },
+    {
+      "id": "arts-media",
+      "name": "艺术与传媒学院",
+      "order": 23
+    },
+    {
+      "id": "architecture-planning",
+      "name": "建筑与城乡规划学院",
+      "order": 24
+    },
+    {
+      "id": "civil-engineering",
+      "name": "土木工程学院",
+      "order": 25
+    },
+    {
+      "id": "business-tourism",
+      "name": "商旅学院",
+      "order": 26
+    }
+  ],
+  "competitions": [
+    {
+      "id": "programming-2026-8",
+      "name": "大学生程序设计竞赛",
+      "edition": "2026 · 第八届",
+      "category": "编程",
+      "organizer": "四川农业大学教务处",
+      "origin": "official",
+      "tracks": [
+        {
+          "id": "programming-2026-freshman",
+          "name": "新生组",
+          "mode": "individual",
+          "members": "1 人，独立参赛",
+          "rules": "2026 级本科生；个人上机，使用 C、C++、Java 或 Python 3。"
+        },
+        {
+          "id": "programming-2026-senior",
+          "name": "高年级组",
+          "mode": "individual",
+          "members": "1 人，独立参赛",
+          "rules": "其他年级本科生；比赛地点拟在雅安，其他校区需自行安排赴赛。"
+        }
+      ],
+      "stages": [
+        {
+          "id": "programming-2026-campus",
+          "name": "校赛",
+          "organizer": "信息工程学院",
+          "hosts": ["information-engineering"],
+          "scope": {
+            "kind": "all",
+            "colleges": [],
+            "note": "全校本科生，年级、专业不限；个人赛，不组队。比赛地点拟在雅安校区。"
+          },
+          "deadline": {
+            "precision": "instant",
+            "value": "2026-10-14T00:00:00+08:00"
+          },
+          "timeNote": "原文截止为 10 月 13 日 24:00；比赛时间、地点以群内后续通知为准。",
+          "registration": "加入赛事 QQ 群 1121048472，填写群公告中的报名问卷。个人独立报名，不需要组队。",
+          "sourceIds": ["programming-notice"],
+          "order": 0,
+          "conflict": false,
+          "startsAt": {
+            "precision": "unknown",
+            "value": null
+          },
+          "materialsAt": {
+            "precision": "unknown",
+            "value": null
+          },
+          "eventAt": {
+            "precision": "unknown",
+            "value": null
+          }
+        }
+      ],
+      "notices": [
+        {
+          "id": "programming-notice",
+          "title": "关于举办四川农业大学第八届大学生程序设计竞赛的通知",
+          "publisher": "信息工程学院",
+          "url": "https://xxgc.sicau.edu.cn/info/1043/18074.htm",
+          "publishedAt": "2026-09-17",
+          "checkedAt": "2026-10-04",
+          "kind": "registration"
+        }
+      ],
+      "publication": "draft"
+    },
+    {
+      "id": "biology-2026-15",
+      "name": "生物学知识与实验技能竞赛",
+      "edition": "2026 · 第十五届",
+      "category": "学科技能",
+      "organizer": "四川农业大学教务处",
+      "origin": "official",
+      "tracks": [
+        {
+          "id": "biology-2026-team",
+          "name": "知识与实验技能",
+          "mode": "team",
+          "members": "4 人，不得跨校区",
+          "rules": "全校本科生；初赛笔试，复赛实验操作，决赛答辩。报名超过 5000 人时系统会提前关闭。"
+        }
+      ],
+      "stages": [
+        {
+          "id": "biology-2026-preliminary",
+          "name": "初赛",
+          "organizer": "生命科学学院",
+          "hosts": ["life-science"],
+          "scope": {
+            "kind": "all",
+            "colleges": [],
+            "note": "全日制在校本科生；仍需核对校区与组队等限制。"
+          },
+          "startsAt": {
+            "precision": "instant",
+            "value": "2026-10-08T10:00:00+08:00"
+          },
+          "deadline": {
+            "precision": "instant",
+            "value": "2026-10-13T18:00:00+08:00"
+          },
+          "eventAt": {
+            "precision": "instant",
+            "value": "2026-10-16T16:30:00+08:00"
+          },
+          "registration": "以 4 人小组登录教务管理系统，在“学生 → 考试信息 → 生物学知识大赛”报名；不得跨校区。核对信息，错误信息视为无效。",
+          "sourceIds": ["biology-notice"],
+          "order": 0,
+          "conflict": false,
+          "timeNote": "",
+          "materialsAt": {
+            "precision": "unknown",
+            "value": null
+          }
+        },
+        {
+          "id": "biology-2026-semifinal",
+          "name": "复赛 / 决赛",
+          "organizer": "生命科学学院",
+          "hosts": ["life-science"],
+          "scope": {
+            "kind": "complex",
+            "colleges": [],
+            "note": "仅限初赛晋级小组，并按复赛成绩确定决赛资格；查看官方通知。"
+          },
+          "eventAt": {
+            "precision": "date",
+            "value": "2026-10-25"
+          },
+          "timeNote": "复赛 10 月 25 日，决赛 10 月 31 日；具体时刻待公布。无单独开放报名。",
+          "registration": "由前一赛段选拔晋级，不接受独立报名。",
+          "sourceIds": ["biology-notice"],
+          "order": 1,
+          "conflict": false,
+          "startsAt": {
+            "precision": "unknown",
+            "value": null
+          },
+          "deadline": {
+            "precision": "unknown",
+            "value": null
+          },
+          "materialsAt": {
+            "precision": "unknown",
+            "value": null
+          }
+        }
+      ],
+      "notices": [
+        {
+          "id": "biology-notice",
+          "title": "关于举办四川农业大学第十五届生物学知识与实验技能竞赛的通知",
+          "publisher": "生命科学学院",
+          "url": "https://smkx.sicau.edu.cn/info/1061/28771.htm",
+          "publishedAt": "2026-09-20",
+          "checkedAt": "2026-10-04",
+          "kind": "registration"
+        }
+      ],
+      "publication": "draft"
+    },
+    {
+      "id": "challenge-2027-20",
+      "name": "“挑战杯”课外学术科技作品竞赛",
+      "edition": "2027 · 第二十届",
+      "category": "科技创新",
+      "organizer": "四川农业大学校团委",
+      "origin": "official",
+      "tracks": [
+        {
+          "id": "challenge-20-paper",
+          "name": "自然科学学术论文",
+          "mode": "mixed",
+          "members": "个人作品或 3–10 人集体作品",
+          "rules": "作者限本科生；个人作品须承担 60% 以上研究，最多 2 名合作者；无法区分第一作者时按集体作品申报。"
+        },
+        {
+          "id": "challenge-20-social",
+          "name": "社会调查报告",
+          "mode": "mixed",
+          "members": "个人作品或 3–10 人集体作品",
+          "rules": "按通知选择调查主题，并核对学历及指导教师要求。"
+        },
+        {
+          "id": "challenge-20-invention",
+          "name": "科技发明制作",
+          "mode": "mixed",
+          "members": "个人作品或 3–10 人集体作品",
+          "rules": "分 A、B 类，核对作品成果、原创性及推荐要求。"
+        }
+      ],
+      "stages": [
+        {
+          "id": "challenge-20-civil",
+          "name": "土木工程学院院赛",
+          "organizer": "土木工程学院",
+          "hosts": ["civil-engineering"],
+          "scope": {
+            "kind": "colleges",
+            "colleges": ["civil-engineering"],
+            "note": "院内选拔；学历、注册日期、成果及指导教师资格另有规则，请核对官方通知。"
+          },
+          "materialsAt": {
+            "precision": "instant",
+            "value": "2026-10-05T00:00:00+08:00"
+          },
+          "eventAt": {
+            "precision": "date",
+            "value": "2026-10-08"
+          },
+          "timeNote": "材料截止为 10 月 4 日 24:00；院赛具体时刻待公布，报名时间未单独说明。",
+          "registration": "按原文打包申报书、项目介绍及支撑材料，发送至学院指定邮箱 2080519973@qq.com。",
+          "sourceIds": ["challenge-civil", "challenge-campus"],
+          "order": 0,
+          "conflict": false,
+          "startsAt": {
+            "precision": "unknown",
+            "value": null
+          },
+          "deadline": {
+            "precision": "unknown",
+            "value": null
+          }
+        },
+        {
+          "id": "challenge-20-resources",
+          "name": "资源学院院赛",
+          "organizer": "资源学院",
+          "hosts": ["resources"],
+          "scope": {
+            "kind": "colleges",
+            "colleges": ["resources"],
+            "note": "院内选拔；注册日期、学历、作品完成周期及教师推荐条件需核对原文。"
+          },
+          "deadline": {
+            "precision": "instant",
+            "value": "2026-10-10T22:00:00+08:00"
+          },
+          "materialsAt": {
+            "precision": "instant",
+            "value": "2026-10-10T22:00:00+08:00"
+          },
+          "timeNote": "10 月 11–16 日院内初筛，具体答辩时间待公布。",
+          "registration": "将申报书、20 页以内项目介绍及支撑材料打包，按通知命名，发送至 19141397132@163.com；赛事答疑 QQ 群 1037566330。",
+          "sourceIds": ["challenge-resources", "challenge-campus"],
+          "order": 1,
+          "conflict": false,
+          "startsAt": {
+            "precision": "date",
+            "value": "2026-09-28"
+          },
+          "eventAt": {
+            "precision": "unknown",
+            "value": null
+          }
+        },
+        {
+          "id": "challenge-20-campus",
+          "name": "校内预选 / 重点项目遴选",
+          "organizer": "校团委",
+          "hosts": [],
+          "scope": {
+            "kind": "complex",
+            "colleges": [],
+            "note": "经学院推荐及校内遴选，资格和时间需查阅校团委原文及附件；不可据转载学院推断承办关系。"
+          },
+          "registration": "按所属学院通知完成院内申报；校团委原文及附件列有校级推荐流程，未公布统一学生报名入口或起始日。附件规则仍需核对。",
+          "sourceIds": ["challenge-campus"],
+          "order": 2,
+          "conflict": false,
+          "timeNote": "",
+          "startsAt": {
+            "precision": "unknown",
+            "value": null
+          },
+          "deadline": {
+            "precision": "unknown",
+            "value": null
+          },
+          "materialsAt": {
+            "precision": "unknown",
+            "value": null
+          },
+          "eventAt": {
+            "precision": "unknown",
+            "value": null
+          }
+        }
+      ],
+      "notices": [
+        {
+          "id": "challenge-campus",
+          "title": "第二十届“挑战杯”校内预选及重点项目遴选通知",
+          "publisher": "校团委",
+          "url": "https://tw.sicau.edu.cn/info/1099/17606.htm",
+          "publishedAt": "2026-09-15",
+          "checkedAt": "2026-10-04",
+          "kind": "registration"
+        },
+        {
+          "id": "challenge-civil",
+          "title": "第二十届“挑战杯”土木工程学院院赛通知",
+          "publisher": "土木工程学院",
+          "url": "https://tmgcxy.sicau.edu.cn/info/1046/10774.htm",
+          "publishedAt": "2026-09-17",
+          "checkedAt": "2026-10-04",
+          "kind": "registration"
+        },
+        {
+          "id": "challenge-resources",
+          "title": "第二十届“挑战杯”资源学院院赛遴选通知",
+          "publisher": "资源学院",
+          "url": "https://zyxy.sicau.edu.cn/info/1192/18438.htm",
+          "publishedAt": "2026-09-28",
+          "checkedAt": "2026-10-04",
+          "kind": "registration"
+        }
+      ],
+      "publication": "draft"
+    },
+    {
+      "id": "statistics-2026-12",
+      "name": "全国大学生统计建模大赛校内选拔",
+      "edition": "2026 · 第十二届",
+      "category": "数据建模",
+      "organizer": "中国统计教育学会；校内组织：经济学院",
+      "origin": "historical",
+      "tracks": [
+        {
+          "id": "statistics-12-model",
+          "name": "统计建模",
+          "mode": "team",
+          "members": "3 人，同一学历组别",
+          "rules": "全校全日制本科生、研究生；三名成员均为本科生或均为研究生，每队限 1 名指导教师。"
+        }
+      ],
+      "stages": [
+        {
+          "id": "statistics-12-campus",
+          "name": "校内选拔",
+          "organizer": "经济学院",
+          "hosts": ["economics"],
+          "scope": {
+            "kind": "all",
+            "colleges": [],
+            "note": "全日制本科生、研究生；禁止跨学历组别组队。"
+          },
+          "materialsAt": {
+            "precision": "instant",
+            "value": "2026-05-08T23:59:00+08:00"
+          },
+          "registration": "按通知通过外部提交网址 https://send2me.cn/pH6BxC-q/Q4SrhpofCPmNng 上传论文 PDF、查重报告及支撑数据代码；官方 QQ 群 308310715。该轮材料提交已截止。",
+          "sourceIds": ["statistics-notice"],
+          "order": 0,
+          "conflict": false,
+          "timeNote": "",
+          "startsAt": {
+            "precision": "unknown",
+            "value": null
+          },
+          "deadline": {
+            "precision": "unknown",
+            "value": null
+          },
+          "eventAt": {
+            "precision": "unknown",
+            "value": null
+          }
+        }
+      ],
+      "notices": [
+        {
+          "id": "statistics-notice",
+          "title": "2026 年第十二届统计建模大赛校内选拔通知",
+          "publisher": "经济学院",
+          "url": "https://jjxy.sicau.edu.cn/info/1007/20662.htm",
+          "publishedAt": "2026-04-02",
+          "checkedAt": "2026-10-04",
+          "kind": "registration"
+        }
+      ],
+      "publication": "draft"
+    }
+  ]
+}

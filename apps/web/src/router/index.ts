@@ -181,8 +181,13 @@ export function createAppRouter(history: RouterHistory = createWebHistory()) {
   const instance = createRouter({
     history,
     routes,
-    scrollBehavior: (to, _from, saved) =>
-      saved ?? (to.hash ? { el: to.hash, top: 24 } : { top: 0 }),
+    scrollBehavior: (to, _from, saved) => {
+      if (saved) return saved;
+      const element = to.hash
+        ? document.getElementById(to.hash.slice(1))
+        : null;
+      return element ? { el: element, top: 24 } : { top: 0 };
+    },
   });
   instance.beforeEach((to) => {
     if (to.name !== "home" && to.name !== "competition-detail") return;

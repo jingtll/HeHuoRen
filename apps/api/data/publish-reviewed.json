@@ -1,0 +1,20 @@
+{
+  "competitions": [
+    {
+      "id": "programming-2026-8",
+      "publication": "published"
+    },
+    {
+      "id": "biology-2026-15",
+      "publication": "published"
+    },
+    {
+      "id": "challenge-2027-20",
+      "publication": "published"
+    },
+    {
+      "id": "statistics-2026-12",
+      "publication": "published"
+    }
+  ]
+}

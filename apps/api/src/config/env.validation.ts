@@ -3,12 +3,14 @@ import Joi from "joi";
 export interface EnvironmentVariables {
   NODE_ENV: "development" | "test" | "production";
   PORT: number;
+  DATABASE_URL?: string;
 }
 
 const environmentSchema = Joi.object({
   NODE_ENV: Joi.string()
     .valid("development", "test", "production")
     .default("development"),
+  DATABASE_URL: Joi.string().uri({ scheme: ["postgres", "postgresql"] }),
   PORT: Joi.number().integer().min(1).max(65535).default(3001),
 }).unknown(true);
 

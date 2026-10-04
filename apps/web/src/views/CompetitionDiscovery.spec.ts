@@ -1,3 +1,9 @@
+import { competitionApi } from "../api/competitions";
+import {
+  fixtureColleges,
+  fixtureDetail,
+  fixtureList,
+} from "../api/competition-test-fixture";
 import { flushPromises, mount } from "@vue/test-utils";
 import { createPinia } from "pinia";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -8,7 +14,16 @@ import { createAppRouter } from "../router";
 describe("比赛列表与详情恢复", () => {
   let wrapper: ReturnType<typeof mount>;
   let router: ReturnType<typeof createAppRouter>;
-  beforeEach(() => vi.spyOn(window, "scrollTo").mockImplementation(() => {}));
+  beforeEach(() => {
+    vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+    vi.mocked(competitionApi.colleges).mockResolvedValue(fixtureColleges);
+    vi.mocked(competitionApi.list).mockImplementation(async (filters) =>
+      fixtureList(filters),
+    );
+    vi.mocked(competitionApi.detail).mockImplementation(async (id) =>
+      fixtureDetail(id),
+    );
+  });
   afterEach(() => {
     wrapper?.unmount();
     if (router) router.listening = false;
@@ -171,3 +186,8 @@ describe("比赛列表与详情恢复", () => {
     ).toBe("/home?hosts=all");
   });
 });
+
+vi.mock("../api/competitions", async (original) => ({
+  ...(await original<typeof import("../api/competitions")>()),
+  competitionApi: { colleges: vi.fn(), list: vi.fn(), detail: vi.fn() },
+}));

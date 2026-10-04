@@ -21,6 +21,54 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/colleges": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["CompetitionController_colleges"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/competitions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["CompetitionController_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/competitions/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["CompetitionController_detail"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -48,6 +96,105 @@ export interface components {
             details?: {
                 [key: string]: unknown;
             };
+        };
+        CollegeDto: {
+            id: string;
+            name: string;
+            order: number;
+        };
+        CompetitionSummaryDto: {
+            id: string;
+            name: string;
+            edition: string;
+            category: string;
+            organizer: string;
+            /** @enum {string} */
+            origin: "official" | "historical" | "demo";
+        };
+        ScopeDto: {
+            /** @enum {string} */
+            kind: "all" | "colleges" | "complex" | "unknown";
+            colleges: string[];
+            note: string;
+        };
+        TimeDto: {
+            /** @enum {string} */
+            precision: "instant" | "date" | "unknown";
+            value: string | null;
+        };
+        StageSummaryDto: {
+            id: string;
+            name: string;
+            hosts: string[];
+            scope: components["schemas"]["ScopeDto"];
+            deadline: components["schemas"]["TimeDto"];
+            materialsAt: components["schemas"]["TimeDto"];
+            conflict: boolean;
+            /** @enum {string} */
+            status: "upcoming" | "open" | "closed" | "unknown" | "conflict";
+        };
+        EntryDto: {
+            competition: components["schemas"]["CompetitionSummaryDto"];
+            stage: components["schemas"]["StageSummaryDto"];
+        };
+        CompetitionListDto: {
+            items: components["schemas"]["EntryDto"][];
+            page: number;
+            pageSize: number;
+            hasMore: boolean;
+            totalStages: number;
+            totalCompetitions: number;
+            totalPages: number;
+            evaluatedAt: string;
+        };
+        TrackDto: {
+            id: string;
+            name: string;
+            /** @enum {string} */
+            mode: "individual" | "team" | "mixed";
+            members: string;
+            rules: string;
+        };
+        StageDto: {
+            id: string;
+            name: string;
+            organizer: string;
+            hosts: string[];
+            scope: components["schemas"]["ScopeDto"];
+            startsAt: components["schemas"]["TimeDto"];
+            deadline: components["schemas"]["TimeDto"];
+            materialsAt: components["schemas"]["TimeDto"];
+            eventAt: components["schemas"]["TimeDto"];
+            timeNote: string;
+            conflict: boolean;
+            registration: string;
+            order: number;
+            sourceIds: string[];
+            /** @enum {string} */
+            status: "upcoming" | "open" | "closed" | "unknown" | "conflict";
+        };
+        NoticeDto: {
+            id: string;
+            title: string;
+            publisher: string;
+            url: string;
+            publishedAt: string | null;
+            checkedAt: string | null;
+            /** @enum {string} */
+            kind: "registration" | "supplement" | "award" | "news";
+        };
+        CompetitionDetailDto: {
+            id: string;
+            name: string;
+            edition: string;
+            category: string;
+            organizer: string;
+            /** @enum {string} */
+            origin: "official" | "historical" | "demo";
+            tracks: components["schemas"]["TrackDto"][];
+            stages: components["schemas"]["StageDto"][];
+            notices: components["schemas"]["NoticeDto"][];
+            evaluatedAt: string;
         };
     };
     responses: never;
@@ -84,6 +231,91 @@ export interface operations {
                 };
             };
             500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiErrorDto"];
+                };
+            };
+        };
+    };
+    CompetitionController_colleges: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CollegeDto"][];
+                };
+            };
+        };
+    };
+    CompetitionController_list: {
+        parameters: {
+            query?: {
+                /** @description 单值1–50，缺省20 */
+                pageSize?: number;
+                /** @description 单值正安全整数；超过页数返回最后有效页 */
+                page?: number;
+                status?: "upcoming" | "open" | "closed" | "unknown" | "conflict";
+                /** @description 单值，字面包含，最长100字符 */
+                q?: string;
+                /** @description 缺省/all 不限；空值无结果；支持重复与逗号合并，合法自选优先 */
+                hosts?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CompetitionListDto"];
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiErrorDto"];
+                };
+            };
+        };
+    };
+    CompetitionController_detail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CompetitionDetailDto"];
+                };
+            };
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };
