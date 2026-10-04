@@ -81,7 +81,7 @@ function reset() {
             <input
               v-model="search"
               type="search"
-              class="hhr-input discovery-filter-control h-8 min-h-0 min-w-0 px-2 py-0 text-sm"
+              class="hhr-input discovery-filter-control h-8 min-h-0 min-w-0 px-2 py-0 text-xs"
               placeholder="搜索比赛名称、届次"
               maxlength="100"
               aria-label="搜索比赛"
