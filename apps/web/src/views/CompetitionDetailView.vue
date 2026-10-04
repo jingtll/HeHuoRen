@@ -1,26 +1,61 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { ref, watch, nextTick } from "vue";
 import { useRoute } from "vue-router";
-import { competitions, DEMO_NOW, originLabels } from "../data/competitions";
+import axios from "axios";
+import type { CompetitionDetail } from "@hehuoren/api-types";
+import { competitionApi, originLabels } from "../api/competitions";
 import {
   collegeNames,
   formatTime,
+  formatEvaluatedAt,
   materialDeadlineLabel,
   scopeLabel,
-  stageStatus,
   statuses,
 } from "../data/competition-discovery";
-
 const route = useRoute();
-const competition = computed(() =>
-  competitions.find((item) => item.id === route.params.id),
-);
+const competition = ref<CompetitionDetail>();
+const loading = ref(true);
+const error = ref("");
+const missing = ref(false);
+const retry = ref(0);
 const copyFeedback = ref("");
 watch(
-  () => route.params.id,
-  () => {
+  () => [route.params.id, retry.value],
+  async (_value, _old, onCleanup) => {
+    const controller = new AbortController();
+    let active = true;
+    onCleanup(() => {
+      active = false;
+      controller.abort();
+    });
+    loading.value = true;
+    error.value = "";
+    missing.value = false;
+    competition.value = undefined;
     copyFeedback.value = "";
+    try {
+      const data = await competitionApi.detail(
+        String(route.params.id),
+        controller.signal,
+      );
+      if (!active) return;
+      competition.value = data;
+      await nextTick();
+      const anchor = route.hash.slice(1);
+      if (anchor && data.stages.some((s) => s.id === anchor))
+        document.getElementById(anchor)?.scrollIntoView?.({ block: "start" });
+    } catch (failure) {
+      if (active) {
+        missing.value =
+          axios.isAxiosError(failure) && failure.response?.status === 404;
+        if (!missing.value)
+          error.value = "比赛详情加载失败，请检查网络后重试。";
+      }
+    } finally {
+      if (active) loading.value = false;
+    }
   },
+  { immediate: true },
 );
 async function copy(url: string) {
   try {
@@ -31,7 +66,6 @@ async function copy(url: string) {
   }
 }
 </script>
-
 <template>
   <nav aria-label="页面相关入口" class="mb-5">
     <RouterLink
@@ -40,13 +74,22 @@ async function copy(url: string) {
       >← 返回比赛列表</RouterLink
     >
   </nav>
-  <section v-if="!competition" class="hhr-panel">
+  <section v-if="loading" class="hhr-panel" role="status">
+    正在加载比赛详情…
+  </section>
+  <section v-else-if="error" class="hhr-panel" role="alert">
+    <p>{{ error }}</p>
+    <button type="button" class="hhr-button mt-4" @click="retry++">
+      重试加载
+    </button>
+  </section>
+  <section v-else-if="missing" class="hhr-panel">
     <h1 class="font-serif text-2xl font-semibold">比赛不存在</h1>
     <p class="mt-3 text-muted">
       未找到这项比赛，链接可能已失效。请返回列表重新选择。
     </p>
   </section>
-  <template v-else>
+  <template v-else-if="competition">
     <header class="mb-7">
       <div class="mb-3 flex flex-wrap gap-2">
         <span class="hhr-badge">{{ competition.category }}</span
@@ -60,9 +103,9 @@ async function copy(url: string) {
       </h1>
       <p class="mt-3 text-sm">主办 / 组织单位：{{ competition.organizer }}</p>
       <p class="mt-3 text-xs leading-6 text-muted">
-        样例时间基准：{{
-          formatTime(DEMO_NOW)
-        }}（北京时间），不代表实时报名状态；名额与最新安排请核对官方通知。
+        状态计算时间：{{
+          formatEvaluatedAt(competition.evaluatedAt)
+        }}（北京时间）。报名时段内不保证名额或资格通过；最新安排请核对官方通知。
       </p>
     </header>
     <div class="grid gap-5">
@@ -95,7 +138,7 @@ async function copy(url: string) {
         >
           <div class="flex flex-wrap items-center justify-between gap-2">
             <h3 class="font-semibold">{{ stage.name }}</h3>
-            <span class="hhr-badge">{{ statuses[stageStatus(stage)] }}</span>
+            <span class="hhr-badge">{{ statuses[stage.status] }}</span>
           </div>
           <p class="mt-3 text-sm">组织单位：{{ stage.organizer }}</p>
           <p class="mt-1 text-sm">承办学院：{{ collegeNames(stage.hosts) }}</p>
@@ -115,14 +158,17 @@ async function copy(url: string) {
               {{ stage.conflict ? "时间待核对" : formatTime(stage.deadline) }}
             </dd>
             <dt class="text-muted">材料提交</dt>
-            <dd>{{ materialDeadlineLabel(stage.materialsAt) }}</dd>
-            <dt class="text-muted">比赛时间</dt>
             <dd>
               {{
-                stage.eventAt?.endsWith("T00:00:00+08:00")
-                  ? stage.eventAt.slice(0, 10) + "（具体时刻待公布）"
-                  : formatTime(stage.eventAt)
+                materialDeadlineLabel(
+                  stage.materialsAt,
+                  competition.evaluatedAt,
+                )
               }}
+            </dd>
+            <dt class="text-muted">比赛时间</dt>
+            <dd>
+              {{ formatTime(stage.eventAt) }}
             </dd>
           </dl>
           <p v-if="stage.timeNote" class="mb-3 text-xs leading-6 text-muted">

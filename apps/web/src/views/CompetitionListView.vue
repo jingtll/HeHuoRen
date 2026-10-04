@@ -1,22 +1,21 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import type { CompetitionList } from "@hehuoren/api-types";
 import CollegePicker from "../components/CollegePicker.vue";
-import { DEMO_NOW, originLabels } from "../data/competitions";
+import { colleges } from "../data/colleges";
+import { competitionApi, originLabels } from "../api/competitions";
 import {
   collegeNames,
-  filterEntries,
   formatTime,
+  formatEvaluatedAt,
   materialDeadlineLabel,
-  PAGE_SIZE,
   parseFilters,
   scopeLabel,
-  stageStatus,
   statuses,
   writeFilters,
   type Filters,
 } from "../data/competition-discovery";
-
 const route = useRoute();
 const router = useRouter();
 const filters = computed(() => parseFilters(route.query));
@@ -27,19 +26,72 @@ watch(
     search.value = value;
   },
 );
-const entries = computed(() => filterEntries(filters.value));
-const pages = computed(() =>
-  Math.max(1, Math.ceil(entries.value.length / PAGE_SIZE)),
+const response = ref<CompetitionList>();
+const loading = ref(true);
+const error = ref("");
+const retry = ref(0);
+let skipKey = "";
+const filterKey = (value: Filters) => JSON.stringify(value);
+watch(
+  () => [filterKey(filters.value), retry.value],
+  async (_value, _old, onCleanup) => {
+    const key = filterKey(filters.value);
+    if (key === skipKey && response.value) {
+      skipKey = "";
+      return;
+    }
+    const controller = new AbortController();
+    let active = true;
+    onCleanup(() => {
+      active = false;
+      controller.abort();
+    });
+    loading.value = true;
+    error.value = "";
+    response.value = undefined;
+    try {
+      const [directory, data] = await Promise.all([
+        competitionApi.colleges(controller.signal),
+        competitionApi.list(filters.value, controller.signal),
+      ]);
+      if (!active) return;
+      if (
+        directory.length !== colleges.length ||
+        directory.some(
+          (c, i) =>
+            c.id !== colleges[i]?.id ||
+            c.name !== colleges[i]?.name ||
+            c.order !== i,
+        )
+      )
+        throw new Error("学院目录与页面资源不一致，请重试或联系维护人员。");
+      response.value = data;
+      loading.value = false;
+      if (data.page !== filters.value.page) {
+        const corrected = { ...filters.value, page: data.page };
+        skipKey = filterKey(corrected);
+        await router.replace({
+          path: route.path,
+          query: writeFilters(route.query, corrected),
+          hash: route.hash,
+        });
+      }
+    } catch (failure) {
+      if (active)
+        error.value =
+          failure instanceof Error && failure.message.startsWith("学院目录")
+            ? failure.message
+            : "比赛或学院目录加载失败，请检查网络后重试。";
+    } finally {
+      if (active) loading.value = false;
+    }
+  },
+  { immediate: true },
 );
-const visible = computed(() =>
-  entries.value.slice(
-    (filters.value.page - 1) * PAGE_SIZE,
-    filters.value.page * PAGE_SIZE,
-  ),
-);
-const competitionCount = computed(
-  () => new Set(entries.value.map((e) => e.competition.id)).size,
-);
+const entries = computed(() => response.value?.items ?? []);
+const visible = entries;
+const pages = computed(() => response.value?.totalPages ?? 1);
+const competitionCount = computed(() => response.value?.totalCompetitions ?? 0);
 function update(patch: Partial<Filters>, page = 1) {
   void router.push({
     name: "home",
@@ -54,7 +106,6 @@ function reset() {
   update({ ...parseFilters({}) });
 }
 </script>
-
 <template>
   <header class="mb-7">
     <p class="hhr-eyebrow">校园里的每一种可能</p>
@@ -127,9 +178,9 @@ function reset() {
     </CollegePicker>
     <section class="min-w-0" aria-label="比赛发现">
       <p class="my-4 text-xs leading-6 text-muted">
-        样例时间基准：{{
-          formatTime(DEMO_NOW)
-        }}（北京时间）。状态为演示，名额及最新安排以官方通知为准。
+        状态计算时间：{{
+          formatEvaluatedAt(response?.evaluatedAt)
+        }}（北京时间）。报名时段内不保证名额或资格通过，最新安排以官方通知为准。
       </p>
       <div class="mb-3 flex items-center justify-between gap-3">
         <h2 class="font-serif text-xl font-semibold">比赛一览</h2>
@@ -139,10 +190,20 @@ function reset() {
           aria-atomic="true"
           class="text-xs text-brand"
         >
-          {{ competitionCount }} 项比赛 · {{ entries.length }} 个赛段
+          {{ competitionCount }} 项比赛 ·
+          {{ response?.totalStages ?? 0 }} 个赛段
         </p>
       </div>
-      <div v-if="!entries.length" class="hhr-panel py-10 text-center">
+      <div v-if="loading" class="hhr-panel" role="status">
+        正在加载比赛与学院目录…
+      </div>
+      <div v-else-if="error" class="hhr-panel" role="alert">
+        <p>{{ error }}</p>
+        <button type="button" class="hhr-button mt-4" @click="retry++">
+          重试加载
+        </button>
+      </div>
+      <div v-else-if="!entries.length" class="hhr-panel py-10 text-center">
         <h3 class="font-semibold">暂时没有匹配的比赛</h3>
         <p class="mt-2 text-sm text-muted">
           试试其他学院或放宽筛选，学院入口仍可继续选择。
@@ -195,15 +256,17 @@ function reset() {
           </p>
           <div class="mt-3 border-t border-line pt-3 text-xs">
             <span class="font-semibold text-brand">{{
-              statuses[stageStatus(stage)]
+              statuses[stage.status]
             }}</span>
             <p class="mt-1">
               报名截止：{{
                 stage.conflict ? "时间待核对" : formatTime(stage.deadline)
               }}
             </p>
-            <p v-if="stage.materialsAt">
-              材料截止：{{ materialDeadlineLabel(stage.materialsAt) }}
+            <p v-if="stage.materialsAt.value">
+              材料截止：{{
+                materialDeadlineLabel(stage.materialsAt, response?.evaluatedAt)
+              }}
             </p>
           </div>
         </article>

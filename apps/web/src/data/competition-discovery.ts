@@ -1,13 +1,7 @@
 import type { LocationQuery, LocationQueryRaw } from "vue-router";
-import { colleges, type CollegeId } from "./colleges";
+import { colleges } from "./colleges";
 import type { CollegeSelection } from "./college-selection";
-import {
-  competitions,
-  DEMO_NOW,
-  type Competition,
-  type Stage,
-  type Scope,
-} from "./competitions";
+import type { Time, CompetitionScope } from "@hehuoren/api-types";
 
 export const statuses = {
   upcoming: "尚未开始",
@@ -23,7 +17,7 @@ export type Filters = {
   status: Status | "";
   page: number;
 };
-export type Entry = { competition: Competition; stage: Stage };
+
 export const PAGE_SIZE = 4;
 // category、eligible 是已移除的筛选参数；规范化旧链接时一并清理。
 const owned = ["hosts", "q", "category", "status", "eligible", "page"];
@@ -71,57 +65,18 @@ export function writeFilters(
   if (filters.page > 1) result.page = String(filters.page);
   return result;
 }
-export function stageStatus(stage: Stage, now = DEMO_NOW): Status {
-  if (stage.conflict) return "conflict";
-  const instant = Date.parse(now);
-  if (!Number.isFinite(instant)) return "unknown";
-  if (stage.deadline && instant >= Date.parse(stage.deadline)) return "closed";
-  if (!stage.deadline || !stage.startsAt) return "unknown";
-  return instant < Date.parse(stage.startsAt) ? "upcoming" : "open";
-}
-export function filterEntries(
-  filters: Filters,
-  now = DEMO_NOW,
-  data = competitions,
-): Entry[] {
-  const q = filters.q.toLocaleLowerCase();
-  return data
-    .flatMap((competition) =>
-      competition.stages.map((stage) => ({ competition, stage })),
-    )
-    .filter(
-      ({ competition, stage }) =>
-        (filters.hosts === "all" ||
-          (filters.hosts.length > 0 &&
-            stage.hosts.some((id) => filters.hosts.includes(id)))) &&
-        (!q ||
-          [
-            competition.name,
-            competition.edition,
-            stage.name,
-            competition.organizer,
-          ]
-            .join(" ")
-            .toLocaleLowerCase()
-            .includes(q)) &&
-        (!filters.status || filters.status === stageStatus(stage, now)),
-    );
-}
 export function canonicalQuery(query: LocationQuery): LocationQueryRaw {
   const filters = parseFilters(query);
-  filters.page = Math.min(
-    filters.page,
-    Math.max(1, Math.ceil(filterEntries(filters).length / PAGE_SIZE)),
-  );
+
   return writeFilters(query, filters);
 }
-export function collegeNames(ids: CollegeId[]) {
+export function collegeNames(ids: readonly string[]) {
   return (
     ids.map((id) => colleges.find((c) => c.id === id)?.name).join("、") ||
     "校级组织 / 承办学院待核对"
   );
 }
-export function scopeLabel(scope: Scope) {
+export function scopeLabel(scope: CompetitionScope) {
   return scope.kind === "all"
     ? "全校开放"
     : scope.kind === "colleges"
@@ -137,12 +92,26 @@ const dateFormatter = new Intl.DateTimeFormat("zh-CN", {
   minute: "2-digit",
   hourCycle: "h23",
 });
-export function materialDeadlineLabel(value?: string, now = DEMO_NOW) {
+export function materialDeadlineLabel(value?: Time, now?: string) {
   return (
     formatTime(value) +
-    (value && Date.parse(value) <= Date.parse(now) ? "（材料已截止）" : "")
+    (value?.value &&
+    now &&
+    (value.precision === "instant"
+      ? Date.parse(value.value) <= Date.parse(now)
+      : value.precision === "date" &&
+        new Date(Date.parse(now) + 8 * 3600_000).toISOString().slice(0, 10) >
+          value.value)
+      ? "（材料已截止）"
+      : "")
   );
 }
-export function formatTime(value?: string) {
-  return value ? dateFormatter.format(new Date(value)) : "待公布";
+export function formatTime(value?: Time) {
+  if (!value?.value) return "待公布";
+  return value.precision === "date"
+    ? value.value + "（具体时刻待公布）"
+    : dateFormatter.format(new Date(value.value));
+}
+export function formatEvaluatedAt(value?: string) {
+  return value ? dateFormatter.format(new Date(value)) : "待获取";
 }

@@ -1,3 +1,9 @@
+import { competitionApi } from "../api/competitions";
+import {
+  fixtureColleges,
+  fixtureDetail,
+  fixtureList,
+} from "../api/competition-test-fixture";
 import { flushPromises, mount } from "@vue/test-utils";
 import { createPinia } from "pinia";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -25,6 +31,13 @@ describe("学生端路由", () => {
 
   beforeEach(() => {
     vi.resetAllMocks();
+    vi.mocked(competitionApi.colleges).mockResolvedValue(fixtureColleges);
+    vi.mocked(competitionApi.list).mockImplementation(async (filters) =>
+      fixtureList(filters),
+    );
+    vi.mocked(competitionApi.detail).mockImplementation(async (id) =>
+      fixtureDetail(id),
+    );
     vi.spyOn(window, "scrollTo").mockImplementation(() => {});
   });
   afterEach(() => {
@@ -236,3 +249,8 @@ describe("学生端路由", () => {
     expect(healthApi.getHealth).toHaveBeenCalledTimes(3);
   });
 });
+
+vi.mock("../api/competitions", async (original) => ({
+  ...(await original<typeof import("../api/competitions")>()),
+  competitionApi: { colleges: vi.fn(), list: vi.fn(), detail: vi.fn() },
+}));
