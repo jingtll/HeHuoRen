@@ -68,12 +68,11 @@ describe("比赛列表与详情恢复", () => {
     const all = () => wrapper.get(".college-reset");
     await all().trigger("click");
     await flushPromises();
+    expect(router.currentRoute.value.query.hosts).toBe("");
+    expect(wrapper.text()).toContain("暂时没有匹配");
+    await all().trigger("click");
+    await flushPromises();
     expect(router.currentRoute.value.query.hosts).toBe("all");
-    await all().trigger("click");
-    await flushPromises();
-    expect(router.currentRoute.value.query.hosts).toBeUndefined();
-    await all().trigger("click");
-    await flushPromises();
     await wrapper.get('[data-college-id="law"]').trigger("click");
     await flushPromises();
     expect(router.currentRoute.value.query.hosts).toBe("law");
@@ -84,13 +83,57 @@ describe("比赛列表与详情恢复", () => {
     await clear.trigger("click");
     await flushPromises();
     expect(router.currentRoute.value.query.status).toBe("unknown");
+    expect(router.currentRoute.value.query.hosts).toBe("");
     await wrapper
       .findAll("button")
       .find((b) => b.text() === "重置所有筛选")!
       .trigger("click");
     await flushPromises();
-    expect(router.currentRoute.value.query).toEqual({ from: "review" });
-    expect(all().attributes("aria-pressed")).toBe("false");
+    expect(router.currentRoute.value.query).toEqual({
+      hosts: "all",
+      from: "review",
+    });
+    expect(all().attributes("aria-pressed")).toBe("true");
+  });
+  it("默认全选全部学院，清空后无结果且刷新状态不变", async () => {
+    await visit();
+    const all = wrapper.get(".college-reset");
+    expect(all.attributes("aria-pressed")).toBe("true");
+    expect(router.currentRoute.value.query.hosts).toBe("all");
+    expect(wrapper.findAll("[data-competition-card]")).toHaveLength(4);
+    await all.trigger("click");
+    await flushPromises();
+    expect(router.currentRoute.value.query.hosts).toBe("");
+    expect(wrapper.findAll("[data-competition-card]")).toHaveLength(0);
+    expect(wrapper.text()).toContain("暂时没有匹配的比赛");
+    const emptyPath = router.currentRoute.value.fullPath;
+    wrapper.unmount();
+    router.listening = false;
+    await visit(emptyPath);
+    expect(wrapper.get(".college-reset").attributes("aria-pressed")).toBe(
+      "false",
+    );
+    expect(wrapper.findAll("[data-competition-card]")).toHaveLength(0);
+    await wrapper.get(".college-reset").trigger("click");
+    await flushPromises();
+    expect(wrapper.findAll("[data-competition-card]")).toHaveLength(4);
+    expect(router.currentRoute.value.query.hosts).toBe("all");
+    const college = wrapper.get('[data-college-id="information-engineering"]');
+    await college.trigger("click");
+    await flushPromises();
+    expect(router.currentRoute.value.query.hosts).toBe(
+      "information-engineering",
+    );
+    expect(wrapper.findAll("[data-competition-card]").length).toBeGreaterThan(
+      0,
+    );
+    await college.trigger("click");
+    await flushPromises();
+    expect(router.currentRoute.value.query.hosts).toBe("");
+    expect(wrapper.findAll("[data-competition-card]")).toHaveLength(0);
+    await wrapper.get(".college-reset").trigger("click");
+    await flushPromises();
+    expect(wrapper.findAll("[data-competition-card]")).toHaveLength(4);
   });
   it("分页后筛选重置到首页，刷新挂载从 URL 恢复", async () => {
     await visit();

@@ -14,7 +14,7 @@ import {
 
 describe("比赛筛选与 URL 契约", () => {
   it("区分默认、全部及手动选满 27 项，并稳定去重排序", () => {
-    expect(parseFilters({}).hosts).toEqual([]);
+    expect(parseFilters({}).hosts).toBe("all");
     expect(parseFilters({ hosts: "all" }).hosts).toBe("all");
     expect(
       parseFilters({
@@ -30,6 +30,13 @@ describe("比赛筛选与 URL 契约", () => {
     expect(full.hosts).toEqual(colleges.map((c) => c.id));
     expect(writeFilters({}, full).hosts).not.toBe("all");
     expect(parseFilters({ hosts: "bad,bad" }).hosts).toEqual([]);
+  });
+  it("显式取消全部学院后结果为空，并可在 URL 中恢复", () => {
+    expect(filterEntries(parseFilters({ hosts: "" }))).toEqual([]);
+    const emptyQuery = canonicalQuery({ hosts: "" });
+    expect(emptyQuery.hosts).toBe("");
+    expect(parseFilters({ hosts: String(emptyQuery.hosts) }).hosts).toEqual([]);
+    expect(filterEntries(parseFilters({})).length).toBeGreaterThan(0);
   });
   it("规范化冲突及无效参数，保留无关参数且幂等", () => {
     const query = {

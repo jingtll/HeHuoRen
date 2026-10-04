@@ -52,9 +52,12 @@ describe("学生端路由", () => {
     expect(wrapper!.get("h1").text()).toBe("发现比赛，找到同路人");
     expect(wrapper!.findAll("[data-college-id]")).toHaveLength(27);
     expect(wrapper!.get(".college-reset").attributes("aria-pressed")).toBe(
-      "false",
+      "true",
     );
-    expect(wrapper!.get('[role="status"]').text()).toContain("未选择学院");
+    expect(wrapper!.get('[role="status"]').text()).toContain("全部学院");
+    expect(wrapper!.findAll("[data-competition-card]").length).toBeGreaterThan(
+      0,
+    );
     await wrapper!
       .get('[data-college-id="information-engineering"]')
       .trigger("click");

@@ -37,8 +37,15 @@ export function parseFilters(query: LocationQuery): Filters {
     .filter((c) => hostTokens.includes(c.id))
     .map((c) => c.id);
   const page = Number(first(query.page));
+  // 缺少 hosts 表示默认全选；显式空值表示未选中任何学院。
   return {
-    hosts: ids.length ? ids : hostTokens.includes("all") ? "all" : [],
+    hosts: !Object.hasOwn(query, "hosts")
+      ? "all"
+      : ids.length
+        ? ids
+        : hostTokens.includes("all")
+          ? "all"
+          : [],
     q: first(query.q).trim().slice(0, 100),
     status: Object.hasOwn(statuses, first(query.status))
       ? (first(query.status) as Status)
@@ -58,6 +65,7 @@ export function writeFilters(
       .filter((c) => filters.hosts.includes(c.id))
       .map((c) => c.id)
       .join(",");
+  else result.hosts = "";
   if (filters.q) result.q = filters.q;
   if (filters.status) result.status = filters.status;
   if (filters.page > 1) result.page = String(filters.page);
@@ -84,8 +92,8 @@ export function filterEntries(
     .filter(
       ({ competition, stage }) =>
         (filters.hosts === "all" ||
-          !filters.hosts.length ||
-          stage.hosts.some((id) => filters.hosts.includes(id))) &&
+          (filters.hosts.length > 0 &&
+            stage.hosts.some((id) => filters.hosts.includes(id)))) &&
         (!q ||
           [
             competition.name,
