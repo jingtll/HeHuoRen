@@ -81,7 +81,7 @@ function reset() {
             <input
               v-model="search"
               type="search"
-              class="hhr-input h-8 min-h-0 min-w-0 px-2 py-0 text-sm max-[767px]:text-base"
+              class="hhr-input discovery-filter-control h-8 min-h-0 min-w-0 px-2 py-0 text-sm"
               placeholder="搜索比赛名称、届次"
               maxlength="100"
               aria-label="搜索比赛"
@@ -94,7 +94,7 @@ function reset() {
             </button>
           </div>
           <select
-            class="hhr-input h-8 min-h-0 min-w-0 px-2 py-0 text-xs"
+            class="hhr-input discovery-filter-control h-8 min-h-0 min-w-0 px-2 py-0 text-xs"
             aria-label="报名状态"
             :value="filters.status"
             @change="update({ status: choice($event) as Filters['status'] })"
@@ -236,3 +236,10 @@ function reset() {
     </section>
   </div>
 </template>
+
+<style scoped>
+.discovery-filter-control:focus-visible {
+  outline-width: 2px;
+  outline-offset: -2px;
+}
+</style>
