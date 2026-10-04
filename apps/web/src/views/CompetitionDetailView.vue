@@ -40,7 +40,9 @@ watch(
       );
       if (!active) return;
       competition.value = data;
+      loading.value = false;
       await nextTick();
+      if (!active) return;
       const anchor = route.hash.slice(1);
       if (anchor && data.stages.some((s) => s.id === anchor))
         document.getElementById(anchor)?.scrollIntoView?.({ block: "start" });

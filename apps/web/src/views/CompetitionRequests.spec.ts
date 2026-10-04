@@ -122,4 +122,40 @@ describe("异步请求、错误与URL", () => {
     await flushPromises();
     expect(wrapper.get("h1").text()).toBe("生物学知识与实验技能竞赛");
   });
+  it("详情异步渲染后才滚动到赛段锚点", async () => {
+    const pending = deferred<CompetitionDetail>();
+    const scroll = vi.fn();
+    const warnings = vi.spyOn(console, "warn");
+    vi.mocked(competitionApi.detail).mockReturnValueOnce(pending.promise);
+    vi.spyOn(document, "getElementById").mockImplementation((id) => {
+      const element =
+        (
+          wrapper?.element as HTMLElement | undefined
+        )?.querySelector<HTMLElement>(`[id="${id}"]`) ?? null;
+      if (element) element.scrollIntoView = scroll;
+      return element;
+    });
+    await visit(
+      "/home/competitions/programming-2026-8#programming-2026-campus",
+    );
+    expect(scroll).not.toHaveBeenCalled();
+    pending.resolve(fixtureDetail("programming-2026-8"));
+    await flushPromises();
+    expect(scroll).toHaveBeenCalledWith({ block: "start" });
+    expect(warnings.mock.calls.flat().join(" ")).not.toContain(
+      "VUE_ROUTER_R0042",
+    );
+  });
+  it("缺失锚点不交给路由查找；历史滚动位置仍优先", async () => {
+    await visit();
+    const target = { ...router.currentRoute.value, hash: "#missing-stage" };
+    const behavior = router.options.scrollBehavior!;
+    expect(await behavior(target, router.currentRoute.value, null)).toEqual({
+      top: 0,
+    });
+    const saved = { left: 0, top: 240 };
+    expect(await behavior(target, router.currentRoute.value, saved)).toEqual(
+      saved,
+    );
+  });
 });
