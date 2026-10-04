@@ -9,8 +9,6 @@ import { createAppRouter } from "./index";
 vi.mock("../api/health", () => ({ healthApi: { getHealth: vi.fn() } }));
 
 const pages = [
-  ["/home", "首页", "home"],
-  ["/home/competitions/preview?from=home", "比赛详情", "competition-detail"],
   ["/teams", "找队友", "teams"],
   ["/teams/42?role=dev", "队伍详情", "team-detail"],
   ["/teams/new", "发布招募", "team-new"],
@@ -51,18 +49,24 @@ describe("学生端路由", () => {
   it("默认入口进入首页，比赛详情保留首页内容区域与导航归属", async () => {
     const router = await visit("/");
     expect(router.currentRoute.value.path).toBe("/home");
-    expect(wrapper!.get("h1").text()).toBe("首页");
+    expect(wrapper!.get("h1").text()).toBe("发现比赛，找到同路人");
     expect(wrapper!.findAll("[data-college-id]")).toHaveLength(27);
     expect(wrapper!.get(".college-reset").attributes("aria-pressed")).toBe(
       "false",
     );
     expect(wrapper!.get('[role="status"]').text()).toContain("未选择学院");
-    await wrapper!.get('[data-college-id="law"]').trigger("click");
-    expect(wrapper!.get('[role="status"]').text()).toContain("法学院");
-    expect(wrapper!.text()).toContain("比赛筛选即将上线");
-    await wrapper!.get('a[href="/home/competitions/preview"]').trigger("click");
+    await wrapper!
+      .get('[data-college-id="information-engineering"]')
+      .trigger("click");
     await flushPromises();
-    expect(wrapper!.get("[data-home-content] h1").text()).toBe("比赛详情");
+    expect(wrapper!.get('[role="status"]').text()).toContain("信息工程学院");
+    await wrapper!.get("[data-competition-card] h3 a").trigger("click");
+    await flushPromises();
+    await vi.waitFor(() =>
+      expect(wrapper!.get("[data-home-content] h1").text()).toBe(
+        "大学生程序设计竞赛",
+      ),
+    );
     expect(wrapper!.find(".college-picker").exists()).toBe(false);
     expect(router.currentRoute.value.meta.navigation).toBe("home");
     expect(
@@ -74,7 +78,9 @@ describe("学生端路由", () => {
     await flushPromises();
     expect(router.currentRoute.value.path).toBe("/home");
     expect(
-      wrapper!.get('[data-college-id="law"]').attributes("aria-pressed"),
+      wrapper!
+        .get('[data-college-id="information-engineering"]')
+        .attributes("aria-pressed"),
     ).toBe("true");
   });
 
