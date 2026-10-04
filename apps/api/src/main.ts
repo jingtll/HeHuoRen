@@ -13,6 +13,7 @@ async function bootstrap(): Promise<void> {
     new FastifyAdapter(),
   );
   configureApp(app);
+  app.enableShutdownHooks();
 
   const port = app.get(ConfigService).get<number>("PORT", 3001);
   await app.listen(port, "127.0.0.1");

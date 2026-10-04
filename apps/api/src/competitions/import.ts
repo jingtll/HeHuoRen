@@ -396,7 +396,11 @@ export async function importBatch(
       const r = records.get(patch.id)!;
       const prev = old.competitions.find((c) => c.id === r.id);
       if (isDeepStrictEqual(canonical(prev), canonical(r))) continue;
-      if (prev?.publication === "published" && !options.confirmPublished)
+      if (
+        prev?.publication === "published" &&
+        !options.confirmPublished &&
+        !options.preview
+      )
         throw new Error(r.id + " 更改已发布记录需要 --confirm-published");
       const removed: string[] = [];
       for (const s of r.stages) {

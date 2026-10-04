@@ -42,6 +42,153 @@
           "health"
         ]
       }
+    },
+    "/api/v1/colleges": {
+      "get": {
+        "operationId": "CompetitionController_colleges",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CollegeDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "比赛"
+        ]
+      }
+    },
+    "/api/v1/competitions": {
+      "get": {
+        "operationId": "CompetitionController_list",
+        "parameters": [
+          {
+            "name": "pageSize",
+            "required": false,
+            "in": "query",
+            "description": "单值1–50，缺省20",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "单值正安全整数；超过页数返回最后有效页",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "enum": [
+                "upcoming",
+                "open",
+                "closed",
+                "unknown",
+                "conflict"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "required": false,
+            "in": "query",
+            "description": "单值，字面包含，最长100字符",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hosts",
+            "required": false,
+            "in": "query",
+            "description": "缺省/all 不限；空值无结果；支持重复与逗号合并，合法自选优先",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitionListDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "比赛"
+        ]
+      }
+    },
+    "/api/v1/competitions/{id}": {
+      "get": {
+        "operationId": "CompetitionController_detail",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitionDetailDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "比赛"
+        ]
+      }
     }
   },
   "info": {
@@ -100,6 +247,432 @@
           "code",
           "message",
           "requestId"
+        ]
+      },
+      "CollegeDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "order": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "order"
+        ]
+      },
+      "CompetitionSummaryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "edition": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "organizer": {
+            "type": "string"
+          },
+          "origin": {
+            "type": "string",
+            "enum": [
+              "official",
+              "historical",
+              "demo"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "edition",
+          "category",
+          "organizer",
+          "origin"
+        ]
+      },
+      "ScopeDto": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "all",
+              "colleges",
+              "complex",
+              "unknown"
+            ]
+          },
+          "colleges": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "colleges",
+          "note"
+        ]
+      },
+      "TimeDto": {
+        "type": "object",
+        "properties": {
+          "precision": {
+            "type": "string",
+            "enum": [
+              "instant",
+              "date",
+              "unknown"
+            ]
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "precision",
+          "value"
+        ]
+      },
+      "StageSummaryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "hosts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "scope": {
+            "$ref": "#/components/schemas/ScopeDto"
+          },
+          "deadline": {
+            "$ref": "#/components/schemas/TimeDto"
+          },
+          "materialsAt": {
+            "$ref": "#/components/schemas/TimeDto"
+          },
+          "conflict": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "upcoming",
+              "open",
+              "closed",
+              "unknown",
+              "conflict"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "hosts",
+          "scope",
+          "deadline",
+          "materialsAt",
+          "conflict",
+          "status"
+        ]
+      },
+      "EntryDto": {
+        "type": "object",
+        "properties": {
+          "competition": {
+            "$ref": "#/components/schemas/CompetitionSummaryDto"
+          },
+          "stage": {
+            "$ref": "#/components/schemas/StageSummaryDto"
+          }
+        },
+        "required": [
+          "competition",
+          "stage"
+        ]
+      },
+      "CompetitionListDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EntryDto"
+            }
+          },
+          "page": {
+            "type": "number"
+          },
+          "pageSize": {
+            "type": "number"
+          },
+          "hasMore": {
+            "type": "boolean"
+          },
+          "totalStages": {
+            "type": "number"
+          },
+          "totalCompetitions": {
+            "type": "number"
+          },
+          "totalPages": {
+            "type": "number"
+          },
+          "evaluatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "items",
+          "page",
+          "pageSize",
+          "hasMore",
+          "totalStages",
+          "totalCompetitions",
+          "totalPages",
+          "evaluatedAt"
+        ]
+      },
+      "TrackDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "individual",
+              "team",
+              "mixed"
+            ]
+          },
+          "members": {
+            "type": "string"
+          },
+          "rules": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "mode",
+          "members",
+          "rules"
+        ]
+      },
+      "StageDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "organizer": {
+            "type": "string"
+          },
+          "hosts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "scope": {
+            "$ref": "#/components/schemas/ScopeDto"
+          },
+          "startsAt": {
+            "$ref": "#/components/schemas/TimeDto"
+          },
+          "deadline": {
+            "$ref": "#/components/schemas/TimeDto"
+          },
+          "materialsAt": {
+            "$ref": "#/components/schemas/TimeDto"
+          },
+          "eventAt": {
+            "$ref": "#/components/schemas/TimeDto"
+          },
+          "timeNote": {
+            "type": "string"
+          },
+          "conflict": {
+            "type": "boolean"
+          },
+          "registration": {
+            "type": "string"
+          },
+          "order": {
+            "type": "number"
+          },
+          "sourceIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "upcoming",
+              "open",
+              "closed",
+              "unknown",
+              "conflict"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "organizer",
+          "hosts",
+          "scope",
+          "startsAt",
+          "deadline",
+          "materialsAt",
+          "eventAt",
+          "timeNote",
+          "conflict",
+          "registration",
+          "order",
+          "sourceIds",
+          "status"
+        ]
+      },
+      "NoticeDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "publisher": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "publishedAt": {
+            "type": "string",
+            "nullable": true
+          },
+          "checkedAt": {
+            "type": "string",
+            "nullable": true
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "registration",
+              "supplement",
+              "award",
+              "news"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "publisher",
+          "url",
+          "publishedAt",
+          "checkedAt",
+          "kind"
+        ]
+      },
+      "CompetitionDetailDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "edition": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "organizer": {
+            "type": "string"
+          },
+          "origin": {
+            "type": "string",
+            "enum": [
+              "official",
+              "historical",
+              "demo"
+            ]
+          },
+          "tracks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TrackDto"
+            }
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StageDto"
+            }
+          },
+          "notices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NoticeDto"
+            }
+          },
+          "evaluatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "edition",
+          "category",
+          "organizer",
+          "origin",
+          "tracks",
+          "stages",
+          "notices",
+          "evaluatedAt"
         ]
       }
     }
