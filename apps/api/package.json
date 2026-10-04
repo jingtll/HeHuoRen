@@ -13,7 +13,9 @@
     "test:unit": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config test/jest-unit.json --runInBand",
     "test:integration": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config test/jest-integration.json --runInBand",
     "test:e2e": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --config test/jest-e2e.json --runInBand",
-    "openapi:write": "tsc -p tsconfig.openapi.json && node dist-openapi/scripts/write-openapi.js"
+    "openapi:write": "tsc -p tsconfig.openapi.json && node dist-openapi/scripts/write-openapi.js",
+    "db:migrate": "tsc -p tsconfig.openapi.json && node dist-openapi/scripts/migrate.js",
+    "data:import": "tsc -p tsconfig.openapi.json && node dist-openapi/scripts/import.js"
   },
   "dependencies": {
     "@fastify/static": "10.1.5",
@@ -24,8 +26,11 @@
     "@nestjs/swagger": "12.0.2",
     "class-transformer": "0.5.1",
     "class-validator": "0.15.1",
+    "dotenv": "18.0.5",
+    "drizzle-orm": "0.45.3",
     "fastify": "5.12.5",
     "joi": "18.2.9",
+    "pg": "8.23.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
@@ -35,6 +40,7 @@
     "@nestjs/schematics": "^12.0.0",
     "@types/jest": "30.0.0",
     "@types/node": "^24.0.0",
+    "@types/pg": "8.23.1",
     "jest": "30.5.2",
     "ts-jest": "29.4.14",
     "typescript": "^6.0.2"
