@@ -177,11 +177,6 @@ function reset() {
       </template>
     </CollegePicker>
     <section class="min-w-0" aria-label="比赛发现">
-      <p class="my-4 text-xs leading-6 text-muted">
-        状态计算时间：{{
-          formatEvaluatedAt(response?.evaluatedAt)
-        }}（北京时间）。报名时段内不保证名额或资格通过，最新安排以官方通知为准。
-      </p>
       <div class="mb-3 flex items-center justify-between gap-3">
         <h2 class="font-serif text-xl font-semibold">比赛一览</h2>
         <p
@@ -220,7 +215,7 @@ function reset() {
         <article
           v-for="{ competition, stage } in visible"
           :key="stage.id"
-          class="hhr-card p-5"
+          class="hhr-card p-4"
           data-competition-card
         >
           <div class="mb-2 flex flex-wrap items-center gap-2 text-xs">
@@ -244,17 +239,17 @@ function reset() {
           </h3>
           <p class="mt-1 text-sm">{{ stage.name }}</p>
           <dl
-            class="mt-3 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 text-xs leading-6"
+            class="mt-2 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 text-xs leading-5"
           >
             <dt class="text-muted">承办学院</dt>
             <dd>{{ collegeNames(stage.hosts) }}</dd>
             <dt class="text-muted">参赛范围</dt>
             <dd>{{ scopeLabel(stage.scope) }}</dd>
           </dl>
-          <p class="mt-2 text-xs leading-6 text-muted">
+          <p class="mt-1 text-xs leading-5 text-muted">
             {{ stage.scope.note }}
           </p>
-          <div class="mt-3 border-t border-line pt-3 text-xs">
+          <div class="mt-2 border-t border-line pt-2 text-xs">
             <span class="font-semibold text-brand">{{
               statuses[stage.status]
             }}</span>
@@ -296,6 +291,11 @@ function reset() {
           下一页
         </button>
       </nav>
+      <p class="mt-4 text-xs leading-6 text-muted">
+        状态计算时间：{{
+          formatEvaluatedAt(response?.evaluatedAt)
+        }}（北京时间）。报名时段内不保证名额或资格通过，最新安排以官方通知为准。
+      </p>
     </section>
   </div>
 </template>
