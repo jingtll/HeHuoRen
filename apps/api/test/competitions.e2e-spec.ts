@@ -3,7 +3,6 @@ import {
   FastifyAdapter,
   type NestFastifyApplication,
 } from "@nestjs/platform-fastify";
-import { AppModule } from "../src/app.module.js";
 import { configureApp } from "../src/configure-app.js";
 import { importBatch } from "../src/competitions/import.js";
 import { DatabaseService } from "../src/database/database.service.js";
@@ -16,6 +15,8 @@ describe("公开比赛 HTTP 契约", () => {
     db = await testDatabase();
     previous = process.env.DATABASE_URL;
     process.env.DATABASE_URL = db.url;
+    // ConfigModule 在模块加载时读取环境；必须先设置隔离测试库。
+    const { AppModule } = await import("../src/app.module.js");
     await importBatch(db.pool, {
       colleges: directory,
       competitions: [
@@ -45,6 +46,7 @@ describe("公开比赛 HTTP 契约", () => {
       .getInstance()
       .inject({ method: "GET", url: "/api/v1/" + url });
   it("三个查询无需登录；health仍为进程状态", async () => {
+    expect(app.get(DatabaseService).pool.options.connectionString).toBe(db.url);
     for (const url of [
       "colleges",
       "competitions",
