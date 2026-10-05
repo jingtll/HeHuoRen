@@ -224,7 +224,15 @@ async function copy(url: string) {
             }}
           </p>
           <p class="mt-1 text-xs text-muted">
-            发布：{{ notice.publishedAt }} · 核对：{{ notice.checkedAt }}
+            {{
+              notice.publishedAt
+                ? "发布：" + notice.publishedAt
+                : "发布日期未注明"
+            }}
+            ·
+            {{
+              notice.checkedAt ? "核对：" + notice.checkedAt : "核对日期未记录"
+            }}
           </p>
           <a
             :href="notice.url"
