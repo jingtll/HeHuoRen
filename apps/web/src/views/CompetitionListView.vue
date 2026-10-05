@@ -30,6 +30,23 @@ const response = ref<CompetitionList>();
 const loading = ref(true);
 const error = ref("");
 const retry = ref(0);
+let directoryValidated = false;
+async function ensureDirectory(signal: AbortSignal) {
+  if (directoryValidated) return;
+  const directory = await competitionApi.colleges(signal);
+  if (signal.aborted) return;
+  if (
+    directory.length !== colleges.length ||
+    directory.some(
+      (c, i) =>
+        c.id !== colleges[i]?.id ||
+        c.name !== colleges[i]?.name ||
+        c.order !== i,
+    )
+  )
+    throw new Error("学院目录与页面资源不一致，请重试或联系维护人员。");
+  directoryValidated = true;
+}
 let skipKey = "";
 const filterKey = (value: Filters) => JSON.stringify(value);
 watch(
@@ -50,21 +67,11 @@ watch(
     error.value = "";
     response.value = undefined;
     try {
-      const [directory, data] = await Promise.all([
-        competitionApi.colleges(controller.signal),
+      const [, data] = await Promise.all([
+        ensureDirectory(controller.signal),
         competitionApi.list(filters.value, controller.signal),
       ]);
       if (!active) return;
-      if (
-        directory.length !== colleges.length ||
-        directory.some(
-          (c, i) =>
-            c.id !== colleges[i]?.id ||
-            c.name !== colleges[i]?.name ||
-            c.order !== i,
-        )
-      )
-        throw new Error("学院目录与页面资源不一致，请重试或联系维护人员。");
       response.value = data;
       loading.value = false;
       if (data.page !== filters.value.page) {
@@ -91,7 +98,9 @@ watch(
 const entries = computed(() => response.value?.items ?? []);
 const visible = entries;
 const pages = computed(() => response.value?.totalPages ?? 1);
-const competitionCount = computed(() => response.value?.totalCompetitions ?? 0);
+const noCollegesSelected = computed(
+  () => filters.value.hosts !== "all" && !filters.value.hosts.length,
+);
 function update(patch: Partial<Filters>, page = 1) {
   void router.push({
     name: "home",
@@ -166,7 +175,7 @@ function reset() {
                 class="min-h-8 text-brand"
                 @click="update({ hosts: [] })"
               >
-                清除学院条件
+                取消全部学院
               </button>
               <button type="button" class="min-h-8 text-brand" @click="reset">
                 重置所有筛选
@@ -180,13 +189,17 @@ function reset() {
       <div class="mb-3 flex items-center justify-between gap-3">
         <h2 class="font-serif text-xl font-semibold">比赛一览</h2>
         <p
+          v-if="loading || (!error && response)"
           role="status"
           aria-live="polite"
           aria-atomic="true"
           class="text-xs text-brand"
         >
-          {{ competitionCount }} 项比赛 ·
-          {{ response?.totalStages ?? 0 }} 个赛段
+          <template v-if="loading">统计中…</template>
+          <template v-else-if="response">
+            {{ response.totalCompetitions }} 项比赛 ·
+            {{ response.totalStages }} 个赛段
+          </template>
         </p>
       </div>
       <div v-if="loading" class="hhr-panel" role="status">
@@ -199,9 +212,15 @@ function reset() {
         </button>
       </div>
       <div v-else-if="!entries.length" class="hhr-panel py-10 text-center">
-        <h3 class="font-semibold">暂时没有匹配的比赛</h3>
+        <h3 class="font-semibold">
+          {{ noCollegesSelected ? "尚未选择学院" : "暂时没有匹配的比赛" }}
+        </h3>
         <p class="mt-2 text-sm text-muted">
-          试试其他学院或放宽筛选，学院入口仍可继续选择。
+          {{
+            noCollegesSelected
+              ? "已取消全部学院，请选择承办学院或点击全部学院查看比赛。"
+              : "试试其他学院或放宽筛选，学院入口仍可继续选择。"
+          }}
         </p>
         <button
           type="button"
