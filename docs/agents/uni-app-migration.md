@@ -53,3 +53,14 @@
 ## Issue #22 新增适配点
 
 当前采用 Axios + AbortController 取消请求，并用 watch 清理回调忽略迟到响应。H5 核对同源代理/CORS与绝对API地址；微信小程序改用 uni.request 的 RequestTask.abort 并保留请求有效性检查，配置 request 合法服务器域名，成本中。新契约的时间精度与 evaluatedAt 可复用；日期格式化继续独立验证目标运行时。页码响应纠正采用 Vue Router replace，详情数据到达后用 DOM 节点定位赛段；小程序需改为平台导航与 SelectorQuery/pageScrollTo，成本中。官方外链和复制遵循已有适配项，不能假设学校各子域均可通过 web-view 打开。依据已有 uni.request/web-view 官方链接，尚未进行 H5 或微信小程序编译/运行验证。
+
+## Issue #13 新增适配点
+
+- 筛选 query、History、replace 与详情返回：H5 回归刷新、前进后退与 URL 规范化；微信小程序改用平台页面参数与返回恢复，成本中。
+- 原生 form/input/select/textarea、datetime-local、字段焦点及 scrollIntoView：H5 回归键盘、表单标签与北京时间输入；微信小程序换为 input、textarea、picker、button，焦点与错误定位通过目标端能力处理，日期和时间分别选择并明确 UTC+8，成本中。依据：[picker 官方文档](https://uniapp.dcloud.net.cn/component/picker.html)。
+- 原生 dialog、showModal、Tab 循环、Escape 与焦点恢复：当前仅验证 Web；H5 迁移后重新验证，微信小程序使用平台弹层并独立验证关闭、滚动、焦点与可访问反馈，成本中。
+- 比赛关联 Axios/AbortController 与请求序号：H5 验证 CORS、请求取消和迟到响应；微信小程序改为 uni.request/RequestTask.abort、配置合法请求域名并保留有效性检查，成本中。依据：[uni.request 官方文档](https://uniapp.dcloud.net.cn/api/request/request.html)。
+- Pinia 会话内演示状态、setInterval 与 Intl/Asia/Shanghai：目标端保留“刷新或重置恢复”语义，页生命周期清理计时器，统一北京时间解析/格式化并验证运行时支持，成本低至中。普通项目不依赖比赛目录请求成功。
+- Tailwind 的响应式 grid、wrap-anywhere、dialog backdrop、100dvh 与底部安全区域：H5 和微信小程序分别编译、真机验证布局和滚动，按目标端替换不支持的选择器、变量或视口单位，成本中。
+
+本次 375px、390px、1440px 的浏览器验证只证明 Web 表现；尚未建立 uni-app 工程或完成微信小程序验收。

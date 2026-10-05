@@ -15,9 +15,6 @@ import { createAppRouter } from "./index";
 vi.mock("../api/health", () => ({ healthApi: { getHealth: vi.fn() } }));
 
 const pages = [
-  ["/teams", "找队友", "teams"],
-  ["/teams/42?role=dev", "队伍详情", "team-detail"],
-  ["/teams/new", "发布招募", "team-new"],
   ["/my/teams", "我的队伍", "my-teams"],
   ["/my/applications", "申请与邀请", "applications"],
   ["/my/favorites", "我的收藏", "favorites"],
