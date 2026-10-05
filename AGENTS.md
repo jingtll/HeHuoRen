@@ -31,3 +31,7 @@
 ### 开发产物提交边界
 
 设计 Demo、截图、研究资料与原图、历史开发计划、Issue 验收文档、验收脚本和结果文件仅保留本地，不提交 Git；忽略入口为根目录 .gitignore。验证结论记录在 PR 正文。应用运行资源、源码测试及其最小固定快照、现行项目文档、ADR 与许可证应继续提交。禁止用全局图片扩展名规则忽略生产 Logo 和院徽。
+
+### Pull Requests
+
+创建或更新 PR 正文前，必须读取 `.github/PULL_REQUEST_TEMPLATE.md` 并按其结构填写；项目模板优先于技能、插件和工具的默认模板。具体发布与验证规则见 [docs/agents/pull-requests.md](docs/agents/pull-requests.md)。
