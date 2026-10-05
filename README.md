@@ -4,6 +4,29 @@
 
 项目范围、阶段安排与当前进度见[项目开发计划书](docs/禾伙人-项目开发计划书.md)。
 
+## 技术栈
+
+项目采用 **pnpm workspace 单仓（Monorepo）**，包含 Web 应用、API 服务和共享接口类型包。以下版本来自各工作区的 `package.json` 与 `compose.yaml`；保留依赖声明的 `^` / `~` 范围，实际安装版本以 `pnpm-lock.yaml` 为准。
+
+| 层次             | 技术与版本                                                                                       | 项目用途                                                              |
+| ---------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
+| 运行环境与包管理 | Node.js `>=24.15.0 <25`、pnpm `10.30.3`                                                          | 统一运行环境、工作区依赖与脚本                                        |
+| 开发语言         | TypeScript `6.0.x`；共享类型包 `5.9.3`                                                           | Web / API 类型检查；共享包兼容类型生成工具                            |
+| Web 框架与构建   | Vue `^3.5.42`、Vite `^8.3.0`、`@vitejs/plugin-vue` `^6.0.8`                                      | Vue 单文件组件、开发服务器与生产构建                                  |
+| 路由与状态       | Vue Router `5.3.1`、Pinia `4.0.3`                                                                | 学生端路由、布局导航与健康状态管理                                    |
+| 样式与图标       | Tailwind CSS / `@tailwindcss/vite` `4.3.3`、`@lucide/vue` `1.51.0`                               | 工具类与主题 CSS、自封装复用组件、统一图标入口；当前未使用 Vant       |
+| HTTP 客户端      | Axios `1.20.0`                                                                                   | Web 通过 `/api/v1` 请求 API，开发时由 Vite 代理                       |
+| API 框架与服务器 | NestJS `^12.0.1`、`@nestjs/platform-fastify` `12.1.2`、Fastify `5.12.5`                          | 模块、控制器、依赖注入与 HTTP 服务                                    |
+| 配置与请求校验   | `@nestjs/config` `12.0.1`、Joi `18.2.9`、`class-validator` `0.15.1`、`class-transformer` `0.5.1` | 环境配置校验、DTO 转换与严格请求校验                                  |
+| 数据库与访问层   | PostgreSQL `17`、Drizzle ORM `0.45.3`、`pg` `8.23.1`                                             | 学院与比赛持久化、连接池和查询；SQL 迁移由项目脚本执行                |
+| 接口契约         | `@nestjs/swagger` `12.0.2`、`openapi-typescript` `7.13.0`                                        | 从 DTO / Swagger 生成 OpenAPI JSON，再生成 Web 使用的 TypeScript 类型 |
+| Web 测试         | Vitest `5.0.3`、`@vue/test-utils` `2.5.1`、jsdom `30.1.1`                                        | 组件、路由、状态与请求行为单元测试                                    |
+| API 测试         | Jest `30.5.2`、`ts-jest` `29.4.14`                                                               | 单元测试、真实 PostgreSQL 集成测试与 HTTP e2e 测试                    |
+| 代码质量与协作   | ESLint `10.11.0`、Prettier `3.9.9`、GitHub Actions                                               | 静态检查、格式统一与 CI 质量门禁                                      |
+| 本地数据库环境   | Docker Compose，`postgres:17` 镜像                                                               | 开发数据库持久卷与独立临时测试数据库；尚未提供 Web / API 容器化部署   |
+
+当前交付普通 Web 应用，真实认证、招募与申请仍待开发。后续统一迁移到普通 uni-app（H5、微信小程序）：Vue Router 的 History 路由、Axios 浏览器请求、DOM / 浏览器 API、Lucide SVG 与 Tailwind Web CSS 均需逐项适配和实测，不能直接视为小程序兼容。迁移任务与替代方案见[迁移提醒与待办](docs/agents/uni-app-migration.md)。
+
 ## 环境
 
 - Node.js 24，最低 `24.15.0`，支持范围 `>=24.15.0 <25`；`.nvmrc` 使用 `24`，不固定补丁版本。
@@ -45,7 +68,7 @@ pnpm dev
 - Swagger：[http://127.0.0.1:3001/docs](http://127.0.0.1:3001/docs)。
 - OpenAPI JSON：[http://127.0.0.1:3001/docs-json](http://127.0.0.1:3001/docs-json)。
 
-API 默认只监听本机。开发端口冲突时可设置 API 的 PORT 和 Web 的 API_PROXY_TARGET（默认 http://127.0.0.1:3001），无需停止其他进程。Web 的 `/api` 请求由 Vite 代理到 API；修改 API 端口时需同步修改 `apps/web/vite.config.ts` 的代理配置。环境变量支持 `NODE_ENV`、`PORT` 与 `DATABASE_URL`；端口必须是 1–65535 的整数。`.env` 不提交。
+API 默认只监听本机。开发端口冲突时可设置 API 的 PORT 和 Web 的 API_PROXY_TARGET（默认 http://127.0.0.1:3001），无需停止其他进程。Web 的 `/api` 请求由 Vite 代理到 API；修改 API 端口时需同步设置 Web 的 `API_PROXY_TARGET`，代理配置位于 `apps/web/vite.config.ts`。环境变量支持 `NODE_ENV`、`PORT` 与 `DATABASE_URL`；端口必须是 1–65535 的整数。`.env` 不提交。
 
 健康接口返回 `{ status: "ok", requestId: string }`，请求 ID 来自 Fastify。异常响应包含稳定的 `code`、用户可读的 `message` 与 `requestId`，未知异常不暴露内部细节。health 不检查数据库就绪；学院与比赛接口使用数据库。
 
@@ -75,15 +98,68 @@ API 默认只监听本机。开发端口冲突时可设置 API 的 PORT 和 Web 
 
 邮箱验证码是 Issue #9 新增要求，真实发送、校验、有效期与重发规则依赖后续邮件接口，本次未联调。账号服务尚未开放，当前不能注册或登录。认证表单与尚未开放的服务边界以当前源码及 Issue #9 为准。
 
-## 目录与接口契约
+## 项目结构与接口契约
 
-| 目录                 | 用途                                              |
-| -------------------- | ------------------------------------------------- |
-| `apps/web`           | Vue 3、Vue Router、Pinia、Tailwind、Lucide、Axios |
-| `apps/api`           | NestJS、Fastify、Drizzle、pg/PostgreSQL、Swagger  |
-| `packages/api-types` | 从 OpenAPI 生成的接口类型，无运行时代码           |
-| `docs/adr`           | 架构决策                                          |
-| `CONTEXT.md`         | 业务领域词汇表                                    |
+以下展示已纳入版本控制的主要目录与关键文件，省略依赖、构建输出和本地验收产物：
+
+```text
+HeHuoRen/
+├── apps/
+│   ├── web/                          # @hehuoren/web：学生端 Web 应用
+│   │   ├── src/
+│   │   │   ├── api/                  # Axios 客户端、健康与比赛 API 请求
+│   │   │   ├── assets/               # 生产 Logo 与学院院徽
+│   │   │   ├── components/           # 图标、表单、学院筛选与加载组件
+│   │   │   ├── data/                 # 学院选择、筛选规则与历史测试演示数据
+│   │   │   ├── layouts/              # 学生端导航布局与认证品牌布局
+│   │   │   ├── router/               # Vue Router 路由与路由测试
+│   │   │   ├── stores/               # Pinia 健康状态与测试
+│   │   │   ├── views/                # 首页、比赛列表/详情、认证、健康与占位页
+│   │   │   ├── App.vue              # 根组件
+│   │   │   ├── main.ts              # 应用入口，注册 Router 与 Pinia
+│   │   │   └── style.css            # 全局主题变量与 Tailwind 样式
+│   │   ├── vite.config.ts            # Vue / Tailwind 插件与开发 API 代理
+│   │   └── vitest.config.ts          # Web 单元测试配置
+│   └── api/                          # @hehuoren/api：NestJS / Fastify 服务
+│       ├── src/
+│       │   ├── common/               # 错误 DTO、异常过滤器与全局校验管道
+│       │   ├── competitions/         # 学院/比赛查询、DTO、仓储、时间与导入规则
+│       │   ├── config/               # 环境变量校验
+│       │   ├── database/             # 数据库模块、连接池、Drizzle schema 与迁移执行
+│       │   ├── health/               # 健康检查接口
+│       │   ├── app.module.ts         # 根模块
+│       │   ├── configure-app.ts      # API 前缀、校验、异常处理与 Swagger
+│       │   └── main.ts              # 服务启动入口
+│       ├── data/                     # 人工核对比赛数据与显式发布清单
+│       ├── migrations/               # 受版本控制的 SQL 迁移
+│       ├── scripts/                  # 数据迁移、人工导入与 OpenAPI 生成入口
+│       ├── test/                     # 集成/e2e 测试、固定数据与 Jest 配置
+│       ├── .env.example              # 本地环境变量示例（实际 .env 不提交）
+│       └── openapi.json              # 生成并提交的接口契约
+├── packages/
+│   └── api-types/                    # @hehuoren/api-types：共享类型，无运行时代码
+│       └── src/
+│           ├── generated/schema.d.ts # 从 OpenAPI 自动生成，禁止手工编辑
+│           └── index.ts              # 共享类型导出入口
+├── docs/
+│   ├── adr/                          # 架构决策及其演进记录
+│   ├── agents/                       # Issue、领域文档、分诊与跨端迁移约定
+│   ├── student-ui-style.md           # 学生端全局样式约定
+│   └── 禾伙人-项目开发计划书.md      # 业务范围、阶段安排与进度
+├── .github/                          # Issue / PR 模板与 CI、自动合并工作流
+├── third-party-notices/              # 第三方资源许可证
+├── AGENTS.md                         # 仓库 Agent 指引
+├── CONTEXT.md                        # 业务领域词汇与上下文
+├── compose.yaml                      # 开发与测试 PostgreSQL 服务
+├── eslint.config.mjs                 # 工作区 ESLint 配置
+├── package.json                      # 根脚本、Node / pnpm 约束与公共开发依赖
+├── pnpm-workspace.yaml               # apps/* 与 packages/* 工作区定义
+└── pnpm-lock.yaml                    # 统一依赖锁文件
+```
+
+Web 的组件与逻辑单元测试（`*.spec.ts`）就近放在源码目录；API 单元测试同样就近放置，集成与 e2e 测试集中在 `apps/api/test/`。`apps/web/src/data/` 中的历史比赛演示数据用于旧行为测试，生产比赛页面通过 `src/api/` 读取真实 API。
+
+接口契约流向为 **API DTO / Swagger → `apps/api/openapi.json` → `packages/api-types/src/generated/schema.d.ts` → Web**。Web 通过 `workspace:*` 引用共享包；共享类型不会代替 API 运行时请求校验。学院与比赛 API 通过数据库访问层读取 PostgreSQL，健康检查不依赖活数据库。
 
 修改 API DTO 或路由后运行：
 
