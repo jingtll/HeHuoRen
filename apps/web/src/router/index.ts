@@ -7,6 +7,7 @@ import {
 } from "vue-router";
 
 import { canonicalQuery } from "../data/competition-discovery";
+import { canonicalTeamQuery } from "../data/team-demo";
 
 export type NavigationSection =
   | "home"
@@ -60,7 +61,7 @@ export const routes: RouteRecordRaw[] = [
       {
         path: "teams",
         name: "teams",
-        component: placeholder,
+        component: () => import("../views/TeamListView.vue"),
         meta: {
           title: "找队友",
           navigation: "teams",
@@ -70,21 +71,21 @@ export const routes: RouteRecordRaw[] = [
       {
         path: "teams/new",
         name: "team-new",
-        component: placeholder,
+        component: () => import("../views/TeamNewView.vue"),
         meta: {
           title: "发布招募",
           navigation: "teams",
-          description: "未来可在这里说明项目目标与角色需求，发起队伍招募。",
+          description: "填写项目目标与角色需求，演示发布队伍招募。",
         },
       },
       {
         path: "teams/:id",
         name: "team-detail",
-        component: placeholder,
+        component: () => import("../views/TeamDetailView.vue"),
         meta: {
           title: "队伍详情",
           navigation: "teams",
-          description: "队伍介绍、成员与招募需求将在这里展示。",
+          description: "了解队伍目标、成员与合作需求。",
         },
       },
       {
@@ -190,6 +191,12 @@ export function createAppRouter(history: RouterHistory = createWebHistory()) {
     },
   });
   instance.beforeEach((to) => {
+    if (to.meta.navigation === "teams") {
+      const query = canonicalTeamQuery(to.query);
+      if (stringifyQuery(query) !== stringifyQuery(to.query))
+        return { path: to.path, query, replace: true };
+      return;
+    }
     if (to.name !== "home" && to.name !== "competition-detail") return;
     const query = canonicalQuery(to.query);
     if (stringifyQuery(query) !== stringifyQuery(to.query))

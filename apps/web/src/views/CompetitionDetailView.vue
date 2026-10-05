@@ -250,7 +250,7 @@ async function copy(url: string) {
           后续入口
         </h2>
         <p class="mt-3 text-sm text-muted">
-          收藏记录与关联招募将在后续接入，当前入口尚未开放。
+          查看关联比赛的演示招募；收藏记录将在后续接入。平台组队不等于官方报名。
         </p>
         <div class="mt-3 flex flex-wrap gap-2">
           <button
@@ -260,14 +260,12 @@ async function copy(url: string) {
           >
             收藏 · 待接入
           </button>
-          <button
-            v-if="competition.tracks.some((t) => t.mode !== 'individual')"
-            type="button"
-            disabled
+          <RouterLink
+            :to="{ name: 'teams', query: { competition: competition.id } }"
             class="hhr-button hhr-button--secondary"
           >
-            关联招募 · 待接入
-          </button>
+            查看关联演示招募
+          </RouterLink>
         </div>
       </section>
     </div>
