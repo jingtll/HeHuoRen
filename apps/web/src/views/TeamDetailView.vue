@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import TeamDemoNotice from "../components/TeamDemoNotice.vue";
+import TeamDemoReset from "../components/TeamDemoReset.vue";
 import TeamActionDialog from "../components/TeamActionDialog.vue";
 import { useTeamClock } from "../data/team-clock";
 import {
@@ -56,7 +56,7 @@ function submit(role: string, note: string) {
     class="mb-5 inline-flex min-h-11 items-center text-sm text-brand"
     >← 返回找队友列表</RouterLink
   >
-  <TeamDemoNotice />
+
   <section v-if="!team" class="hhr-panel">
     <h1 class="font-serif text-2xl font-semibold">队伍不存在</h1>
     <p class="mt-3 text-sm text-muted">
@@ -198,4 +198,5 @@ function submit(role: string, note: string) {
       @submit="submit"
     />
   </template>
+  <TeamDemoReset />
 </template>

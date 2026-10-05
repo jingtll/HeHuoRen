@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { nextTick, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import TeamDemoNotice from "../components/TeamDemoNotice.vue";
+import TeamDemoReset from "../components/TeamDemoReset.vue";
 import TeamCompetitionPicker from "../components/TeamCompetitionPicker.vue";
 import {
   useTeamDemoStore,
@@ -124,7 +124,7 @@ const sections = [
     <h1 class="font-serif text-3xl font-semibold">发布招募</h1>
     <p class="mt-3 text-sm text-muted">把想法写下来，邀请伙伴一起完成。</p>
   </header>
-  <TeamDemoNotice />
+
   <form ref="form" novalidate class="grid gap-5" @submit.prevent="submit">
     <section v-for="section in sections" :key="section.key" class="hhr-panel">
       <h2 class="font-serif text-xl font-semibold">{{ section.title }}</h2>
@@ -302,4 +302,5 @@ const sections = [
       请检查表单标注的错误，已保留填写内容。
     </p>
   </form>
+  <TeamDemoReset />
 </template>

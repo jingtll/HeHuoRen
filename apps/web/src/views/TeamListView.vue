@@ -3,7 +3,7 @@ import { computed, ref, watch } from "vue";
 import { useRoute, useRouter, stringifyQuery } from "vue-router";
 import type { CompetitionDetail } from "@hehuoren/api-types";
 import { competitionApi } from "../api/competitions";
-import TeamDemoNotice from "../components/TeamDemoNotice.vue";
+import TeamDemoReset from "../components/TeamDemoReset.vue";
 import { useTeamClock } from "../data/team-clock";
 import {
   useTeamDemoStore,
@@ -114,25 +114,29 @@ watch(
       >发布招募</RouterLink
     >
   </header>
-  <TeamDemoNotice />
-  <section class="hhr-panel mb-6" aria-label="招募筛选">
+
+  <section class="hhr-panel mb-4 p-3 sm:mb-6 sm:p-6" aria-label="招募筛选">
     <form class="flex gap-2" @submit.prevent="update({ q: keyword.trim() })">
       <div class="min-w-0 flex-1">
-        <label for="team-search" class="mb-2 block text-sm">关键词</label
+        <label
+          for="team-search"
+          class="sr-only sm:mb-2 sm:block sm:not-sr-only sm:text-sm"
+          >关键词</label
         ><input
           id="team-search"
           v-model="keyword"
-          class="hhr-input"
+          class="hhr-input h-11 py-2 sm:h-auto sm:py-[11px]"
           placeholder="搜索标题、目标或角色"
           maxlength="100"
         />
       </div>
       <button type="submit" class="hhr-button self-end">搜索</button>
     </form>
-    <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="mt-2 grid grid-cols-2 gap-2 sm:mt-4 sm:gap-4 lg:grid-cols-4">
       <label class="text-sm"
-        >项目类型<select
-          class="hhr-input mt-2"
+        ><span class="sr-only sm:not-sr-only">项目类型</span
+        ><select
+          class="hhr-input h-11 py-2 sm:mt-2 sm:h-auto sm:py-[11px]"
           :value="filters.type"
           @change="update({ type: ($event.target as HTMLSelectElement).value })"
         >
@@ -143,8 +147,9 @@ watch(
         </select></label
       >
       <label class="text-sm"
-        >所需角色<select
-          class="hhr-input mt-2"
+        ><span class="sr-only sm:not-sr-only">所需角色</span
+        ><select
+          class="hhr-input h-11 py-2 sm:mt-2 sm:h-auto sm:py-[11px]"
           :value="filters.role"
           @change="update({ role: ($event.target as HTMLSelectElement).value })"
         >
@@ -153,8 +158,9 @@ watch(
         </select></label
       >
       <label class="text-sm"
-        >合作方式<select
-          class="hhr-input mt-2"
+        ><span class="sr-only sm:not-sr-only">合作方式</span
+        ><select
+          class="hhr-input h-11 py-2 sm:mt-2 sm:h-auto sm:py-[11px]"
           :value="filters.mode"
           @change="update({ mode: ($event.target as HTMLSelectElement).value })"
         >
@@ -169,8 +175,9 @@ watch(
         </select></label
       >
       <label class="text-sm"
-        >招募状态<select
-          class="hhr-input mt-2"
+        ><span class="sr-only sm:not-sr-only">招募状态</span
+        ><select
+          class="hhr-input h-11 py-2 sm:mt-2 sm:h-auto sm:py-[11px]"
           :value="filters.status"
           @change="
             update({ status: ($event.target as HTMLSelectElement).value })
@@ -182,36 +189,11 @@ watch(
         </select></label
       >
     </div>
-    <div
-      v-if="filters.competition"
-      class="mt-4 rounded-control bg-page p-3 text-sm"
-    >
-      <p v-if="competitionLoading" role="status">正在加载关联比赛…</p>
-      <div v-else-if="competitionError" role="alert">
-        <p>{{ competitionError }}</p>
-        <button
-          type="button"
-          class="hhr-button hhr-button--secondary mt-2"
-          @click="retry++"
+    <div class="mt-2 flex items-center justify-between gap-2 sm:mt-4">
+      <p role="status" aria-live="polite" class="text-xs text-muted sm:text-sm">
+        {{ results.length }} 条演示招募<span class="hidden sm:inline">
+          · 按发布时间倒序</span
         >
-          重试比赛查询
-        </button>
-      </div>
-      <p v-else-if="competition">
-        关联比赛资料：{{ competition.name }} ·
-        {{ competition.edition }}；下方招募均为演示。
-      </p>
-      <button
-        type="button"
-        class="hhr-button hhr-button--secondary mt-2"
-        @click="update({ competition: '' })"
-      >
-        清除比赛条件
-      </button>
-    </div>
-    <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
-      <p role="status" aria-live="polite" class="text-sm text-muted">
-        {{ results.length }} 条演示招募 · 按发布时间倒序
       </p>
       <button
         type="button"
@@ -231,6 +213,34 @@ watch(
       </button>
     </div>
   </section>
+  <div
+    v-if="filters.competition"
+    class="mb-4 rounded-control border border-line bg-surface p-3 text-sm"
+  >
+    <p v-if="competitionLoading" role="status">正在加载关联比赛…</p>
+    <div v-else-if="competitionError" role="alert">
+      <p>{{ competitionError }}</p>
+      <button
+        type="button"
+        class="hhr-button hhr-button--secondary mt-2"
+        @click="retry++"
+      >
+        重试比赛查询
+      </button>
+    </div>
+    <p v-else-if="competition">
+      关联比赛资料：{{ competition.name }} ·
+      {{ competition.edition }}；下方招募均为演示。
+    </p>
+    <button
+      type="button"
+      class="hhr-button hhr-button--secondary mt-2"
+      @click="update({ competition: '' })"
+    >
+      清除比赛条件
+    </button>
+  </div>
+
   <div v-if="visible.length" class="grid gap-4 lg:grid-cols-2">
     <article
       v-for="team in visible"
@@ -324,4 +334,5 @@ watch(
       下一页
     </button>
   </nav>
+  <TeamDemoReset />
 </template>
