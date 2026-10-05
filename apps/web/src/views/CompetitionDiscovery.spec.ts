@@ -78,13 +78,13 @@ describe("比赛列表与详情恢复", () => {
     expect(router.currentRoute.value.name).toBe("home");
     expect(router.currentRoute.value.query.from).toBe("review");
   });
-  it("学院状态切换、单独清除及全局重置", async () => {
+  it("学院状态切换、取消全部及全局重置", async () => {
     await visit("/home?status=unknown&from=review");
     const all = () => wrapper.get(".college-reset");
     await all().trigger("click");
     await flushPromises();
     expect(router.currentRoute.value.query.hosts).toBe("");
-    expect(wrapper.text()).toContain("暂时没有匹配");
+    expect(wrapper.text()).toContain("尚未选择学院");
     await all().trigger("click");
     await flushPromises();
     expect(router.currentRoute.value.query.hosts).toBe("all");
@@ -94,7 +94,7 @@ describe("比赛列表与详情恢复", () => {
     expect(wrapper.text()).toContain("暂时没有匹配");
     const clear = wrapper
       .findAll("button")
-      .find((b) => b.text() === "清除学院条件")!;
+      .find((b) => b.text() === "取消全部学院")!;
     await clear.trigger("click");
     await flushPromises();
     expect(router.currentRoute.value.query.status).toBe("unknown");
@@ -120,7 +120,8 @@ describe("比赛列表与详情恢复", () => {
     await flushPromises();
     expect(router.currentRoute.value.query.hosts).toBe("");
     expect(wrapper.findAll("[data-competition-card]")).toHaveLength(0);
-    expect(wrapper.text()).toContain("暂时没有匹配的比赛");
+    expect(wrapper.text()).toContain("尚未选择学院");
+    expect(wrapper.text()).toContain("请选择承办学院或点击全部学院");
     const emptyPath = router.currentRoute.value.fullPath;
     wrapper.unmount();
     router.listening = false;
