@@ -32,7 +32,7 @@ const navigation: {
     label: "我的队伍",
     mobile: "队伍",
     to: "/my/teams",
-    icon: "network",
+    icon: "team",
   },
   {
     section: "applications",
@@ -55,8 +55,8 @@ const navigation: {
   },
   {
     section: "profile",
-    label: "个人资料",
-    mobile: "我的",
+    label: "个人中心",
+    mobile: "个人中心",
     to: "/profile",
     icon: "user",
   },
@@ -122,8 +122,8 @@ function current(section: NavigationSection, mobile = false) {
           </RouterLink>
           <RouterLink
             to="/profile"
-            aria-label="个人资料"
-            title="个人资料"
+            aria-label="个人中心"
+            title="个人中心"
             class="topbar-icon-link"
           >
             <AppIcon name="user" class="size-6" />

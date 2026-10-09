@@ -131,11 +131,11 @@ export const routes: RouteRecordRaw[] = [
       {
         path: "profile",
         name: "profile",
-        component: placeholder,
+        component: () => import("../views/ProfileView.vue"),
         meta: {
-          title: "个人资料",
+          title: "个人中心",
           navigation: "profile",
-          description: "个人介绍、技能与联系方式授权将在这里设置。",
+          description: "查看示例资料、编辑个人介绍与技能，了解联系方式授权。",
         },
       },
     ],
@@ -191,6 +191,19 @@ export function createAppRouter(history: RouterHistory = createWebHistory()) {
     },
   });
   instance.beforeEach((to) => {
+    if (to.name === "profile") {
+      const section = to.query.section;
+      if (
+        section !== undefined &&
+        section !== "teams" &&
+        section !== "applications"
+      ) {
+        const query = { ...to.query };
+        delete query.section;
+        return { path: to.path, query, hash: to.hash, replace: true };
+      }
+      return;
+    }
     if (to.meta.navigation === "teams") {
       const query = canonicalTeamQuery(to.query);
       if (stringifyQuery(query) !== stringifyQuery(to.query))

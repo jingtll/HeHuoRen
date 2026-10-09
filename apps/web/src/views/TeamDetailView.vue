@@ -104,7 +104,6 @@ function submit(role: string, note: string) {
           <p class="mt-3 text-sm leading-7 whitespace-pre-wrap wrap-anywhere">
             技能与职责：{{ team.skills || "具体职责与技能共同沟通" }}
           </p>
-          <p class="mt-3 text-sm">{{ team.hours || "投入时间待沟通" }}</p>
           <p class="mt-3 text-sm">
             合作方式：{{ cooperationModes[team.mode] }}
           </p>
