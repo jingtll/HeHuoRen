@@ -19,7 +19,6 @@ const pages = [
   ["/my/applications", "申请与邀请", "applications"],
   ["/my/favorites", "我的收藏", "favorites"],
   ["/notifications", "站内通知", "notifications"],
-  ["/profile", "个人资料", "profile"],
 ] as const;
 
 describe("学生端路由", () => {
@@ -162,28 +161,41 @@ describe("学生端路由", () => {
   });
 
   it.each(["/my/favorites", "/notifications"])(
-    "移动端 %s 归入我的",
+    "移动端 %s 归入个人中心",
     async (path) => {
       await visit(path);
       expect(
         wrapper!
           .get('nav[aria-label="移动端主导航"] a[aria-current="page"]')
           .text(),
-      ).toBe("我的");
+      ).toBe("个人中心");
     },
   );
 
-  it("个人资料提供收藏、通知与账号入口", async () => {
+  it("个人中心提供资料与分区、收藏、通知和账号入口，并统一高亮个人中心", async () => {
     await visit("/profile");
+    expect(wrapper!.get("h1").text()).toBe("个人中心");
+    expect(document.title).toBe("个人中心 · 禾伙人");
+    expect(wrapper!.find(".placeholder-panel").exists()).toBe(false);
+    expect(
+      wrapper!
+        .get('nav[aria-label="学生端主导航"] a[aria-current="page"]')
+        .text(),
+    ).toBe("个人中心");
+    expect(
+      wrapper!
+        .get('nav[aria-label="移动端主导航"] a[aria-current="page"]')
+        .text(),
+    ).toBe("个人中心");
     for (const path of [
       "/my/favorites",
       "/notifications",
       "/login",
       "/register",
     ]) {
-      expect(
-        wrapper!.find(`[aria-label="页面相关入口"] a[href="${path}"]`).exists(),
-      ).toBe(true);
+      expect(wrapper!.find(`.profile-page a[href="${path}"]`).exists()).toBe(
+        true,
+      );
     }
   });
 
