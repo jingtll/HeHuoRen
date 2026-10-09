@@ -54,7 +54,6 @@ describe("招募演示领域行为", () => {
     );
     const team = s.publish(draft(), now)!;
     expect(team.members).toHaveLength(1);
-    expect(team.hours).toBe("");
     expect(team.goal).toBe(draft().goal);
     s.reset();
     expect(s.applications).toEqual({});
@@ -65,14 +64,8 @@ describe("招募演示领域行为", () => {
     expect(deadlineInstant("2026-02-30T12:00")).toBeNaN();
     expect(deadlineInstant("2026-10-05")).toBeNaN();
   });
-  it("投入时间选填，校验长度、人数、职责、时间与赛道归属", () => {
+  it("校验长度、人数、职责、截止时间与赛道归属", () => {
     expect(validateDraft(draft(), now)).toEqual({});
-    expect(
-      validateDraft({ ...draft(), hoursMin: "3", hoursMax: "6" }, now),
-    ).toEqual({});
-    expect(
-      validateDraft({ ...draft(), hoursMin: "6", hoursMax: "3" }, now),
-    ).toHaveProperty("hoursMin");
     for (const capacity of ["1", "21", "2.5", "", "-2"])
       expect(validateDraft({ ...draft(), capacity }, now)).toHaveProperty(
         "capacity",

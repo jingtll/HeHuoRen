@@ -104,7 +104,7 @@ const sections = [
   {
     key: "needs",
     title: "02 合作需求",
-    description: "让伙伴了解角色缺口、投入预期和合作方式。",
+    description: "让伙伴了解角色缺口、技能需求和合作方式。",
   },
   {
     key: "settings",
@@ -153,46 +153,6 @@ const sections = [
             class="mt-2 text-sm text-danger"
           >
             {{ errors.roles }}
-          </p>
-        </fieldset>
-        <fieldset class="mb-5">
-          <legend class="text-sm">每周投入时间（选填，小时 / 周）</legend>
-          <div class="mt-2 flex items-center gap-2">
-            <label class="min-w-0 flex-1"
-              ><span class="sr-only">每周最少小时</span
-              ><input
-                id="hoursMin"
-                v-model="draft.hoursMin"
-                type="number"
-                min="0.5"
-                max="168"
-                step="0.5"
-                class="hhr-input"
-                placeholder="最少小时"
-                :aria-invalid="!!errors.hoursMin"
-                aria-describedby="hoursMin-error" /></label
-            ><span>至</span
-            ><label class="min-w-0 flex-1"
-              ><span class="sr-only">每周最多小时</span
-              ><input
-                v-model="draft.hoursMax"
-                type="number"
-                min="0.5"
-                max="168"
-                step="0.5"
-                class="hhr-input"
-                placeholder="最多小时"
-            /></label>
-          </div>
-          <p class="mt-2 text-xs text-muted">
-            留空可发布，显示“投入时间待沟通”。填写时需明确小时范围。
-          </p>
-          <p
-            v-if="errors.hoursMin"
-            id="hoursMin-error"
-            class="mt-2 text-sm text-danger"
-          >
-            {{ errors.hoursMin }}
           </p>
         </fieldset>
       </template>

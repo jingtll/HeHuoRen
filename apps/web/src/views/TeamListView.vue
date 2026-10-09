@@ -273,7 +273,7 @@ watch(
         演示申请待处理 · 成员人数不变
       </p>
       <p class="mt-2 text-sm">
-        {{ team.hours || "投入时间待沟通" }} · {{ cooperationModes[team.mode] }}
+        {{ cooperationModes[team.mode] }}
       </p>
       <p class="mt-2 text-sm">
         成员 {{ team.members.length }}/{{ team.capacity }}（含队长） · 剩余

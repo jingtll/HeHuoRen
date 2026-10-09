@@ -36,7 +36,6 @@ export type Team = {
   progress: string;
   roles: Role[];
   skills: string;
-  hours: string;
   mode: keyof typeof cooperationModes;
   location: string;
   capacity: number;
@@ -54,8 +53,6 @@ export type TeamDraft = {
   progress: string;
   roles: Role[];
   skills: string;
-  hoursMin: string;
-  hoursMax: string;
   mode: string;
   location: string;
   capacity: string;
@@ -88,7 +85,6 @@ export function initialTeams(now = Date.now()): Team[] {
       i % 2
         ? "熟悉基础编程或表格分析，愿意一起学习。"
         : "愿意查阅文献、整理观察记录，设计经验加分。",
-    hours: i % 3 ? "每周 3–6 小时" : "",
     mode: (["hybrid", "online", "offline"] as const)[i % 3]!,
     location: i % 3 === 1 ? "" : "雅安校区，具体地点共同商议",
     capacity: i === 4 ? 2 : 5,
@@ -165,21 +161,6 @@ export function validateDraft(
     errors.roles = "请至少选择一个角色。";
   if (d.skills.trim().length > 500)
     errors.skills = "技能与职责不能超过 500 字。";
-  if (d.hoursMin || d.hoursMax) {
-    const min = Number(d.hoursMin),
-      max = Number(d.hoursMax);
-    if (
-      !d.hoursMin ||
-      !d.hoursMax ||
-      !Number.isFinite(min) ||
-      !Number.isFinite(max) ||
-      min <= 0 ||
-      max < min ||
-      max > 168
-    )
-      errors.hoursMin =
-        "请填写每周小时范围：大于 0，上限不超过 168，结束值不小于起始值。";
-  }
   if (!Object.hasOwn(cooperationModes, d.mode))
     errors.mode = "请选择合作方式。";
   if (d.mode !== "online" && !d.location.trim())
@@ -208,8 +189,6 @@ export const emptyDraft = (): TeamDraft => ({
   progress: "",
   roles: [],
   skills: "",
-  hoursMin: "",
-  hoursMax: "",
   mode: "",
   location: "",
   capacity: "5",
@@ -234,9 +213,6 @@ export const useTeamDemoStore = defineStore("team-demo", () => {
       progress: draft.progress.trim(),
       roles: [...draft.roles],
       skills: draft.skills.trim(),
-      hours: draft.hoursMin
-        ? `每周 ${Number(draft.hoursMin)}–${Number(draft.hoursMax)} 小时`
-        : "",
       mode: draft.mode as Team["mode"],
       location: draft.location.trim(),
       capacity: Number(draft.capacity),

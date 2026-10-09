@@ -172,7 +172,7 @@ describe("找队友页面、会话与真实比赛查询", () => {
     await wrapper.get("#mode").setValue("online");
     await wrapper.get("#deadline").setValue("2099-10-05T12:00");
   }
-  it("字段错误保留内容且聚焦；投入时间留空发布、阻止重复、列表即时更新并可重置", async () => {
+  it("字段错误保留内容且聚焦；发布、阻止重复、列表即时更新并可重置", async () => {
     await visit("/teams/new");
     await wrapper.get("form").trigger("submit");
     expect(wrapper.text()).toContain("请选择项目类型");
@@ -184,7 +184,6 @@ describe("找队友页面、会话与真实比赛查询", () => {
     expect(router.currentRoute.value.path).toMatch(/^\/teams\/session-/);
     expect(wrapper.get("h1").text()).toBe("<b>校园图鉴</b>");
     expect(wrapper.find("h1 b").exists()).toBe(false);
-    expect(wrapper.text()).toContain("投入时间待沟通");
     expect(wrapper.text()).toContain("当前 1/5 人");
     expect(
       useTeamDemoStore(pinia).teams.filter((t) => t.id.startsWith("session-")),
